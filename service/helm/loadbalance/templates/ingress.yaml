@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loadbalance-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: kubernetes.docker.internal
+    http:
+      paths:
+      - pathType: Prefix
+        path: /swag
+        backend:
+          service:
+            name: swag
+            port:
+              number: 8080

@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: swag-clean
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: persistent
+            image: "{{ .Values.swag.image.name }}:{{.Values.swag.image.tag }}"
+            imagePullPolicy: {{ .Values.swag.image.pullPolicy | quote }}
+            resources:
+              limits:
+                cpu: 100m
+                memory: 256Mi
+              requests:
+                cpu: 50m
+                memory: 64Mi
+            workingDir: /tmp
+            args: ["clean"]
+            volumeMounts:
+            - name: persistent-volume
+              mountPath: /home/app/swag/data
+              subPathExpr: data
+            - name: persistent-volume
+              mountPath: /home/app/swag/logs
+              subPathExpr: logs
+          restartPolicy: OnFailure
+          volumes:
+          - name: persistent-volume
+            persistentVolumeClaim:
+              claimName: swag
+          

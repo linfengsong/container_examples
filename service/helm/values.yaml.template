@@ -1,0 +1,22 @@
+tokens:
+%%[START]%%
+  - name: '%[NAME]%'
+    value: '%[VALUE]%'
+%%[END]%%
+
+swag:
+  image:
+    name: "%[swag_image]%"
+    tag: "%[swag_image_tag]%"
+    pullPolicy: "%[swag_image_pullPolicy]%"
+  replicas: %[swag_replicas]%
+  httpScheme: "%[swag_httpScheme]%"
+  tlssecret: "%[swag_tlssecret]%"
+  bam:
+    enabled: %[swag_bam_enabled]%
+  job:
+    enabled: %[swag_job_enabled]%
+  
+loadbalance:
+  name: "%[swag_lbl_name]%"
+  host: "%[swag_lbl_host]%"
