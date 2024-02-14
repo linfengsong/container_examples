@@ -16,6 +16,14 @@ swag:
     enabled: %[swag_bam_enabled]%
   job:
     enabled: %[swag_job_enabled]%
+    
+springrestapi:
+  image:
+    name: "%[spring-rest-api_image]%"
+    tag: "%[spring-rest-api_image_tag]%"
+    pullPolicy: "%[spring-rest-api_image_pullPolicy]%"
+  replicas: %[spring-rest-api_replicas]%
+  httpScheme: "%[spring-rest-api_httpScheme]%"
   
 loadbalance:
   name: "%[swag_lbl_name]%"

@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: loadbalance-ingress
+  name: spring-rest-api-nginx
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/add-base-url: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - host: kubernetes.docker.internal
     http:
       paths:
       - pathType: Prefix
-        path: /swag
+        path: /spring-rest-api
         backend:
           service:
-            name: swag
+            name: spring-rest-api
             port:
               number: 8080

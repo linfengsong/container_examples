@@ -17,21 +17,30 @@ copy %srcDir%\helm\values.yaml.template %workingDir%
 powershell -executionpolicy remotesigned -File %ScriptPath%\UtilToken.ps1 %initFile% env %workingDir%\values.yaml.template false
 powershell -executionpolicy remotesigned -File %ScriptPath%\UtilToken.ps1 %initFile% service %workingDir%\values.yaml.template true
 
-kubectl get po -A|findstr kube-controller-manager-docker-desktop
+kubectl get po -A|findstr nginx-ingress-nginx-controller
 if %errorlevel% NEQ 0 (
-  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.40.2/deploy/static/provider/cloud/deploy.yaml
+  helm install --namespace kube-system nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
 )
 
-helm list|findstr loadbalance
+helm list|findstr spring-rest-api
 if %errorlevel% EQU 0 (
-  helm delete loadbalance
+  helm delete spring-rest-api
 )
-
-helm install -f %valueFile% loadbalance %srcDir%\helm\loadbalance
 
 helm list|findstr swag
 if %errorlevel% EQU 0 (
   helm delete swag
 )
 
+:while
+@echo off
+timeout 3 > NUL
+kubectl get pod|findstr swag
+if %errorlevel% EQU 0 (
+  goto :while
+)
+@echo on
+
 helm install -f %valueFile% swag %srcDir%\helm\swag
+
+helm install -f %valueFile% spring-rest-api %srcDir%\helm\spring-rest-api
