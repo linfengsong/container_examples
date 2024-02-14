@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RestApiApplication {
 
+	static final String rootPath = "/spring-rest-api";
 
-//test
-	@GetMapping("/")
+	@GetMapping(rootPath + "/")
 	public String home() {
 		return "Spring is here!";
 	}

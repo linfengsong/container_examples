@@ -5,7 +5,7 @@ RUN apk add \
     openjdk8
 
 RUN mkdir -p /home/app
-COPY target/rest-api-0.0.1-SNAPSHOT.jar /home/app/app.jar
+COPY rest-api-0.0.1-SNAPSHOT.jar /home/app/app.jar
 
 ENTRYPOINT ["java"]
 CMD ["-jar", "/home/app/app.jar"]

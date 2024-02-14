@@ -1,16 +1,16 @@
 package com.example.restapi;
 
-public class JobResponse {
+public class PositionResponse {
 	private long id;
 	private String name;
 	private String asOfDate;
-	private String portfoloio;
+	private String portfolio;
 	private double units;
 	
-	public JobResponse() {
+	public PositionResponse() {
 	}
 	
-	public JobResponse(long id) {
+	public PositionResponse(long id) {
 		this.id = id;
 	}
 	
@@ -38,12 +38,12 @@ public class JobResponse {
 		this.asOfDate = asOfDate;
 	}
 	
-	public String getPortfoloio() {
-		return portfoloio;
+	public String getPortfolio() {
+		return portfolio;
 	}
 	
-	public void setPortfoloio(String portfoloio) {
-		this.portfoloio = portfoloio;
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
 	}
 	
 	public double getUnits() {

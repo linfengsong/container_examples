@@ -12,7 +12,7 @@ public class GreetingController {
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
-	@PostMapping(path= "/greeting", consumes = "application/json", produces = "application/json")  
+	@PostMapping(path= RestApiApplication.rootPath + "/greeting", consumes = "application/json", produces = "application/json")  
 	public GreetingResponse greeting(@RequestBody GreetingRequest request) {
 		return new GreetingResponse(counter.incrementAndGet(), String.format(template, request.getName()));
 	}

@@ -1,9 +1,9 @@
 package com.example.restapi;
 
-public class JobRequest {
+public class PositionRequest {
 	private String name;
 	private String asOfDate;
-	private String portfoloio;
+	private String portfolio;
 	
 	public String getName() {
 		return name;
@@ -21,11 +21,11 @@ public class JobRequest {
 		this.asOfDate = asOfDate;
 	}
 	
-	public String getPortfoloio() {
-		return portfoloio;
+	public String getPortfolio() {
+		return portfolio;
 	}
 	
-	public void setPortfoloio(String portfoloio) {
-		this.portfoloio = portfoloio;
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
 	}
 }

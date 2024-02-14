@@ -20,7 +20,7 @@ class RestApiApplicationTests {
 
 	@Test
 	void homeResponse() {
-		String body = this.restTemplate.getForObject("/", String.class);
+		String body = this.restTemplate.getForObject(RestApiApplication.rootPath + "/", String.class);
 		assertEquals("Spring is here!", body);
 	}
 	
@@ -28,17 +28,17 @@ class RestApiApplicationTests {
 	void greetingResponse() throws Exception{
 		GreetingRequest requst = new GreetingRequest();
 		requst.setName("Tester");
-		GreetingResponse response = this.restTemplate.postForObject("/greeting", requst, GreetingResponse.class);
+		GreetingResponse response = this.restTemplate.postForObject(RestApiApplication.rootPath + "/greeting", requst, GreetingResponse.class);
 		assertEquals("Hello, Tester!", response.getContent());
 	}
 	
 	@Test
-	void jobResponse() throws Exception{
-		JobRequest jobRequst = new JobRequest();
-		jobRequst.setName("TestJob");
-		jobRequst.setAsOfDate("2024-02-01");
-		jobRequst.setPortfoloio("abc123");
-		JobResponse response = this.restTemplate.postForObject("/job", jobRequst, JobResponse.class);
+	void positionResponse() throws Exception{
+		PositionRequest requst = new PositionRequest();
+		requst.setName("TestJob");
+		requst.setAsOfDate("2024-02-01");
+		requst.setPortfolio("abc123");
+		PositionResponse response = this.restTemplate.postForObject(RestApiApplication.rootPath + "/position", requst, PositionResponse.class);
 		assertEquals("TestJob", response.getName());
 	}
 }
