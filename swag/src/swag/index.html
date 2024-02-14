@@ -37,7 +37,7 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-        url = "restApi.yml";
+        url = "/swag/restApi.yml";
       }
 
       hljs.configure({
@@ -68,6 +68,14 @@
           if(window.SwaggerTranslator) {
             window.SwaggerTranslator.translate();
           }
+          const elements = document.getElementsByClassName("authorize__btn");
+          for (i = 0; i < elements.length; i++) {
+		    if(elements[i].style != null)
+               elements[i].style.display = 'none'
+          }
+          const element = document.getElementById("validator");  
+          if(element.style != null)
+            element.style.display = 'none'
         },
         onFailure: function(data) {
           log("Unable to Load SwaggerUI");
@@ -94,7 +102,7 @@
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
     <form id='api_selector'>
-      <div class='input'><input placeholder="/socialHousingRestApi.yml" id="input_baseUrl" name="baseUrl" type="text"/></div>
+      <div class='input'><input placeholder="/swag/restApi.yml" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div id='auth_container'></div>
       <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
     </form>
