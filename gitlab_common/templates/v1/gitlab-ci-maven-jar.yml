@@ -1,0 +1,27 @@
+variables:
+  CI_BUILD_TYPE: jar
+  CI_BUILD_TARGET_PATH: target/app.jar
+  
+stages:
+  - build
+  - test
+  - docker
+  - promote
+
+include:
+  - project: 'dev/dev-java/gitlab_common'
+    ref: master
+    file: '/templates/v1/job/load_common_util.yml'
+    
+  - project: 'dev/dev-java/gitlab_common'
+    ref: master
+    file: '/templates/v1/job/maven-jar.yml'
+    
+  - project: 'dev/dev-java/gitlab_common'
+    ref: master
+    file: '/templates/v1/job/maven-test.yml'
+    
+  - project: 'dev/dev-java/gitlab_common'
+    ref: master
+    file: '/templates/v1/job/docker-build.yml'
+      

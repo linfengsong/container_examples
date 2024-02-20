@@ -1,0 +1,31 @@
+variables:
+  COMMON_PATH: "gitlab_common-master"
+
+stages:
+  - .pre
+
+load_common_util_job:
+  stage: .pre
+  script:
+    - |
+      echo "Load common util start"
+      srcPath=$(pwd)
+      curl -L --header 'PRIVATE-TOKEN: glpat-z1tTZnYmDKpDzuP4JibD' 'http://lenovo/api/v4/projects/5/repository/archive.tar.gz?ref=master' -o 'archive.tar.gz'
+      tar xzf archive.tar.gz
+      mkdir -p $COMMON_PATH/script
+      cp $COMMON_PATH-*/script/* $COMMON_PATH/script
+      chmod 755 $COMMON_PATH/script/*
+      if [[ ! -z $CI_BUILD_TYPE ]]; then
+        mkdir -p $COMMON_PATH/build
+        cp -r $COMMON_PATH-*/build/common/* $COMMON_PATH/build
+        cp -r $COMMON_PATH-*/build/$CI_BUILD_TYPE/* $COMMON_PATH/build
+      elif [[ ! -z $CD_BUILD_TYPE ]]; then
+        mkdir -p $COMMON_PATH/service
+        cp -r $COMMON_PATH-*/service/$CD_BUILD_TYPE/* $COMMON_PATH/service
+      fi
+      cd $COMMON_PATH
+      tar cvf $srcPath/common_util.tar *
+      echo "Load common util finish"
+  artifacts:
+    paths:
+      - common_util.tar
