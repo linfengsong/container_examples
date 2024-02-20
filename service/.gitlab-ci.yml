@@ -1,0 +1,14 @@
+include:
+  - project: 'dev/dev-java/gitlab_common'
+    ref: master
+    file: '/templates/v1/gitlab_cd-container.yml'
+
+httpd-swag-deploy:
+  extends: .deploy-container-package
+  variables:
+    CONTAINER_NAME: httpd-swag
+    
+httpd-swag-reload:
+  extends: .reload-container-package
+  variables:
+    CONTAINER_NAME: httpd-swag
