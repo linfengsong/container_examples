@@ -1,5 +1,0 @@
-apiVersion: v1
-name: swag
-description: A Helm chart for SWAG
-type: application
-version: 0.1.0

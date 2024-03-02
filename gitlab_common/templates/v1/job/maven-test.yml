@@ -1,8 +1,0 @@
-
-maven-test-job:
-  stage: test
-  script:
-    - |
-      echo "Running unit tests..."
-      mvn $MAVEN_OPTS test
-      echo "Finish unit tests..."
