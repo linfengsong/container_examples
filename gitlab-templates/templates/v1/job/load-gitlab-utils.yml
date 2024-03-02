@@ -1,0 +1,44 @@
+variables:
+  GITLAB_UTILS_URL: "http://lenovo:50080/api/v4/projects/8/repository/archive.tar.gz?ref=master"
+  GITLAB_UTILS_ACCESS_TOKEN: "PRIVATE-TOKEN: glpat-iN1x2--EsScyorcdaZt2"
+  GITLAB_UTILS_PATH: "gitlab-utils-master"
+
+stages:
+  - .pre
+
+load_gitlab_utils_job:
+  stage: .pre
+  script:
+    - |
+      echo "Load gitlab utils start"
+      srcPath=$(pwd)
+      echo curl -L --header "$GITLAB_UTILS_ACCESS_TOKEN" "$GITLAB_UTILS_URL" -o 'archive.tar'
+      curl -L --header 'PRIVATE-TOKEN: glpat-W2z5-4YTb6CcnrLoijtU' 'http://lenovo:50080/api/v4/projects/8/repository/archive.tar?ref=master' -o 'archive.tar'
+      tar xf archive.tar
+      if [[ $? -ne 0 ]]; then
+        cat archive.tar
+        exit 1
+      fi
+      mkdir -p $GITLAB_UTILS_PATH/conf
+      cp $GITLAB_UTILS_PATH-*/conf/* $GITLAB_UTILS_PATH/conf
+      chmod 644 $GITLAB_UTILS_PATH/conf/*
+      mkdir -p $GITLAB_UTILS_PATH/script
+      cp $GITLAB_UTILS_PATH-*/script/* $GITLAB_UTILS_PATH/script
+      chmod 755 $GITLAB_UTILS_PATH/script/*
+      mkdir -p $GITLAB_UTILS_PATH/tool
+      cp -R $GITLAB_UTILS_PATH-*/tool/* $GITLAB_UTILS_PATH/tool
+      chmod 755 $GITLAB_UTILS_PATH/tool/*
+      if [[ ! -z $CI_BUILD_TYPE ]]; then
+        mkdir -p $GITLAB_UTILS_PATH/build
+        cp -r $GITLAB_UTILS_PATH-*/build/common/* $GITLAB_UTILS_PATH/build
+        cp -r $GITLAB_UTILS_PATH-*/build/$CI_BUILD_TYPE/* $GITLAB_UTILS_PATH/build
+      elif [[ ! -z $CD_BUILD_TYPE ]]; then
+        mkdir -p $GITLAB_UTILS_PATH/infra
+        cp -r $GITLAB_UTILS_PATH-*/infra/$CD_BUILD_TYPE/* $GITLAB_UTILS_PATH/infra
+      fi
+      cd $GITLAB_UTILS_PATH
+      tar cvf $srcPath/gitlab_utils.tar *
+      echo "Load gitlab utils finish"
+  artifacts:
+    paths:
+      - gitlab_utils.tar

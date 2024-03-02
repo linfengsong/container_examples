@@ -1,0 +1,30 @@
+variables:
+  CD_BUILD_TYPE: container
+  CONTAINER_NAME: change_me
+  CONTAINER_TRIGGER: ALL
+
+include:
+  - project: linfeng.song/gitlab-templates
+    ref: master
+    file: '/templates/v1/job/load-gitlab-utils.yml'
+  - project: linfeng.song/gitlab-templates
+    ref: master
+    file: '/templates/v1/job/bcp-container-deploy.yml'
+    
+stages:
+  - deploy
+  
+.reload-container-package:
+  stage: deploy
+  extends: .bcp_container_reload_job
+  only:
+    variables:
+      - $CONTAINER_TRIGGER == $CONTAINER_NAME
+        
+.deploy-container-package:
+  stage: deploy
+  extends: .bcp_container_deploy_job
+  only:
+    variables:
+      - $CONTAINER_TRIGGER == "ALL"
+        

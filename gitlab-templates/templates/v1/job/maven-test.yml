@@ -1,0 +1,19 @@
+
+maven-test-job:
+  stage: test
+  script:
+    - |
+      echo "Running unit tests..."
+      
+      gitlab_utils_path=gitlab_utils
+      mkdir -p $gitlab_utils_path
+      tar xf gitlab_utils.tar -C $gitlab_utils_path
+      
+      cp $gitlab_utils_path/tool/mvnw ./mvnw
+      mkdir ./.mvn
+      cp -R $gitlab_utils_path/tool/mvn/* ./.mvn/
+      
+      #MAVEN_OPTS="-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --settings $gitlab_utils_path/conf/settings.xml"
+      ./mvnw $MAVEN_OPTS test
+      
+      echo "Finish unit tests..."

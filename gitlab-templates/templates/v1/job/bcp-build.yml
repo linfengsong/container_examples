@@ -1,0 +1,23 @@
+
+docker-job:
+  stage: docker
+  script: 
+  - |
+    echo "start build docker image"
+    gitlab_utils_path=gitlab_utils
+    mkdir -p $gitlab_utils_path
+    tar xf gitlab_utils.tar -C $gitlab_utils_path
+      
+    env_name=dev
+    srcPath=$(pwd)
+    iniFilePath=$srcPath/conf/image_${env_name}.ini
+    buildPath=$srcPath/target/build
+      
+    mkdir -p $buildPath/image
+    cp -R $gitlab_utils_path/build/* $buildPath
+    if [[ ! -z "$CI_BUILD_TARGET_PATH" ]]; then cp -R $CI_BUILD_TARGET_PATH $buildPath/image; if
+    
+    source $gitlab_utils_path/script/oc_login.sh $OC_ACCESS_ID "$OC_ACCESS_KEY" "$iniFilePath"
+    $gitlab_utils_path/script/bcp_build.sh "$iniFilePath" "$buildPath"
+    echo "finish build docker image"
+    

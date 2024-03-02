@@ -1,0 +1,46 @@
+
+.bcp_container_deploy_job:
+  script: 
+  - |
+    echo "start deploy bcp container: $CONTAINER_NAME"
+    gitlab_utils_path=gitlab_utils
+    mkdir -p $gitlab_utils_path
+    tar xf gitlab_utils.tar -C $gitlab_utils_path
+    
+    env_name=dev
+    iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
+    orgValuesTemplateFilePath=$gitlab_utils_path/infra/helm/values.yaml.template
+    valuesTemplateFilePath=values.yaml.template
+    apiPath=$gitlab_utils_path/infra/api
+    helmPath=$gitlab_utils_path/infra/helm
+    source $gitlab_utils_path/script/microk8s_init.sh $iniFilePath
+    echo "create secret"
+    $gitlab_utils_path/script/create_secret.sh $CONTAINER_NAME certificate-pwd $CERTIFICATE_PWD
+    echo "create tls"
+    $gitlab_utils_path/script/create_tls.sh "$iniFilePath" $apiPath/cert.yaml.template
+    echo "deploy $CONTAINER_NAME-lbl"
+    cp $orgValuesTemplateFilePath $valuesTemplateFilePath
+    echo $gitlab_utils_path/script/helm_deploy.sh $CONTAINER_NAME-lbl $helmPath/ingress $valuesTemplateFilePath service env "$iniFilePath" false
+    $gitlab_utils_path/script/helm_deploy.sh $CONTAINER_NAME-lbl $helmPath/ingress $valuesTemplateFilePath service env "$iniFilePath" false
+    echo "deploy $CONTAINER_NAME"
+    cp $orgValuesTemplateFilePath $valuesTemplateFilePath
+    echo $gitlab_utils_path/script/helm_deploy.sh $CONTAINER_NAME $helmPath/deployment $valuesTemplateFilePath service env "$iniFilePath" false
+    $gitlab_utils_path/script/helm_deploy.sh $CONTAINER_NAME $helmPath/deployment $valuesTemplateFilePath service env "$iniFilePath" false
+
+    echo "finish deploy bcp container: $CONTAINER_NAME"
+    
+.bcp_container_reload_job:
+  script:
+  - |
+    echo "start reload bcp container: $CONTAINER_NAME"
+    gitlab_utils_path=gitlab_utils
+    mkdir -p $gitlab_utils_path
+    tar xvf gitlab_utils.tar -C $gitlab_utils_path
+    
+    env_name=dev
+    iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
+    source $gitlab_utils_path/script/microk8s_init.sh $iniFilePath
+    gitlab_utils_path/script/container_refresh.sh $CONTAINER_NAME
+    
+    echo "finish reload bcp container: $CONTAINER_NAME"
+    
