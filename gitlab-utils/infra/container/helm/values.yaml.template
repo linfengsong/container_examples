@@ -1,0 +1,18 @@
+tokens:
+%%[START]%%
+  - name: '%[NAME]%'
+    value: '%[VALUE]%'
+%%[END]%%
+
+container:
+  app: "%[container_name]%"
+  name: "%[container_name]%"
+  image:
+    name: "%[container_image]%"
+    tag: "%[container_image_tag]%"
+    pullPolicy: "%[container_image_pullPolicy]%"
+  replicas: %[container_replicas]%
+  httpScheme: "%[container_httpScheme]%"
+  tlssecret: "%[container_tls_secret]%"
+  host: "%[container_host]%"
+  path: "%[container_path]%"

@@ -1,0 +1,7 @@
+container:
+  namespace: default
+  image:
+    tag: latest
+    pullPolicy: Never
+  service:
+    ingressClass: nginx
