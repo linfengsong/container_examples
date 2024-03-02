@@ -1,0 +1,14 @@
+include:
+  - project: 'linfeng.song/gitlab-templates'
+    ref: master
+    file: '/templates/v1/bcp-ci-httpd.yml'
+
+deploy:
+  stage: deploy
+  variables:
+    CONTAINER_TRIGGER: httpdswag
+  trigger:
+    project: 'linfeng.song/services'
+    branch: master
+
+    

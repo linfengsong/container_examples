@@ -1,0 +1,101 @@
+  swagger: '2.0'
+  info:
+    version: 1.0.0
+    description: "Rest API"
+    title: "Rest API"
+  basePath: "/"
+  paths:
+    /spring-rest-api/greeting:
+      post:
+           tags:
+             - "Operations with greeting execution"
+           summary: "greeting"
+           operationId: "greeting"
+           produces:
+             - "application/json"
+           parameters:
+             -
+               in: "body"
+               name: "body"
+               required: true
+               schema:
+                 $ref: "#/definitions/greetingRequest"
+           responses:
+             200:
+               description: "OK"
+               schema:
+                 $ref: "#/definitions/greetingResponse"
+           security:
+             -
+               basicAuth: []
+    /spring-rest-api/position:
+      post:
+           tags:
+             - "Operations with position execution"
+           summary: "position"
+           operationId: "position"
+           produces:
+             - "application/json"
+           parameters:
+             -
+               in: "body"
+               name: "body"
+               required: true
+               schema:
+                 $ref: "#/definitions/positionRequest"
+           responses:
+             200:
+               description: "OK"
+               schema:
+                 $ref: "#/definitions/positionResponse"
+           security:
+             -
+               basicAuth: []
+
+  securityDefinitions:
+    basicAuth:
+      type: "basic"
+
+  definitions:
+    greetingResponse:
+      type: "object"
+      properties:
+        info:
+          type: "string"
+        error:
+          type: "string"
+    greetingRequest:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          description: "Name"
+          example: "David"
+      required:
+        - "name"
+    positionResponse:
+      type: "object"
+      properties:
+        info:
+          type: "string"
+        error:
+          type: "string"
+    positionRequest:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          description: "Name"
+          example: "David"
+        asOfDate:
+          type: "string"
+          description: "asOfDate"
+          example: "2024-02-03"
+        portfolio:
+          type: "string"
+          description: "portfolio"
+          example: "abc123"         	
+      required:
+        - "name"
+        - "asOfDate"
+        - "portfolio"

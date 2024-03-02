@@ -1,0 +1,83 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "SocialHousing Rest API",
+    "title": "SocialHousing Rest API"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/v1/performSHExecution": {
+      "post": {
+        "tags": [
+          "Operations with Social Housing calc execution"
+        ],
+        "summary": "Caculate PD/DG values",
+        "operationId": "SHCaclcRun",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SHCalcRun"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/info"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "info": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "SHCalcRun": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "string",
+          "description": "SH Request payload",
+          "example": "Sample SH Payload"
+        },
+        "cobdate": {
+          "type": "string",
+          "format": "DDDDMMYY",
+          "example": "20200630"
+        },
+        "required": [
+          "request",
+          "cobdate"
+        ]
+      }
+    }
+  }
+}
