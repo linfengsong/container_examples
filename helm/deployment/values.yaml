@@ -1,0 +1,16 @@
+image:
+  name: application
+
+spring:
+  profile: test
+  serverShutdown: graceful
+  timeoutPerShutdownPhase: 20s
+  applicationName: application
+
+imagePullSecret:
+  name: imagepullsecret
+
+esaas:
+  volumeMounthPath: /var/log/test-applications
+  logPvcName: application-logs-pvc
+  logFilePath: /var/log/test-applications/application.json

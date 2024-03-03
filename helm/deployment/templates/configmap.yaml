@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Values.applicationName }}-map"
+data:
+  application-test.yml: |
+    
+    logging:
+      file:
+        name: {{ .Values.esaas.logFilePath }}
+    info:
+      application:
+        version: {{ .Values.image.tag }}
+    spring:
+      application:
+        name: {{ .Values.spring.applicationName }}
+      lifecycle:
+        timeout-per-shutdown-phase: {{ .Values.spring.timeoutPerShutdownPhase }}
+    server:
+      shutdown: {{ .Values.spring.serverShutdown }}
+      port: {{ .Values.pod.port }}
+      {{- if .Values.certs.deploy }}
+      ssl:
+        key-store-type: PKCS12
+        key-store: {{ .Values.certs.mountPath }}/keystore.p12
+        key-store-password: ${KEYSTORE_PASSWORD}
+      {{ end }}
