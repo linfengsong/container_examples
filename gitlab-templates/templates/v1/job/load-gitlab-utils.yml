@@ -1,7 +1,7 @@
 variables:
   GITLAB_UTILS_URL: "http://lenovo:50080/api/v4/projects/8/repository/archive.tar.gz?ref=master"
   GITLAB_UTILS_ACCESS_TOKEN: "PRIVATE-TOKEN: glpat-iN1x2--EsScyorcdaZt2"
-  GITLAB_UTILS_PATH: "gitlab-utils-master"
+  GITLAB_UTILS_PATH: "gitlab_utils"
 
 stages:
   - .pre
@@ -19,24 +19,25 @@ load_gitlab_utils_job:
         cat archive.tar
         exit 1
       fi
-      mkdir -p $GITLAB_UTILS_PATH/conf
-      cp $GITLAB_UTILS_PATH-*/conf/* $GITLAB_UTILS_PATH/conf
-      chmod 644 $GITLAB_UTILS_PATH/conf/*
-      mkdir -p $GITLAB_UTILS_PATH/script
-      cp $GITLAB_UTILS_PATH-*/script/* $GITLAB_UTILS_PATH/script
-      chmod 755 $GITLAB_UTILS_PATH/script/*
-      mkdir -p $GITLAB_UTILS_PATH/tool
-      cp -R $GITLAB_UTILS_PATH-*/tool/* $GITLAB_UTILS_PATH/tool
-      chmod 755 $GITLAB_UTILS_PATH/tool/*
+      gitlab_utils_master_path=gitlab-utils-master
+      mkdir -p $gitlab_utils_master_path/conf
+      cp $gitlab_utils_master_path-*/conf/* $gitlab_utils_master_path/conf
+      chmod 644 $gitlab_utils_master_path/conf/*
+      mkdir -p $gitlab_utils_master_path/script
+      cp $gitlab_utils_master_path-*/script/* $gitlab_utils_master_path/script
+      chmod 755 $gitlab_utils_master_path/script/*
+      mkdir -p $gitlab_utils_master_path/tool
+      cp -R $gitlab_utils_master_path-*/tool/* $gitlab_utils_master_path/tool
+      chmod 755 $gitlab_utils_master_path/tool/*
       if [[ ! -z $CI_BUILD_TYPE ]]; then
-        mkdir -p $GITLAB_UTILS_PATH/build
-        cp -r $GITLAB_UTILS_PATH-*/build/common/* $GITLAB_UTILS_PATH/build
-        cp -r $GITLAB_UTILS_PATH-*/build/$CI_BUILD_TYPE/* $GITLAB_UTILS_PATH/build
+        mkdir -p $gitlab_utils_master_path/build
+        cp -r $gitlab_utils_master_path-*/build/common/* $gitlab_utils_master_path/build
+        cp -r $gitlab_utils_master_path-*/build/$CI_BUILD_TYPE/* $gitlab_utils_master_path/build
       elif [[ ! -z $CD_BUILD_TYPE ]]; then
-        mkdir -p $GITLAB_UTILS_PATH/infra
-        cp -r $GITLAB_UTILS_PATH-*/infra/$CD_BUILD_TYPE/* $GITLAB_UTILS_PATH/infra
+        mkdir -p $gitlab_utils_master_path/infra
+        cp -r $gitlab_utils_master_path-*/infra/$CD_BUILD_TYPE/* $gitlab_utils_master_path/infra
       fi
-      cd $GITLAB_UTILS_PATH
+      cd $gitlab_utils_master_path
       tar cvf $srcPath/gitlab_utils.tar *
       echo "Load gitlab utils finish"
   artifacts:

@@ -15,9 +15,9 @@ maven-jar-job:
       
       #MAVEN_OPTS="-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --settings $gitlab_utils_path/conf/settings.xml"
       ./mvnw $MAVEN_OPTS -Dmaven.test.skip=true clean package
-      cp target/*.jar target/app.jar
+      cp target/application-*-SNAPSHOT.jar target/application.jar
       
       echo "build maven build finish"
   artifacts:
     paths:
-      - target/app.jar
+      - target/application.jar

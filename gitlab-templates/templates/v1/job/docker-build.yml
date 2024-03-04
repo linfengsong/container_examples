@@ -5,10 +5,9 @@ docker-job:
     - |
       echo "start build docker image"
       
-      gitlab_utils_path=gitlab_utils
-      mkdir -p $gitlab_utils_path
-      tar xf gitlab_utils.tar -C $gitlab_utils_path
-      export PATH=$gitlab_utils_path/tool:$PATH
+      mkdir -p $GITLAB_UTILS_PATH
+      tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
+      export PATH=$GITLAB_UTILS_PATH/tool:$PATH
       
       env_name=dev
       srcPath=$(pwd)
@@ -16,8 +15,8 @@ docker-job:
       buildPath=$srcPath/target/build
       
       mkdir -p $buildPath/image
-      cp -R $gitlab_utils_path/build/* $buildPath
+      cp -R $GITLAB_UTILS_PATH/build/* $buildPath
       if [[ ! -z "$CI_BUILD_TARGET_PATH" ]]; then cp -R $CI_BUILD_TARGET_PATH $buildPath/image; fi
-      $gitlab_utils_path/script/docker_build.sh "$iniFilePath" "$buildPath"
+      $GITLAB_UTILS_PATH/script/docker_build.sh "$iniFilePath" "$buildPath"
       
       echo "finish build docker image"

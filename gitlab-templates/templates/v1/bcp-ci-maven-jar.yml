@@ -2,7 +2,7 @@ image: registry.access.redhat.com/ubi8/openjdk-17:1.19-1
 
 variables:
   CI_BUILD_TYPE: jar
-  CI_BUILD_TARGET_PATH: target/app.jar
+  CI_BUILD_TARGET_PATH: target/application.jar
   
 stages:
   - build
