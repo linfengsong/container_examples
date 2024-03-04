@@ -8,3 +8,4 @@ fi
 echo define oc function
 
 function oc() { microk8s kubectl $@; }
+export -f oc

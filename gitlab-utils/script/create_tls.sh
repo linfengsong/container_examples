@@ -1,19 +1,23 @@
 #!/bin/bash
-function oc() { microk8s kubectl $@; }
+
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "start check TLS certificate"
 iniFilePath=$1
 certFileTemplatePath=$2
+password=$3
+passwd=$(echo $password|base64 -d)
 
 . $SCRIPT_LOCATION/util_token.sh
 cat $iniFilePath
-readIniFile cert $iniFilePath
+readIniFile infra $iniFilePath
 
-cert_name=${applicationName}-service-cert
-tls_secret_name=tls-secret-${applicationName}
+cert_name=${application_name}-service-cert
+tls_secret_name=${application_name}-service-secret
+common_name="${application_name}-${namespace}.${domain}"
 echo cert_name=$cert_name
 echo tls_secret_name=$tls_secret_name
+echo common_name=$common_name
 
 if [[ -z $cert_name ]]; then
   echo "cert name does not set, ignore this step"
@@ -28,11 +32,19 @@ if [[ -z "$tls" ]]; then
  
   echo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=${common_name}"
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=${common_name}"
+  
+  echo openssl pkcs12 -export -inkey tls.key -in tls.crt -out keystore.p12
+  openssl pkcs12 -export -inkey tls.key -in tls.crt -out keystore.p12 -passin pass:$passwd -passout pass:$passwd
+
   echo "list tls:"
   ls -l tls.*
+  ls -l keystore.p12
   cp tls.* /tmp
+  cp keystore.p12 /tmp
   chmod 644 /tmp/tls.*
-  oc create secret tls $tls_secret_name --key="/tmp/tls.key" --cert="/tmp/tls.crt"
+  chmod 644 /tmp/keystore.p12
+  #oc create secret tls $tls_secret_name --key="/tmp/tls.key" --cert="/tmp/tls.crt"
+  oc create secret generic $tls_secret_name --from-file=tls.key=/tmp/tls.key --from-file=tls.crt=/tmp/tls.crt --from-file=keystore.p12=/tmp/keystore.p12
   rc=$?
   if [[ $rc -eq 0 ]]; then
     echo "Successfully create secret $tls_secret_name"

@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: "{{ .Values.container.name }}-local-storage"
+  name: "application-logs-local-storage"
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Retain
@@ -9,7 +9,7 @@ reclaimPolicy: Retain
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "{{ .Values.container.name }}-pv"
+  name: "application-logs-pv"
   labels:
     type: local
 spec:
@@ -18,20 +18,20 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: "{{ .Values.container.name }}-local-storage"
+  storageClassName: "application-logs-local-storage"
   hostPath:
     path: '/data/docker_volume'
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "{{ .Values.container.name }}-pvc"
+  name: "application-logs-pvc"
   labels:
-    pv: "{{ .Values.container.name }}-pv"
+    pv: "application-logs-pv"
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "{{ .Values.container.name }}-local-storage"
+  storageClassName: "application-logs-local-storage"
   resources:
     requests:
       storage: 1Gi

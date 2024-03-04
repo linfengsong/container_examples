@@ -1,18 +1,48 @@
-tokens:
-%%[START]%%
-  - name: '%[NAME]%'
-    value: '%[VALUE]%'
-%%[END]%%
+applicationName: %[application_name]%
+namespace: %[namespace]%
 
-container:
-  app: "%[container_name]%"
-  name: "%[container_name]%"
-  image:
-    name: "%[container_image]%"
-    tag: "%[container_image_tag]%"
-    pullPolicy: "%[container_image_pullPolicy]%"
-  replicas: %[container_replicas]%
-  httpScheme: "%[container_httpScheme]%"
-  tlssecret: "%[container_tls_secret]%"
-  host: "%[container_host]%"
-  path: "%[container_path]%"
+image:
+  registry: %[image_registry]%
+  name: %[image_name]%
+  tag: %[image_tag]%
+  pullPolicy: %[image_pullPolicy]%
+
+pod:
+  deployEsaasLog: true
+  cpu:
+    limit: 250m
+    request: 250m
+  memory:
+    limit: 1Gi
+    request: 1Gi
+  port: 8443
+
+service:
+  deploy: true
+  port: 8443
+  path: "%[service_path]%"
+
+route:
+  deploy: true
+  domain: "%[domain]%"
+
+certs:
+  deploy: true
+  cluster: %[cluster]%
+  hostname: %[cert_hostname]%
+  itsi: %[itsi]%
+  navigatorId: %[navigator_id]%
+  projectName: %[itsi_name]%
+  environment: %[environment]%
+  changeNumber: %[change_number]%
+  email: %[email]%
+
+hpa:
+  deploy: true
+  minPods: 1
+  maxPods: 3
+  cpuUsage: 80
+  memoryUsage: 80
+
+blb:
+  deploy: true

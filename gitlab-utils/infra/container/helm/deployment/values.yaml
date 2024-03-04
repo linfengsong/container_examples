@@ -1,7 +1,17 @@
-container:
-  namespace: default
-  image:
-    tag: latest
-    pullPolicy: Never
-  service:
-    ingressClass: nginx
+spring:
+  profile: bcp
+  serverShutdown: graceful
+  timeoutPerShutdownPhase: 20s
+  applicationName: application
+
+imagePullSecret:
+  name: imagepullsecret
+
+certs:
+  mountPath: /etc/certs
+  
+esaas:
+  volumeMountPath: /var/log/bcp-applications
+  logsPvcName: application-logs-pvc
+  logFilePath: /var/log/bcp-applications/application.json
+

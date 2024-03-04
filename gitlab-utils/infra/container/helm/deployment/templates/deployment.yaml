@@ -1,69 +1,75 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: {{ .Values.container.app }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: {{ .Release.Name | quote }}
-    heritage: {{ .Release.Service | quote }}
-    version: {{ .Chart.Version }}
-  name: {{ .Values.container.name }}
-spec:         
-  replicas: {{ .Values.container.replicas }}
+  name: "{{ .Values.applicationName }}-deployment"
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.container.app }}
+      app: {{ .Values.applicationName }}
   template:
     metadata:
       labels:
-        app: {{ .Values.container.app }}
-        name: {{ .Values.container.name }}
-        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-        release: {{ .Release.Name | quote }}
-        heritage: {{ .Release.Service | quote }}
-        version: 1.0.0
+        app: {{ .Values.applicationName }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
-      containers:
-      - image: "{{ .Values.container.image.name }}:{{ .Values.container.image.tag }}"
-        imagePullPolicy: {{ .Values.container.image.pullPolicy }}
-        resources:
-          limits:
-            cpu: 500m
-            memory: 2Gi
-          requests:
-            cpu: 200m
-            memory: 1Gi
-        name: {{ .Values.container.name }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.container.path }}
-            port: 80
-            scheme: {{ .Values.container.httpScheme }}
-          initialDelaySeconds: 30
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 1
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.container.path }}
-            port: 80
-            scheme: {{ .Values.container.httpScheme }}
-          initialDelaySeconds: 30
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 1
-        securityContext:
-          privileged: false
-        env:
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-        volumeMounts:
-        - name: persistent-volume
-          mountPath: /home/app/logs
-          subPath: logs/$(POD_NAME}
       volumes:
-        - name: persistent-volume
+        - name: config-volume
+          configMap:
+            name: "{{ .Values.applicationName }}-map"
+        {{- if .Values.certs.deploy }}
+        - name: tls-secret
+          secret:
+            secretName: "{{ .Values.applicationName }}-service-secret"
+            defaultMode: 420
+        {{ end }}
+        {{- if .Values.pod.deployEsaasLog }}
+        - name: logs-volume
           persistentVolumeClaim:
-            claimName: "{{ .Values.container.name }}-pvc"
+            claimName: {{ .Values.esaas.logsPvcName }}
+        {{ end }}
+      containers:
+        - resources:
+            limits:
+              cpu: {{ .Values.pod.cpu.limit }}
+              memory: {{ .Values.pod.memory.limit }}
+            requests:
+              cpu: {{ .Values.pod.cpu.request }}
+              memory: {{ .Values.pod.memory.request }}
+          name: {{ .Values.applicationName }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.spring.profile }}
+            {{- if .Values.certs.deploy }}
+            - name: KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keystore-password-secret
+                  key: password-key
+            {{ end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.pod.port }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
+          volumeMounts:
+            - name: config-volume
+              mountPath: /deployments/config
+            {{- if .Values.certs.deploy }}
+            - name: tls-secret
+              mountPath: {{ .Values.certs.mountPath }}
+            {{ end }}
+            {{- if .Values.pod.deployEsaasLog }}
+            - name: logs-volume
+              mountPath: {{ .Values.esaas.volumeMountPath }}
+            {{ end }}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+#      imagePullSecrets:
+#        - name: {{ .Values.imagePullSecret.name }}

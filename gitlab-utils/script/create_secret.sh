@@ -16,9 +16,9 @@ do
   if [[ -z $userName ]]; then
     userName=$var
   else
-    pwd=$(echo $var|base64 -d)
-    options="$options --from-literal=$userName=$pwd"
-    slen=${#pwd}
+    passwd=$(echo $var|base64 -d)
+    options="$options --from-literal=$userName=$passwd"
+    slen=${#passwd}
     pwdDisplay=`seq -sx 8|tr -d '[:digit:]'|tr -d '\n'`
     optionsDisplay="$optionsDisplay --from-literal=$userName=$pwdDisplay"
     arrayUserNames+=($userName)
@@ -42,7 +42,7 @@ checkSecret()
 }
 
 hasSecret=true
-secrets=`$ktool describe secret $secret_name 2> /dev/null`
+secrets=`oc describe secret $secret_name 2> /dev/null`
 for userName in ${arrayUserNames[@]}
 do
   checkSecret $userName
@@ -55,11 +55,11 @@ fi
 
 
 if [[ -z "$secrets" ]]; then
-  $ktool delete secret $secret_name
+  oc delete secret $secret_name
 fi
 
-echo "$ktool create secret generic $secret_name $optionsDisplay"
-$ktool create secret generic $secret_name $options
+echo "oc create secret generic $secret_name $optionsDisplay"
+oc create secret generic $secret_name $options
 rc=$?
 
 echo "end set secret with $rc"

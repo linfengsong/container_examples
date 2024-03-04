@@ -50,8 +50,9 @@ replaceBlock()
   local renameFile=$2
   local invisibleTokenValue="$3"
   
-  hasBlock=$(cat $filePath|grep '%%\[START\]%%')
+  hasBlock=$(cat $filePath|grep '%%\[START\]%%' 2>/dev/null||true)
   if [[ -z "$hasBlock" ]]; then
+    echo "replaceBlock $filePath No Block"
     renameTemplateFile $filePath $renameFile
     return
   fi
@@ -176,7 +177,6 @@ createTokenFile() {
   local section=$1
   local path=$2
   local output_path=$3
-  echo createTokenFile $section "${path}" "${output_path}" 
   if [[ -f "${output_path}" ]]; then
     rm "${output_path}"
   fi
