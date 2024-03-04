@@ -1,4 +1,0 @@
-cluster: np1-gl
-datacentre: gl
-certs:
-  hostname: np1-gl.apaas4

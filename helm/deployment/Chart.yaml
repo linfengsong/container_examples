@@ -1,6 +1,0 @@
-apiVersion: v2
-name: application
-description: A Helm chart for your application
-type: application
-version: 0.0.1
-appVersion: "1.0.0"
