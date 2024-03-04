@@ -3,15 +3,15 @@ include:
     ref: master
     file: 'templates/v1/bcp-cd-container.yml'
 
-httpd-swag-deploy:
-  extends: .deploy-container-package
-  variables:
-    CONTAINER_NAME: httpdswag
+#httpd-swag-deploy:
+#  extends: .deploy-container-package
+#  variables:
+#    CONTAINER_NAME: httpdswag
     
-httpd-swag-reload:
-  extends: .reload-container-package
-  variables:
-    CONTAINER_NAME: httpdswag
+#httpd-swag-reload:
+#  extends: .reload-container-package
+#  variables:
+#    CONTAINER_NAME: httpdswag
     
 spring-rest-api-deploy:
   extends: .deploy-container-package
