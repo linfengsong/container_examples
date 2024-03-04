@@ -1,7 +1,0 @@
-apiVersion: bcp.barclays.com/v1
-kind: BarcLoadBalancer
-metadata:
-  name: "{{ .Values.container.name }}-lbl"
-spec:
-  gtmbmethod: hops
-  route: "{{ .Values.container.name }}-lbl"
