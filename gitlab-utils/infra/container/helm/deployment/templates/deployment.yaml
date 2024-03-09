@@ -7,11 +7,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.applicationName }}
+      app: {{ .Values.applicationName }}-deployment
   template:
     metadata:
       labels:
-        app: {{ .Values.applicationName }}
+        app: {{ .Values.applicationName }}-deployment
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
@@ -25,7 +25,7 @@ spec:
             secretName: "{{ .Values.applicationName }}-service-secret"
             defaultMode: 420
         {{ end }}
-        {{- if .Values.pod.deployEsaasLog }}
+        {{- if .Values.esaas.deploy }}
         - name: logs-volume
           persistentVolumeClaim:
             claimName: {{ .Values.esaas.logsPvcName }}
@@ -42,6 +42,8 @@ spec:
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           env:
+            - name: JAVA_OPTS
+              value: "-Dcom.redhat.fips=false -Djava.security.disableSystemPropertiesFile=true"
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.spring.profile }}
             {{- if .Values.certs.deploy }}
@@ -51,9 +53,27 @@ spec:
                   name: keystore-password-secret
                   key: password-key
             {{ end }}
+            {{- if .Values.aspnet.deploy }}
+            - name: ASPNETCORE_ENVIRONMENT
+              value: {{ .Values.aspnet.env }}
+            - name: ASPNETCORE_URLS
+              value: {{- if .Values.certs.deploy }} {{ .Values.aspnet.httpsUrls }} {{ else }} {{ .Values.aspnet.httpUrls }} {{- end }}
+            {{ end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.pod.port }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Value.pod.port }}
+              scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
+            initialDeplaySeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Value.pod.port }}
+              scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
+            initialDeplaySeconds: 60
           lifecycle:
             preStop:
               exec:
@@ -65,7 +85,7 @@ spec:
             - name: tls-secret
               mountPath: {{ .Values.certs.mountPath }}
             {{ end }}
-            {{- if .Values.pod.deployEsaasLog }}
+            {{- if .Values.esaas.deploy }}
             - name: logs-volume
               mountPath: {{ .Values.esaas.volumeMountPath }}
             {{ end }}

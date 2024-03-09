@@ -16,7 +16,7 @@ docker-job:
       
       mkdir -p $buildPath/image
       cp -R $GITLAB_UTILS_PATH/build/* $buildPath
-      if [[ ! -z "$CI_BUILD_TARGET_PATH" ]]; then cp -R $CI_BUILD_TARGET_PATH $buildPath/image; fi
+      if [[ ! -z "$CI_BUILD_PUBLISH_PATH" ]]; then cp -R $CI_BUILD_PUBLISH_PATH $buildPath/image; fi
       $GITLAB_UTILS_PATH/script/docker_build.sh "$iniFilePath" "$buildPath"
       
       echo "finish build docker image"

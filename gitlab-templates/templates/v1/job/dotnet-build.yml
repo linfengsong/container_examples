@@ -1,0 +1,22 @@
+
+maven-jar-job:
+  stage: build
+  script:
+    - |
+      echo "dotnet build start"
+      
+      echo ls -l src/${SOLUTION_NAME}_{PROJECT_NAME}
+      ls -l src/${SOLUTION_NAME}_{PROJECT_NAME}
+      dotnet --info
+      PACAGE_READ="https://nexus.example.com/nexus/service/local/nuget/example-nuget-read/"
+      dotnet build /noderuse:false ${SOLUTION_NAME}.sln --source ${PACAGE_READ} --configuration Debug
+      
+      mkdir -p publish
+      cp src/${SOLUTION_NAME}.${PROJECT_NAME}/bin/Debug/net6.0/${SOLUTION_NAME}.${PROJECT_NAME.dll publish
+      
+      echo "dotnet build finish"
+  artifacts:
+    paths:
+      - src/${SOLUTION_NAME}.${PROJECT_NAME}/bin/Debug/net6.0/${SOLUTION_NAME}.${PROJECT_NAME.dll
+      - tests/${SOLUTION_NAME}.${PROJECT_NAME}.UnitTests/bin/Debug/net6.0/${SOLUTION_NAME}.${PROJECT_NAME.UnitTests.dll
+      - publish/${SOLUTION_NAME}.${PROJECT_NAME.dll

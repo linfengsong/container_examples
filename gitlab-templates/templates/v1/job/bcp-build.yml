@@ -3,10 +3,10 @@ docker-job:
   stage: docker
   script: 
   - |
-    echo "start build docker image"
-    gitlab_utils_path=gitlab_utils
-    mkdir -p $gitlab_utils_path
-    tar xf gitlab_utils.tar -C $gitlab_utils_path
+    echo "start build bcp docker image"
+    
+    mkdir -p $GITLAB_UTILS_PATH
+    tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
       
     env_name=dev
     srcPath=$(pwd)
@@ -14,10 +14,11 @@ docker-job:
     buildPath=$srcPath/target/build
       
     mkdir -p $buildPath/image
-    cp -R $gitlab_utils_path/build/* $buildPath
-    if [[ ! -z "$CI_BUILD_TARGET_PATH" ]]; then cp -R $CI_BUILD_TARGET_PATH $buildPath/image; if
+    cp -R $GITLAB_UTILS_PATH/build/* $buildPath
+    if [[ ! -z "$CI_BUILD_PUBLISH_PATH" ]]; then cp -R $CI_BUILD_PUBLISH_PATH $buildPath/image; fi
+
+    source $GITLAB_UTILS_PATH/script/oc_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
+    $GITLAB_UTILS_PATH/script/bcp_build.sh "$iniFilePath" "$buildPath"
     
-    source $gitlab_utils_path/script/oc_login.sh $OC_ACCESS_ID "$OC_ACCESS_KEY" "$iniFilePath"
-    $gitlab_utils_path/script/bcp_build.sh "$iniFilePath" "$buildPath"
-    echo "finish build docker image"
-    
+    echo "finish build bcp docker image"
+ 

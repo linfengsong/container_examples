@@ -2,12 +2,10 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-applicationName=$1
-iniFilePath=$2
-infraPath=$3
-password=$4
+iniFilePath=$1
+infraPath=$2
+password=$3
 
-echo applicationName=$applicationName
 echo iniFilePath=$iniFilePath
 echo infraPath=$infraPath
 echo password=$password
@@ -27,8 +25,6 @@ echo "readIniFile account $iniFilePath"
 readIniFile account $iniFilePath
 showTokens
 
-source $SCRIPT_LOCATION/microk8s_init.sh $iniFilePath
-
 echo "readIniFile infra $iniFilePath"
 readIniFile infra $iniFilePath
 showTokens
@@ -43,10 +39,11 @@ cat $valuesPath
 echo "create secret"
 $SCRIPT_LOCATION/create_secret.sh keystore-password-secret password-key $password
 echo "create tls"
-$SCRIPT_LOCATION/create_tls.sh "$iniFilePath" $apiPath/cert.yaml.template $password
-echo "deploy $applicationName-lbl"
-echo $SCRIPT_LOCATION/helm_deploy.sh $applicationName-lbl $helmPath/ingress $valuesPath true
-$SCRIPT_LOCATION/helm_deploy.sh $applicationName-lbl $helmPath/ingress $valuesPath true
+echo $SCRIPT_LOCATION/create_tls.sh ${application_name} ${application_name}-service-cert $helmPath/cert $valuesPath
+$SCRIPT_LOCATION/create_tls.sh ${application_name} ${application_name}-service-cert $helmPath/cert $valuesPath
+echo "deploy ${application_name}-lbl"
+echo $SCRIPT_LOCATION/helm_deploy.sh ${application_name}-lbl $helmPath/ingress $valuesPath true
+$SCRIPT_LOCATION/helm_deploy.sh ${application_name}-lbl $helmPath/ingress $valuesPath true
 echo "deploy $CONTAINER_NAME"
-echo $SCRIPT_LOCATION/helm_deploy.sh $applicationName $helmPath/deployment $valuesPath false
-$SCRIPT_LOCATION/helm_deploy.sh $applicationName $helmPath/deployment $valuesPath false
+echo $SCRIPT_LOCATION/helm_deploy.sh ${application_name} $helmPath/deployment $valuesPath false
+$SCRIPT_LOCATION/helm_deploy.sh ${application_name} $helmPath/deployment $valuesPath false

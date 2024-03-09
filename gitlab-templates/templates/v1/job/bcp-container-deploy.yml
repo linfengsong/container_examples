@@ -8,6 +8,7 @@
     env_name=dev
     iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
     infraPath=$GITLAB_UTILS_PATH/infra
+    source $GITLAB_UTILS_PATH/script/os_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
     source $GITLAB_UTILS_PATH/script/container_deploy.sh $CONTAINER_NAME $iniFilePath $infraPath $CERTIFICATE_PWD
     
     echo "finish deploy bcp container: $CONTAINER_NAME"
@@ -20,6 +21,7 @@
     
     env_name=dev
     iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
+    source $GITLAB_UTILS_PATH/script/os_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
     $GITLAB_UTILS_PATH/script/container_refresh.sh $CONTAINER_NAME $iniFilePath
     
     echo "finish reload bcp container: $CONTAINER_NAME"

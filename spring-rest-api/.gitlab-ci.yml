@@ -1,7 +1,7 @@
 include:
   - project: linfeng.song/gitlab-templates
     ref: master
-    file: templates/v1/bcp-ci-maven-jar.yml
+    file: templates/v1/bcp-ci-java-maven.yml
     
 deploy:
   stage: deploy

@@ -2,10 +2,13 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-containerName=$1
-iniFilePath=$2
+iniFilePath=$1
 
-source $SCRIPT_LOCATION/microk8s_init.sh $iniFilePath
+. $SCRIPT_LOCATION/util_token.sh
+
+echo "readIniFile account $iniFilePath"
+readIniFile account $iniFilePath
+showTokens
 
 for i in $(oc get pods --no-headers -o custom-columns=":metadata.name"|grep "${containerName}-deployment-"|grep '^-build'); do
   oc delete pod $i

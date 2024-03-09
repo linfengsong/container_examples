@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  label:
+  labels:
     app: %[image_name]%
   name: %[image_name]%
 spec:
@@ -29,6 +29,7 @@ spec:
       buildArgs:
 %%[START]%%
       - name: %[NAME]%
-        value: %[VALUE]%
+        value: "%[VALUE]%"
 %%[END]%%
     successfulBuildsHistoryLimit: 5
+    

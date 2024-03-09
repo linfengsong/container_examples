@@ -8,7 +8,6 @@ image:
   pullPolicy: %[image_pullPolicy]%
 
 pod:
-  deployEsaasLog: true
   cpu:
     limit: 250m
     request: 250m
@@ -46,3 +45,13 @@ hpa:
 
 blb:
   deploy: true
+
+esaas:
+  deploy: true
+  logsPvcName: %[application_name]%-logs-pvc
+  
+aspnet:
+  deploy: false
+  httpUrls: http://+:8443
+  httpsUrls: http://+:8443
+  

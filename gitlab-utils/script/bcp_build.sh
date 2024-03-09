@@ -5,9 +5,9 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 iniFilePath="$1"
 buildPath="$2"
 
-. $SCRIPT_LOCATION/utilToken.sh
+. $SCRIPT_LOCATION/util_token.sh
 
-buildConfigTemplate=$buildPath/docker_build_options.template
+buildConfigTemplate=$buildPath/buildconfig.yaml.template
 
 echo buildConfigTemplate=$buildConfigTemplate
 cat $buildConfigTemplate
@@ -34,7 +34,7 @@ fi
 echo "buildPath dir $buildPath:"
 ls -l $buildPath
 
-imageExist=`oc get is|grep $buildConfigName 2>/dev/null
+imageExist=`oc get is|grep $buildConfigName 2>/dev/null`
 echo imageExist=$imageExist
 if [[ -z "$imageExist" ]]; then
   oc create is $buildConfigName
@@ -46,7 +46,7 @@ oc create -f $buildConfigPath
 
 cp $buildPath/Dockerfile $buildPath/image
 echo "oc start-build $buildConfigName --from-dir=$buildPath/image --wait loglevel=10"
-oc start-build $buildConfigName --from-dir=$buildPath/image --wait loglevel=10
+oc start-build $buildConfigName --from-dir=$buildPath/image --wait --loglevel=10
 rc=$?
 echo "exit code $rc"
 exit $rc

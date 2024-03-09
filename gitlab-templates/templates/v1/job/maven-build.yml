@@ -1,9 +1,9 @@
 
-maven-test-job:
-  stage: test
+maven-jar-job:
+  stage: build
   script:
     - |
-      echo "Running unit tests..."
+      echo "maven build start"
       
       mkdir -p $GITLAB_UTILS_PATH
       tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
@@ -13,6 +13,10 @@ maven-test-job:
       cp -R $GITLAB_UTILS_PATH/tool/mvn/* ./.mvn/
       
       #MAVEN_OPTS="-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --settings $GITLAB_UTILS_PATH/conf/settings.xml"
-      ./mvnw $MAVEN_OPTS test
+      ./mvnw $MAVEN_OPTS -Dmaven.test.skip=true clean package
+      cp target/application-*-SNAPSHOT.jar target/application.jar
       
-      echo "Finish unit tests..."
+      echo "maven build finish"
+  artifacts:
+    paths:
+      - target/application.jar

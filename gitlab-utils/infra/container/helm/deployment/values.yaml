@@ -12,6 +12,5 @@ certs:
   
 esaas:
   volumeMountPath: /var/log/bcp-applications
-  logsPvcName: application-logs-pvc
   logFilePath: /var/log/bcp-applications/application.json
 

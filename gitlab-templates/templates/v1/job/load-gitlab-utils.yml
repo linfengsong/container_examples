@@ -1,6 +1,4 @@
 variables:
-  GITLAB_UTILS_URL: "http://lenovo:50080/api/v4/projects/8/repository/archive.tar.gz?ref=master"
-  GITLAB_UTILS_ACCESS_TOKEN: "PRIVATE-TOKEN: glpat-iN1x2--EsScyorcdaZt2"
   GITLAB_UTILS_PATH: "gitlab_utils"
 
 stages:

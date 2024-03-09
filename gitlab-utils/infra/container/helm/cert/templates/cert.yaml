@@ -35,13 +35,13 @@ spec:
   secretName: "{{ .Values.applicationName }}-service-secret"
   subject:
     countries:
-    - GB
+    - {{ .Values.certs.county }}
     organization:
     - Example
     streetAddress:
-    - NY
+    - {{ .Values.certs.streetAddress }}
     localities:
-    - NY
+    - {{ .Values.certs.locality }}
     organizationalUnits:
     - {{ .Values.certs.itsi }}
   usages:
