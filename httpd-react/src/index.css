@@ -1,0 +1,6 @@
+@import '@example/blueprint-fonts-effra';
+@import "@example/blueprint-fonts-css/example/dist/index-system.css";
+
+body {
+    margin: 0
+}

@@ -1,0 +1,11 @@
+set ++x
+source $NVM_DIR/nvm.sh
+if nvm use $nodeVersion; then echo 'Node version found, using existing'; else echo 'Node version not installed, downloading';nvm install $nodeVersion;nvm use $nodeVersion; fi
+node --version
+nvm --version
+#if (npmtoolMode==JsConstants.DefaultToolMode) {
+  npm ci
+  buildTargetTransformed
+#}
+npm prefix -g | xargs -I '{}' echo '{}//bin' >${env.WORKSPACE}${slash}.NPMBIN
+

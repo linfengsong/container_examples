@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/vite-react/tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@test-utils": ["./src/test-utils"],
+      "@site/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts","**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
