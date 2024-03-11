@@ -8,7 +8,7 @@
     env_name=dev
     srcPath=$(pwd)
 
-    $GITLAB_UTILS_PATH/script/container_deploy.sh $srcPath $env_name $CONTAINER_NAME $CERTIFICATE_PWD
+    $GITLAB_UTILS_PATH/script/container_deploy.sh $srcPath $env_name $CONTAINER_NAME
     
     echo "finish deploy bcp container: $CONTAINER_NAME"
     

@@ -5,7 +5,7 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 srcPath=$1
 envName=$2
 infraName=$3
-password=$4
+password=$CERTIFICATE_PWD
 
 source $SCRIPT_LOCATION/koc_init.sh $srcPath $envName $infraName
 
