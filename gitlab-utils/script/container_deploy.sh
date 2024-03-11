@@ -2,10 +2,13 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-iniFilePath=$1
-password=$2
+srcPath=$1
+envName=$2
+infraName=$3
+password=$4
 
-echo iniFilePath=$iniFilePath
+source $SCRIPT_LOCATION/koc_init.sh $srcPath $envName $infraName
+
 echo password=$password
 
 containerPath=${SCRIPT_LOCATION}/../infra/container
@@ -14,19 +17,9 @@ valuesTemplateFilePath=$containerPath/helm/values.yaml.template
 apiPath=$containerPath/api
 helmPath=$containerPath/helm
 
-echo iniFilePath=$iniFilePath
-cat $iniFilePath
 echo valuesTemplateFilePath=$valuesTemplateFilePath
 cat $valuesTemplateFilePath
 
-. $SCRIPT_LOCATION/util_token.sh
-
-echo "readIniFile account $iniFilePath"
-readIniFile account $iniFilePath
-showTokens
-
-echo "readIniFile infra $iniFilePath"
-readIniFile infra $iniFilePath
 showTokens
 echo "replaceTemplateTokens $containerPath true"
 replaceTemplateTokens $containerPath true

@@ -160,14 +160,17 @@ showTokens()
 
 readTokens() {
   local path=$1
-  arrayTokenNames=()
+  local bAppend=$2
+  if [[ $bAppend == "false" ]]; then
+    arrayTokenNames=()
+  fi
   while IFS='=' read -r key value
   do
     if [[ ! -z ${key} ]]; then
       key="$(echo ${key}|sed -e 's/^[[:space:]]*//')"
       value="$(echo ${value}|sed -e 's/^[[:space:]]*//')"
       value=${value/\$/\\$}
-      eval ${key}=\'${value}\'
+      eval export ${key}=\'${value}\'
       arrayTokenNames+=(${key})
     fi 
   done < <(grep "" $path)
@@ -203,11 +206,15 @@ createTokenFile() {
 readIniFile() {
   local section="$1"
   local path="$2"
+  local bAppend="$3"
+  if [[ -z $bAppend ]]; then
+    bAppend=false
+  fi
   local output_path="${path}.tmp"
   createTokenFile $section "$path" "$output_path"
   
   if [[ -f "$output_path" ]]; then
-    readTokens "$output_path"
+    readTokens "$output_path" $bAppend
     rm "$output_path"
   fi
 }

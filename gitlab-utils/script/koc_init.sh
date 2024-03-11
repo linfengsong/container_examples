@@ -8,17 +8,32 @@ infraName=$3
 oc_access_id="$4"
 oc_access_key="$5"
 
+echo srcPath=$srcPath
+echo envName=$envName
+echo infraName=$infraName
+
 . $SCRIPT_LOCATION/util_token.sh
 
-iniFilePath=$srcPath/conf/project_${envName}.ini
-readIniFile infra $iniFilePath
+echo readIniFile infra $srcPath/conf/project_${envName}.ini
+readIniFile infra $srcPath/conf/project_${envName}.ini
 
-if [[ -f $srcPath/conf/cluster_${envName}.ini ]]; then
-  readIniFile infra $iniFilePath
+if [[ ! -z $infraName ]]; then
+  if [[ -f $srcPath/infra/${infraName}/infra_${envName}.ini ]]; then
+    echo readIniFile infra $srcPath/infra/${infraName}/infra_${envName}.ini true
+    readIniFile infra $srcPath/infra/${infraName}/infra_${envName}.ini true
+  else
+    echo "Error: file does not exist: $srcPath/infra/${infraName}/infra_${envName}.ini"
+  fi
 fi
 
-if [[ ! -z $infraName ]] && [[ -f $srcPath/$infrName/infra_${infraName}.ini ]]; then
-  readIniFile infra $srcPath/$infrName/infra_${infraName}.ini
+echo cluster=$cluster
+if [[ ! -z $cluster ]]; then
+  if [[ -f $srcPath/conf/cluster_${cluster}.ini ]]; then
+    echo readIniFile infra $srcPath/conf/cluster_${cluster}.ini true
+    readIniFile infra $srcPath/conf/cluster_${cluster}.ini true
+  else
+    echo "Error: file does not exist: $srcPath/conf/cluster_${cluster}.ini"
+  fi
 fi
 
 parentDir="$(dirname $SCRIPT_LOCATION)"

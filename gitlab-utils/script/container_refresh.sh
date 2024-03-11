@@ -2,13 +2,11 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-iniFilePath=$1
+srcPath=$1
+envName=$2
+infraName=$3
 
-. $SCRIPT_LOCATION/util_token.sh
-
-echo "readIniFile infra $iniFilePath"
-readIniFile infra $iniFilePath
-showTokens
+source $SCRIPT_LOCATION/koc_init.sh $srcPath $envName $infraName
 
 echo "delete pod ${application_name}-deployment-"'*'
 for i in $($koc get pods --no-headers -o custom-columns=":metadata.name"|grep "${application_name}-deployment-"); do

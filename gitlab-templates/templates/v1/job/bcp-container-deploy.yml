@@ -6,10 +6,9 @@
     tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
     
     env_name=dev
-    iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
-    infraPath=$GITLAB_UTILS_PATH/infra
-    source $GITLAB_UTILS_PATH/script/koc_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
-    $GITLAB_UTILS_PATH/script/container_deploy.sh $iniFilePath $infraPath $CERTIFICATE_PWD
+    srcPath=$(pwd)
+
+    $GITLAB_UTILS_PATH/script/container_deploy.sh $srcPath $env_name $CONTAINER_NAME $CERTIFICATE_PWD
     
     echo "finish deploy bcp container: $CONTAINER_NAME"
     
@@ -20,9 +19,9 @@
     tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
     
     env_name=dev
-    iniFilePath=$CONTAINER_NAME/infra_${env_name}.ini
-    source $GITLAB_UTILS_PATH/script/koc_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
-    $GITLAB_UTILS_PATH/script/container_refresh.sh $iniFilePath
+    srcPath=$(pwd)
+    
+    $GITLAB_UTILS_PATH/script/container_refresh.sh $srcPath $env_name $CONTAINER_NAME
     
     echo "finish reload bcp container: $CONTAINER_NAME"
     
