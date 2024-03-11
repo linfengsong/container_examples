@@ -1,0 +1,15 @@
+
+test-image-job:
+  stage: test
+  image: $BUILDER_IMAGE_NAME
+  script:
+    - |
+      echo "Running unit tests..."
+      
+      mkdir -p $GITLAB_UTILS_PATH
+      tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
+      
+      src_path=$(pwd)
+      $GITLAB_UTILS_PATH/script/test_image.sh $src_path
+
+      echo "Finish unit tests..."

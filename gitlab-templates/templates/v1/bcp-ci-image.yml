@@ -1,9 +1,4 @@
-variables:
-  CI_BUILD_TYPE: jar
-  CI_BUILD_TARGET_PATH: target/application.jar
 
-#image: registry.access.redhat.com/ubi8/openjdk-17:1.19-1
-  
 stages:
   - build
   - test
@@ -12,7 +7,7 @@ stages:
   - deploy
 
 include:
-  #- project: devtooling/images/build-images
+  #- project: devtooling/images/builder-images
   #  file: "/builder-images.yml"
     
   - project: linfeng.song/gitlab-templates
@@ -21,13 +16,13 @@ include:
     
   - project: linfeng.song/gitlab-templates
     ref: master
-    file: '/templates/v1/job/dotnet-build.yml'
+    file: '/templates/v1/job/build-image.yml'
     
   - project: linfeng.song/gitlab-templates
     ref: master
-    file: '/templates/v1/job/dotnet-test.yml'
+    file: '/templates/v1/job/test-image.yml'
     
   - project: linfeng.song/gitlab-templates
     ref: master
-    file: '/templates/v1/job/docker-build.yml'
-      
+    file: '/templates/v1/job/push-image.yml'
+    

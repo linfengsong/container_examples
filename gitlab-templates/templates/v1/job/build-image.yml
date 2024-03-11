@@ -1,0 +1,19 @@
+
+build-image-job:
+  stage: build
+  image: $BUILDER_IMAGE_NAME
+  script:
+    - |
+      echo "image build start"
+      
+      mkdir -p $GITLAB_UTILS_PATH
+      tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
+      
+      src_path=$(pwd)
+      output_path=${src_path}/output
+      $GITLAB_UTILS_PATH/script/build_image.sh $src_path $output_path
+
+      echo "image build finish"
+  artifacts:
+    paths:
+      - output

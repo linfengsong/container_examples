@@ -18,26 +18,16 @@ load_gitlab_utils_job:
         exit 1
       fi
       gitlab_utils_master_path=gitlab-utils-master
-      mkdir -p $gitlab_utils_master_path/conf
-      cp $gitlab_utils_master_path-*/conf/* $gitlab_utils_master_path/conf
+      mkdir -p $gitlab_utils_master_path
+      cp -R $gitlab_utils_master_path-*/* $gitlab_utils_master_path/
       chmod 644 $gitlab_utils_master_path/conf/*
-      mkdir -p $gitlab_utils_master_path/script
-      cp $gitlab_utils_master_path-*/script/* $gitlab_utils_master_path/script
       chmod 755 $gitlab_utils_master_path/script/*
-      mkdir -p $gitlab_utils_master_path/tool
-      cp -R $gitlab_utils_master_path-*/tool/* $gitlab_utils_master_path/tool
       chmod 755 $gitlab_utils_master_path/tool/*
-      if [[ ! -z $CI_BUILD_TYPE ]]; then
-        mkdir -p $gitlab_utils_master_path/build
-        cp -r $gitlab_utils_master_path-*/build/common/* $gitlab_utils_master_path/build
-        cp -r $gitlab_utils_master_path-*/build/$CI_BUILD_TYPE/* $gitlab_utils_master_path/build
-      elif [[ ! -z $CD_BUILD_TYPE ]]; then
-        mkdir -p $gitlab_utils_master_path/infra
-        cp -r $gitlab_utils_master_path-*/infra/$CD_BUILD_TYPE/* $gitlab_utils_master_path/infra
-      fi
+      
       cd $gitlab_utils_master_path
       tar cvf $srcPath/gitlab_utils.tar *
       echo "Load gitlab utils finish"
   artifacts:
     paths:
       - gitlab_utils.tar
+      - build_image_variables.yml
