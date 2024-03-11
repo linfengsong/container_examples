@@ -12,7 +12,7 @@ public class PositionController {
 	private final AtomicLong counter = new AtomicLong();
 
 	@PostMapping(path= RestApiApplication.rootPath + "/position", consumes = "application/json", produces = "application/json")  
-	public PositionResponse greeting(@RequestBody PositionRequest request) {
+	public PositionResponse position(@RequestBody PositionRequest request) {
 		PositionResponse response = new PositionResponse(counter.incrementAndGet());
 		response.setName(request.getName());
 		response.setAsOfDate(request.getAsOfDate());

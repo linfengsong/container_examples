@@ -1,7 +1,8 @@
+
 include:
   - project: 'linfeng.song/gitlab-templates'
     ref: master
-    file: '/templates/v1/bcp-ci-httpd.yml'
+    file: '/templates/v1/bcp-ci-image.yml'
 
 deploy:
   stage: deploy

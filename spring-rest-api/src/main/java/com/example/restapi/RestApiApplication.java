@@ -3,8 +3,12 @@ package com.example.restapi;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(
+exclude = { SecurityAutoConfiguration.class,
+ManagementWebSecurityAutoConfiguration.class })
 @RestController
 public class RestApiApplication {
 

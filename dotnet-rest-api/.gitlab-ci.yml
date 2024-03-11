@@ -1,5 +1,5 @@
 variables:
-  BUILDER_IMAGE_NAME: $BUILDER_IMAGE_JAVA_17
+  BUILDER_IMAGE_NAME: $BUILDER_IMAGE_DOTNET_6
 
 include:
   - project: linfeng.song/gitlab-templates
@@ -9,7 +9,7 @@ include:
 deploy:
   stage: deploy
   variables:
-    CONTAINER_TRIGGER: springrestapi
+    CONTAINER_TRIGGER: dotnetrestapi
   trigger:
     project: linfeng.song/services
     branch: master

@@ -11,11 +11,9 @@ docker-job:
       
     env_name=dev
     srcPath=$(pwd)
-    iniFilePath=$srcPath/conf/image_${env_name}.ini
     outputPath=$srcPath/output
       
-    source $GITLAB_UTILS_PATH/script/koc_login.sh "$iniFilePath" $OC_ACCESS_ID "$OC_ACCESS_KEY"
-    $GITLAB_UTILS_PATH/script/push_image.sh "$iniFilePath" "$outputPath"
+    $GITLAB_UTILS_PATH/script/push_image.sh "$srcPath" $env_name "$outputPath"
     
     echo "finish push image"
  

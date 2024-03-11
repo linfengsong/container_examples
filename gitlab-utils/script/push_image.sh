@@ -2,8 +2,13 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-iniFilePath="$1"
-buildPath="$2"
+srcPath="$1"
+envName=$2
+buildPath="$3"
+
+source $SCRIPT_LOCATION/koc_init.sh "$srcPath" $envName 
+
+iniFilePath=$srcPath/conf/project_${envName}.ini
 
 isDocker=$(command -v docker)
 if [[ -z "$isDocker" ]]; then
