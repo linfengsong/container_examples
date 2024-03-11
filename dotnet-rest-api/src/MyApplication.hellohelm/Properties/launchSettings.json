@@ -2,7 +2,7 @@
   "profiles": {
     "MyApplication.hellohelm": {
       "commandName": "Project",
-      "launchBrower": true,
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -18,7 +18,7 @@
       "httpPort": 8080,
       "useSSL": false,
       "environmentVariables": {
-        "ASPNETCORE_URL": "http://+.8080",
+        "ASPNETCORE_URLS": "http://+:8080",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }

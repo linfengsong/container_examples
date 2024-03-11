@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApplication.hellohelm", "src\MyApplication.hellohelm\MyApplication.hellohelm.csproj", "{296FB779-13A9-4EB3-8800-20B57D1347F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApplication.hellohelm.UnitTests", "tests\MyApplication.hellohelm.UnitTests\MyApplication.hellohelm.UnitTests.csproj", "{30167C7E-C213-4858-9519-C7E825B61B72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8"}") = "Solution Items", "Solution Items", "{2f32a5ee-942d-49aa-ad41-a4111162b518c}"
+    ProjectSection(SolutionItems) = preProject
+        .editorconfig = .editorconfig
+        README.md = README.md
+        stylecop.json = stylecop.json
+        Dockerfile = Dockerfile
+    EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{296FB779-13A9-4EB3-8800-20B57D1347F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296FB779-13A9-4EB3-8800-20B57D1347F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296FB779-13A9-4EB3-8800-20B57D1347F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296FB779-13A9-4EB3-8800-20B57D1347F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30167C7E-C213-4858-9519-C7E825B61B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30167C7E-C213-4858-9519-C7E825B61B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30167C7E-C213-4858-9519-C7E825B61B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30167C7E-C213-4858-9519-C7E825B61B72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {abff7d5a-04a1-4d41-90ee-85bdd52492c8}
+	EndGlobalSection
+EndGlobal
