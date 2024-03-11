@@ -11,16 +11,23 @@ RUN apt-get update; \
     vim \
     tar
     
-ADD ./src/ /usr/local/apache2/htdocs/
+EXPOSE 8080
 
-RUN pwd
+WORKDIR /var/www/html/
 
-ADD ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN rm /etc/httpd/conf.d/ssl.conf &&  \
+    ls -la /etc/httpd/conf.d/ &&  \
+    ls -la /etc/httpd/logs && \
+    chmod -R 775 /etc/httpd/conf/httpd.conf && \
+    chmod -R 775 /etc/httpd/logs && \
+    chmod -R 775 /run/httpd && \
+    chown -R apache:apache /run/httpd && \
+    chgrp -R 0 /run && \
+    chmod -R g=u /run
+    
+COPY dist /var/www/html/
+COPY httpd.conf /etc/httpd/conf/httpd.conf
 
-RUN chmod -R g+rw /usr/local/apache2/htdocs/
+USER apache
 
-EXPOSE 80
-
-WORKDIR /usr/local/apache2/htdocs/
-
-ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
+ENTRYPOINT apachectl -D FOREGROUND

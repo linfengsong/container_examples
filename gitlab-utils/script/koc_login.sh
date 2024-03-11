@@ -14,7 +14,13 @@ echo openshift_project=$openshift_project
 parentDir="$(dirname $SCRIPT_LOCATION)"
 export PATH="${parentDir}/tool:$PATH"
 
-oc_pwd=`echo $oc_access_key|base64 -d`
-echo oc login "--server=${openshift_api_url}" -u "$oc_access_id" -p "$oc_pwd"
-oc login "--server=${openshift_api_url}" -u "$oc_access_id" -p "$oc_pwd"
-oc project ${openshift_project}
+oc_path=
+if [[ ! -z "$oc_path" ]]; then
+  oc_pwd=`echo $oc_access_key|base64 -d`
+  echo oc login "--server=${openshift_api_url}" -u "$oc_access_id" -p "$oc_pwd"
+  oc login "--server=${openshift_api_url}" -u "$oc_access_id" -p "$oc_pwd"
+  oc project ${openshift_project}
+  export koc='oc'
+else
+  export koc='microk8s.kubectl'
+fi

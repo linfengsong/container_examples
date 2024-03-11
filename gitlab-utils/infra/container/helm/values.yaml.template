@@ -27,14 +27,14 @@ route:
 
 certs:
   deploy: true
-  cluster: %[cluster]%
-  hostname: %[cert_hostname]%
-  itsi: %[itsi]%
-  navigatorId: %[navigator_id]%
-  projectName: %[itsi_name]%
-  environment: %[environment]%
-  changeNumber: %[change_number]%
-  email: %[email]%
+  cluster: "%[cluster]%"
+  hostname: "%[cert_hostname]%"
+  itsi: "%[itsi]%"
+  navigatorId: "%[navigator_id]%"
+  projectName: "%[itsi_name]%"
+  environment: "%[environment]%"
+  changeNumber: "%[change_number]%"
+  email: "%[email]%"
 
 hpa:
   deploy: true
@@ -47,11 +47,23 @@ blb:
   deploy: true
 
 esaas:
-  deploy: true
+  deploy: false
   logsPvcName: %[application_name]%-logs-pvc
+  
+liveness:
+  deploy: true
+  path: /
+  #path: /actuator/health/liveness
+ 
+readiness:
+  deploy: true
+  path: /
+  #path: /actuator/health/readiness
+  
+spring:
+  deploy: true
   
 aspnet:
   deploy: false
   httpUrls: http://+:8443
-  httpsUrls: http://+:8443
-  
+  httpsUrls: https://+:8443

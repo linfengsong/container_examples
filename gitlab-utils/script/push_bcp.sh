@@ -34,19 +34,19 @@ fi
 echo "buildPath dir $buildPath:"
 ls -l $buildPath
 
-imageExist=`oc get is|grep $buildConfigName 2>/dev/null`
+imageExist=`$koc get is|grep $buildConfigName 2>/dev/null`
 echo imageExist=$imageExist
 if [[ -z "$imageExist" ]]; then
-  oc create is $buildConfigName
+  $koc create is $buildConfigName
 fi
-echo "oc delete buildconfig $buildConfigName"
-oc delete buildconfig $buildConfigName 2>/dev/null
-echo "oc create -f $buildConfigPath"
-oc create -f $buildConfigPath
+echo "$koc delete buildconfig $buildConfigName"
+$koc delete buildconfig $buildConfigName 2>/dev/null
+echo "$koc create -f $buildConfigPath"
+$koc create -f $buildConfigPath
 
 cp $buildPath/Dockerfile $buildPath/image
-echo "oc start-build $buildConfigName --from-dir=$buildPath/image --wait loglevel=10"
-oc start-build $buildConfigName --from-dir=$buildPath/image --wait --loglevel=10
+echo "$koc start-build $buildConfigName --from-dir=$buildPath/image --wait loglevel=10"
+$koc start-build $buildConfigName --from-dir=$buildPath/image --wait --loglevel=10
 rc=$?
 echo "exit code $rc"
 exit $rc

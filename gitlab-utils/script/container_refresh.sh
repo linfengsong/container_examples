@@ -6,10 +6,12 @@ iniFilePath=$1
 
 . $SCRIPT_LOCATION/util_token.sh
 
-echo "readIniFile account $iniFilePath"
-readIniFile account $iniFilePath
+echo "readIniFile infra $iniFilePath"
+readIniFile infra $iniFilePath
 showTokens
 
-for i in $(oc get pods --no-headers -o custom-columns=":metadata.name"|grep "${containerName}-deployment-"|grep '^-build'); do
-  oc delete pod $i
+echo "delete pod ${application_name}-deployment-"'*'
+for i in $($koc get pods --no-headers -o custom-columns=":metadata.name"|grep "${application_name}-deployment-"); do
+  echo $koc delete pod $i
+  $koc delete pod $i
 done

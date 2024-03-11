@@ -14,25 +14,25 @@ tls_secret_name=${applicationName}-service-secret
 echo cert_name=$cert_name
 echo tls_secret_name=$tls_secret_name
 
-#echo $SCRIPT_LOCATION/helm_deploy.sh $chartName $chartPath $valuesPath true
-#$SCRIPT_LOCATION/helm_deploy.sh $chartName $chartPath $valuesPath true
-#certs=`oc get cert|grep $cert_name 2> /dev/null`
-
+#self_sign_certificate
 $SCRIPT_LOCATION/create_keystore.sh $applicationName
 echo $SCRIPT_LOCATION/create_keystore.sh $applicationName
 certs=$cert_name
 
+#echo $SCRIPT_LOCATION/helm_deploy.sh $chartName $chartPath $valuesPath true
+#$SCRIPT_LOCATION/helm_deploy.sh $chartName $chartPath $valuesPath true
+#certs=`$koc get cert|grep $cert_name 2> /dev/null`
 if [[ -z "$certs" ]]; then
-  echo "certificate: $certName does not exist"
+  echo "certificate: $cert_name does not exist"
   exit 1
 else
-  echo "certificate: $certName exist"
+  echo "certificate: $cert_name exists"
   
   x=1
   while [[ $x -le 20 ]]
   do
-    echo $x oc get secret $tls_secret_name
-    tls=`oc get secret $tls_secret_name 2> /dev/null`
+    echo $x $koc get secret $tls_secret_name
+    tls=`$koc get secret $tls_secret_name 2> /dev/null`
     if [[ -z "$tls" ]]; then
       x=$((x+1))
     else

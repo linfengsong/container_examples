@@ -1,6 +1,5 @@
-FROM registry.access.redhat.com/dotnet-aspnet-6-0:latest
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 ARG PUBLISH_DIR=/publish
-ARG DOTNET_LAUNCH_DLL=MyApplication.MyProject.dll
 WORKDIR /app
-COPY $PUBLISH_DIR/* .
-ENTRYPOINT ["dotnet", "${DOTNET_LAUNCH_DLL}"]
+COPY $PUBLISH_DIR .
+ENTRYPOINT ["dotnet", "/app/aspnetapp.dll"]

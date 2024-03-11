@@ -42,10 +42,12 @@ spec:
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           env:
+            {{- if .Values.spring.deploy }}
             - name: JAVA_OPTS
               value: "-Dcom.redhat.fips=false -Djava.security.disableSystemPropertiesFile=true"
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.spring.profile }}
+            {{ end }}  
             {{- if .Values.certs.deploy }}
             - name: KEYSTORE_PASSWORD
               valueFrom:
@@ -58,22 +60,33 @@ spec:
               value: {{ .Values.aspnet.env }}
             - name: ASPNETCORE_URLS
               value: {{- if .Values.certs.deploy }} {{ .Values.aspnet.httpsUrls }} {{ else }} {{ .Values.aspnet.httpUrls }} {{- end }}
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+              valueFrom:
+                secretKeyRef:
+                  name: keystore-password-secret
+                  key: password-key
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+              value: /etc/certs/keystore.p12
             {{ end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.pod.port }}
+          {{- if .Values.liveness.deploy }}
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
-              port: {{ .Value.pod.port }}
+              path: {{ .Values.liveness.path }}
+              port: {{ .Values.pod.port }}
               scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
-            initialDeplaySeconds: 60
+            initialDelaySeconds: 60
+          {{ end }}
+          {{- if .Values.readiness.deploy }}
           readinessProbe:
             httpGet:
-              path: /actuator/health/liveness
-              port: {{ .Value.pod.port }}
+              path: {{ .Values.readiness.path }}
+              port: {{ .Values.pod.port }}
               scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
-            initialDeplaySeconds: 60
+            initialDelaySeconds: 60
+          {{ end }}
           lifecycle:
             preStop:
               exec:

@@ -42,7 +42,7 @@ checkSecret()
 }
 
 hasSecret=true
-secrets=`oc describe secret $secret_name 2> /dev/null`
+secrets=`$koc describe secret $secret_name 2> /dev/null`
 for userName in ${arrayUserNames[@]}
 do
   checkSecret $userName
@@ -54,12 +54,12 @@ if $hasSecret; then
 fi
 
 
-if [[ -z "$secrets" ]]; then
-  oc delete secret $secret_name
+if [[ ! -z "$secrets" ]]; then
+  $koc delete secret $secret_name
 fi
 
-echo "oc create secret generic $secret_name $optionsDisplay"
-oc create secret generic $secret_name $options
+echo "$koc create secret generic $secret_name $optionsDisplay"
+$koc create secret generic $secret_name $options
 rc=$?
 
 echo "end set secret with $rc"

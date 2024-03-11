@@ -20,7 +20,7 @@ if [[ " ${chartArray[*]} " =~ [[:space:]]${chartName}[[:space:]] ]]; then
   while [[ ! -z "$shRunning" ]] && [[ $x -le 20 ]]
   do
     sleep 10
-    shRunning=`oc get pod|grep "${chartName}-"|grep Running|grep '^-build'`
+    shRunning=`$koc get pod|grep "${chartName}-"|grep Running|grep '^-build'`
     x=$((x+1))
   done
   if [[ ! -z "$shRunning" ]]; then

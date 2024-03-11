@@ -60,5 +60,5 @@ data:
             </root>
         </springProfile>
     
-      </configuration>  
+    </configuration>  
   {{ end }}
