@@ -1,0 +1,18 @@
+
+sonar-quebe-job:
+  stage: sonarquebe
+  image: $BUILD_IMAGE_NAME
+  script: 
+  - |
+    echo "start sonar-qube"
+    
+    mkdir -p $GITLAB_UTILS_PATH
+    tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
+      
+    env_name=dev
+    srcPath=$(pwd)
+      
+    $GITLAB_UTILS_PATH/script/sonar_qube.sh $srcPath $env_name $CI_JOB_NAME $CI_PROJECT_URL
+    
+    echo "finish sonar-qube"
+ 
