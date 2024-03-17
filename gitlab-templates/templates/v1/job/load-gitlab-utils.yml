@@ -1,9 +1,6 @@
 variables:
   GITLAB_UTILS_PATH: "gitlab_utils"
 
-stages:
-  - .pre
-
 load_gitlab_utils_job:
   stage: .pre
   script:
@@ -30,4 +27,3 @@ load_gitlab_utils_job:
   artifacts:
     paths:
       - gitlab_utils.tar
-      - build_image_variables.yml

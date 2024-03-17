@@ -1,10 +1,9 @@
 
-sonar-quebe-job:
-  stage: sonarqube
-  image: $BUILDER_IMAGE_NAME
+promote-job:
+  stage: promote
   script: 
   - |
-    echo "start sonar-qube"
+    echo "start prisma-promote"
     
     mkdir -p $GITLAB_UTILS_PATH
     tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
@@ -12,7 +11,7 @@ sonar-quebe-job:
     envName=dev
     srcPath=$(pwd)
     source $GITLAB_UTILS_PATH/script/config.sh $srcPath $envName  
-    $GITLAB_UTILS_PATH/script/sonar_qube.sh $srcPath $CI_JOB_NAME $CI_PROJECT_URL
+    $GITLAB_UTILS_PATH/script/prisma_promote.sh
     
-    echo "finish sonar-qube"
+    echo "finish prisma-promote"
  

@@ -9,9 +9,11 @@ build-image-job:
       mkdir -p $GITLAB_UTILS_PATH
       tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
       
-      src_path=$(pwd)
-      output_path=${src_path}/output
-      $GITLAB_UTILS_PATH/script/build_image.sh $src_path $output_path
+      envName=dev
+      srcPath=$(pwd)
+      outputPath=${srcPath}/output
+      source $GITLAB_UTILS_PATH/script/config.sh $srcPath $envName
+      $GITLAB_UTILS_PATH/script/build_image.sh $srcPath $outputPath
 
       echo "image build finish"
   artifacts:

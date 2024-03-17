@@ -1,8 +1,8 @@
-
-.bcp_container_deploy_job:
+    
+.bcp_container_reload_job:
   script:
   - |
-    echo "start deploy bcp container: $CONTAINER_NAME"
+    echo "start reload bcp container: $CONTAINER_NAME"
     
     mkdir -p $GITLAB_UTILS_PATH
     tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
@@ -10,7 +10,7 @@
     envName=dev
     srcPath=$(pwd)
     source $GITLAB_UTILS_PATH/script/config.sh $srcPath $envName $CONTAINER_NAME
-    $GITLAB_UTILS_PATH/script/container_deploy.sh
+    $GITLAB_UTILS_PATH/script/container_refresh.sh
     
-    echo "finish deploy bcp container: $CONTAINER_NAME"
+    echo "finish reload bcp container: $CONTAINER_NAME"
     

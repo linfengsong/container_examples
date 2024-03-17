@@ -1,14 +1,16 @@
 
 stages:
+  - .pre
   - build
   - test
+  - sonarqube
   - docker
   - promote
   - deploy
 
 include:
-  #- project: devtooling/images/builder-images
-  #  file: "/builder-images.yml"
+  - project: devtooling/images/builder-images
+    file: /builder-images.yml
     
   - project: linfeng.song/gitlab-templates
     ref: master
@@ -24,5 +26,13 @@ include:
     
   - project: linfeng.song/gitlab-templates
     ref: master
+    file: '/templates/v1/job/sonar-qube.yml'
+    
+  - project: linfeng.song/gitlab-templates
+    ref: master
     file: '/templates/v1/job/push-image.yml'
+    
+  - project: linfeng.song/gitlab-templates
+    ref: master
+    file: '/templates/v1/job/prisma-promote.yml'
     

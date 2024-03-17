@@ -3,17 +3,24 @@ variables:
   CONTAINER_NAME: change_me
   CONTAINER_TRIGGER: ALL
 
+stages:
+  - .pre
+  - deploy
+  
 include:
+  - project: devtooling/images/builder-images
+    file: /builder-images.yml
+    
   - project: linfeng.song/gitlab-templates
     ref: master
     file: '/templates/v1/job/load-gitlab-utils.yml'
   - project: linfeng.song/gitlab-templates
     ref: master
     file: '/templates/v1/job/bcp-container-deploy.yml'
-    
-stages:
-  - deploy
-  
+  - project: linfeng.song/gitlab-templates
+    ref: master
+    file: '/templates/v1/job/bcp-container-reload.yml'
+
 .reload-container-package:
   stage: deploy
   extends: .bcp_container_reload_job
