@@ -5,18 +5,12 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 iniFilePath="$1"
 outputPath="$2"
 
-. $SCRIPT_LOCATION/util_token.sh
+buildConfigPath=$outputPath/docker_build_options
+cat $buildConfigPath
 
-buildConfigTemplate=$outputPath/docker_build_options.template
-
-echo buildConfigTemplate=$buildConfigTemplate
-cat $buildConfigTemplate
-readIniFile args $iniFilePath
-replaceTemplateTokens $buildConfigTemplate false
-readIniFile image $iniFilePath
-replaceTemplateTokens $buildConfigTemplate true
-buildConfigTemplate=${buildConfigTemplate::-9}
-cat $buildConfigTemplate
+replaceTemplateTokens $outputPath/Dockerfile.template true
+echo dockerfile=$outputPath/Dockerfile
+cat $outputPath/Dockerfile
 
 docker_options="-f $outputPath/Dockerfile"
 while read -r line; do
@@ -25,7 +19,7 @@ while read -r line; do
   else
     docker_options="$docker_options $line"
   fi
-done < <(grep "" "$buildConfigTemplate")
+done < <(grep "" "$buildConfigPath")
 echo docker build $docker_options $outputPath
 docker build $docker_options $outputPath
 echo docker push $image_name

@@ -149,6 +149,14 @@ setTokens()
   fi
 }
 
+addToken()
+{
+  token=$1
+  value=$(eval echo '$'"$token")
+  echo add token: $token=$value
+  arrayTokenNames+=($token)
+}
+
 showTokens() 
 {
   for i in "${arrayTokenNames[@]}"

@@ -5,6 +5,9 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 src_path=$1
 output_path=$2
 
+if [[ ! -z "$NUGET_PACKAGE_READ" ]]; then
+  dotnet_options="--source ${PACKAGE_READ}"
+fi
 publish_path=$output_path/publish
 build_path=$SCRIPT_LOCATION/../build
 
@@ -29,10 +32,11 @@ if [[ -z ${PROJECT_NAME} ]]; then
     PROJECT_NAME=${prj%".csproj"}
   fi
 fi
+
 dotnet --info
-PACKAGE_READ="https://nexus.example.com/nexus/service/local/nuget/example-nuget-read/"
-#dotnet build /nodereuse:false ${SOLUTION_NAME}.sln --source ${PACKAGE_READ} --configuration ${CONFIGURATION_TYPE}
-dotnet build /nodereuse:false ${SOLUTION_NAME}.sln --configuration ${CONFIGURATION_TYPE}
+echo dotnet build /nodereuse:false ${SOLUTION_NAME}.sln $dotnet_options --configuration ${CONFIGURATION_TYPE}
+dotnet build /nodereuse:false ${SOLUTION_NAME}.sln $dotnet_options --configuration ${CONFIGURATION_TYPE}
+
 mkdir -p ${publish_path}
 cp -R $build_path/common/* $output_path/
 cp -R $build_path/dotnet/* $output_path/
@@ -41,3 +45,4 @@ cp ${publish_path}/${SOLUTION_NAME}.${PROJECT_NAME}.dll ${publish_path}/aspnetap
 cp ${publish_path}/${SOLUTION_NAME}.${PROJECT_NAME}.runtimeconfig.json ${publish_path}/aspnetapp.runtimeconfig.json
 cp ${publish_path}/${SOLUTION_NAME}.${PROJECT_NAME}.deps.json ${publish_path}/aspnetapp.deps.json
 cp ${publish_path}/${SOLUTION_NAME}.${PROJECT_NAME}.pdb ${publish_path}/aspnetapp.pdb
+

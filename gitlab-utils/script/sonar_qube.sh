@@ -3,21 +3,14 @@
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 srcPath=$1
-envName=$2
-ciJobName=$3
-ciProjectUrl=$4
+ciJobName=$2
+ciProjectUrl=$3
 
 export SONAR_HOST_URL="http://lenovo:9000/"
 
 echo srcPath=$srcPath
-echo envName=$envName
 echo ciJobName=$ciJobName
 echo ciProjectUrl=$ciProjectUrl
-
-. $SCRIPT_LOCATION/util_token.sh
-
-iniFilePath=$srcPath/conf/project_${envName}.ini
-readIniFile image $iniFilePath
 
 if [[ -z $sonar_project_key ]]; then
   echo Error: sonar_project_key does not define

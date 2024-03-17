@@ -37,31 +37,50 @@ checkSecret()
   fi
   if [[ -z "$liternalSecret" ]]; then
     echo "$name secret does not set in openshift"
-    hasSecret=false
+   noSecret=false
   fi
 }
 
-hasSecret=true
+noSecret=true
+secrets=`$koc describe secret destsecret 2> /dev/null`
+for userName in ${arrayUserNames[@]}
+do
+  checkSecret $userName
+done
+
+if $noSecret; then
+  echo "$koc create secret generic destsecret --from-literal=username=$OC_ACCESS_ID --from-literal=password=xxxxxxxxxx"
+  $koc create secret generic destsecret --from-literal=username=$OC_ACCESS_ID -"from-literal=password=$OC_ACCESS_KEY"
+  rc=$?
+  if [[ $rc -ne 0 ]]; then
+    echo "end set secret with $rc"
+    exit $rc
+  fi
+else
+  echo "require destsecret secret set in openshift"
+fi
+
+
+noSecret=true
 secrets=`$koc describe secret $secret_name 2> /dev/null`
 for userName in ${arrayUserNames[@]}
 do
   checkSecret $userName
 done
 
-if $hasSecret; then
+if $noSecret; then
+  if [[ ! -z "$secrets" ]]; then
+    $koc delete secret $secret_name
+  fi
+
+  echo "$koc create secret generic $secret_name $optionsDisplay"
+  $koc create secret generic $secret_name $options
+  rc=$?
+  if [[ $rc -ne 0 ]]; then
+    echo "end set secret with $rc"
+    exit $rc
+  fi
+else
   echo "all require $secret_name secret set in openshift"
   exit
 fi
-
-
-if [[ ! -z "$secrets" ]]; then
-  $koc delete secret $secret_name
-fi
-
-echo "$koc create secret generic $secret_name $optionsDisplay"
-$koc create secret generic $secret_name $options
-rc=$?
-
-echo "end set secret with $rc"
-
-exit $rc
