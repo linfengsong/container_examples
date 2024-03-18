@@ -10,10 +10,6 @@ echo srcPath=$srcPath
 echo envName=$envName
 echo infraName=$infraName
 
-DOTNET_SONERSCANNER_VERIONS=6.2.0
-#NUGET_PACKAGE_READ="https://nexus.example.com/nexus/service/local/nuget/example-nuget-read/"
-#MAVEN_OPTS="-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --settings $GITLAB_UTILS_PATH/conf/settings.xml"
-
 . $SCRIPT_LOCATION/util_token.sh
 
 iniFilePath=$srcPath/conf/project_${envName}.ini
@@ -64,15 +60,13 @@ if [[ ! -z $infraName ]]; then
   fi
 fi
 
-echo cluster=$cluster
-if [[ ! -z $cluster ]]; then
-  if [[ -f $srcPath/conf/cluster_${cluster}.ini ]]; then
-    echo readIniFile infra $srcPath/conf/cluster_${cluster}.ini true
-    readIniFile infra "$srcPath/conf/cluster_${cluster}.ini" true
-  else
-    echo "Error: file does not exist: $srcPath/conf/cluster_${cluster}.ini"
-  fi
+if [[ -z $openshift_api_url ]]; then
+  export openshift_api_url=https://api.${cluster_name}-{datacenter}.example.com
+  addToken openshift_api_url
 fi
 
 echo "replaceTemplateTokens $tempatePath true"
 replaceTemplateTokens $tempatePath true
+
+echo "replaceTemplateTokens $SCRIPT_LOCATION/init.sh.template true"
+replaceTemplateTokens $SCRIPT_LOCATION/init.sh.template true

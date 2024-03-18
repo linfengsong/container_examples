@@ -2,13 +2,11 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-iniFilePath="$1"
-outputPath="$2"
+outputPath="$1"
 
 buildConfigPath=$outputPath/docker_build_options
 cat $buildConfigPath
 
-replaceTemplateTokens $outputPath/Dockerfile.template true
 echo dockerfile=$outputPath/Dockerfile
 cat $outputPath/Dockerfile
 

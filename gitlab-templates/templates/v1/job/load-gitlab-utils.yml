@@ -15,15 +15,20 @@ load_gitlab_utils_job:
         exit 1
       fi
       gitlab_utils_master_path=gitlab-utils-master
-      mkdir -p $gitlab_utils_master_path
-      cp -R $gitlab_utils_master_path-*/* $gitlab_utils_master_path/
-      chmod 644 $gitlab_utils_master_path/conf/*
-      chmod 755 $gitlab_utils_master_path/script/*
-      chmod 755 $gitlab_utils_master_path/tool/*
+      mkdir -p $GITLAB_UTILS_PATH
+      cp -R $gitlab_utils_master_path-*/* $GITLAB_UTILS_PATH/
+      chmod 644 $GITLAB_UTILS_PATH/conf/*
+      chmod 755 $GITLAB_UTILS_PATH/script/*
+      chmod 755 $GITLAB_UTILS_PATH/tool/*
       
-      cd $gitlab_utils_master_path
-      tar cvf $srcPath/gitlab_utils.tar *
+      if [[ -z $CONTAINER_TRIGGER ]]; then
+        $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME
+      else
+        cd $GITLAB_UTILS_PATH
+        tar cvf $srcPath/gitlab_utils.tar *
+      fi
       echo "Load gitlab utils finish"
   artifacts:
     paths:
+      - gitlab_utils
       - gitlab_utils.tar

@@ -1,4 +1,6 @@
-
+variables:
+  ENV_NAME: dev
+  
 stages:
   - .pre
   - build

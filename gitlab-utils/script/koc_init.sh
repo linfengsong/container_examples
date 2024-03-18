@@ -2,8 +2,8 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-oc_access_id="OC_ACCESS_ID"
-oc_access_key="OC_ACCESS_KEY"
+oc_access_id="$OC_ACCESS_ID"
+oc_access_key="$OC_ACCESS_KEY"
 
 parentDir="$(dirname $SCRIPT_LOCATION)"
 export PATH="${parentDir}/tool:$PATH"

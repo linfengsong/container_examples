@@ -6,12 +6,8 @@ test-image-job:
     - |
       echo "start unit tests"
       
-      mkdir -p $GITLAB_UTILS_PATH
-      tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
-      
-      envName=dev
       srcPath=$(pwd)
-      source $GITLAB_UTILS_PATH/script/config.sh $srcPath $envName
+      source $GITLAB_UTILS_PATH/script/init.sh
       $GITLAB_UTILS_PATH/script/test_image.sh $srcPath
 
       echo "finish unit tests"

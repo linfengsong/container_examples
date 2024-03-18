@@ -6,7 +6,7 @@ src_path=$1
 output_path=$2
 
 if [[ ! -z "$NUGET_PACKAGE_READ" ]]; then
-  dotnet_options="--source ${PACKAGE_READ}"
+  dotnet_options="--source ${NUGET_PACKAGE_READ}"
 fi
 publish_path=$output_path/publish
 build_path=$SCRIPT_LOCATION/../build

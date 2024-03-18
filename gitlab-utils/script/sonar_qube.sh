@@ -6,8 +6,6 @@ srcPath=$1
 ciJobName=$2
 ciProjectUrl=$3
 
-export SONAR_HOST_URL="http://lenovo:9000/"
-
 echo srcPath=$srcPath
 echo ciJobName=$ciJobName
 echo ciProjectUrl=$ciProjectUrl

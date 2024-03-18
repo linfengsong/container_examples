@@ -37,11 +37,11 @@ checkSecret()
   fi
   if [[ -z "$liternalSecret" ]]; then
     echo "$name secret does not set in openshift"
-   noSecret=false
+    noSecret=true
   fi
 }
 
-noSecret=true
+noSecret=false
 secrets=`$koc describe secret destsecret 2> /dev/null`
 for userName in ${arrayUserNames[@]}
 do
@@ -50,7 +50,7 @@ done
 
 if $noSecret; then
   echo "$koc create secret generic destsecret --from-literal=username=$OC_ACCESS_ID --from-literal=password=xxxxxxxxxx"
-  $koc create secret generic destsecret --from-literal=username=$OC_ACCESS_ID -"from-literal=password=$OC_ACCESS_KEY"
+  $koc create secret generic destsecret --from-literal=username=$OC_ACCESS_ID "--from-literal=password=$OC_ACCESS_KEY"
   rc=$?
   if [[ $rc -ne 0 ]]; then
     echo "end set secret with $rc"
@@ -61,7 +61,7 @@ else
 fi
 
 
-noSecret=true
+noSecret=false
 secrets=`$koc describe secret $secret_name 2> /dev/null`
 for userName in ${arrayUserNames[@]}
 do

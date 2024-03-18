@@ -2,8 +2,7 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-iniFilePath="$1"
-outputPath="$2"
+outputPath="$1"
 
 buildConfigPath=$outputPath/buildconfig.yaml
 cat $buildConfigPath
@@ -16,8 +15,7 @@ echo buildConfigName=$buildConfigName
 echo buildConfigPath=$buildConfigPath
 cat $buildConfigPath
 
-replaceTemplateTokens $outputPath/Dockerfile.template true
-echo dockeerfile=$outputPath/Dockerfile
+echo dockerfile=$outputPath/Dockerfile
 cat $outputPath/Dockerfile
 
 if [[ -z "$buildConfigName" ]]; then

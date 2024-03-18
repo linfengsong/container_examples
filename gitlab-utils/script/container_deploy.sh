@@ -14,7 +14,7 @@ pwdLen=${#password}
 echo "CERTIFICATE_PWD length: $pwdLen"
 
 if [[ -z $image_type ]]; then
-  export image_type="none"
+  export image_type=none
   addToken image_type
 fi
 
