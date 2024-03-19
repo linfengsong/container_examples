@@ -1,0 +1,82 @@
+Metadata-Version: 1.2
+Name: gitlab_cicd_utils
+Version: 0.1.0
+Summary: Python Boilerplate contains all the boilerplate you need to create a Python package.
+Home-page: https://gitlab.com/linfengsong/gitlab_cicd_utils
+Author: Linfeng Song
+Author-email: linfeng.song@example.com
+License: MIT license
+Description: =============================
+        Gitlab CI/CD Utils Project
+        =============================
+        
+        
+        .. image:: https://gitlab.com/linfengsong/gitlab_cicd_utils/badges/master/pipeline.svg
+            :target: https://gitlab.com/linfengsong/gitlab_cicd_utils/pipelines/
+            :alt: Build Status
+        
+        .. image:: https://img.shields.io/pypi/v/gitlab_cicd_utils.svg
+            :target: https://pypi.org/pypi/gitlab_cicd_utils
+            :alt: PyPI
+        
+        .. image:: https://gitlab.com/linfengsong/gitlab_cicd_utils/badges/master/coverage.svg
+            :target: https://gitlab.com/linfengsong/gitlab_cicd_utils/pipelines/
+            :alt: Coverage
+        
+        
+        .. image:: https://readthedocs.org/projects/gitlab_cicd_utils/badge/?version=latest
+                :target: https://gitlab_cicd_utils.readthedocs.io/en/latest/?badge=latest
+                :alt: Documentation Status
+        
+        
+        .. image:: https://img.shields.io/badge/License-MIT license-blue.svg
+            :target: https://gitlab.com/linfengsong/gitlab_cicd_utils/-/blob/master/LICENSE
+        
+        
+        
+        
+        
+        Python Boilerplate contains all the boilerplate you need to create a Python package.
+        
+        
+        * Free software: MIT license
+        * Documentation: https://gitlab_cicd_utils.readthedocs.io.
+        
+        
+        
+        
+        Features
+        --------
+        
+        * TODO
+        
+        Credits
+        -------
+        
+        This package was created with Cookiecutter_ and the `cookiecutter-pypackage-gitlab`_ project template.
+        
+        .. _Cookiecutter: https://github.com/audreyr/cookiecutter
+        .. _`cookiecutter-pypackage-gitlab`: https://gitlab.com/linfengsong/cookiecutter-pypackage-gitlab
+        
+        
+        ==============
+        Changelog
+        ==============
+        
+        0.1.0 (2020-12-05)
+        ------------------
+        
+        * First release on PyPI.
+        
+Keywords: gitlab_cicd_utils
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.5
