@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/ubi8/openjdk-17
-LABEL "prisma_email_alert"="dsong@yahoo.com"
-ARG APP_JAR=publish/application.jar
-COPY $APP_JAR /deployments/application.jar
+LABEL "prisma_email_alert"="%[prisma_email]%"
+ARG PUBLISH_DIR=/publish
+COPY $PUBLISH_DIR /deployments
 WORKDIR /deployments
 ENTRYPOINT ["java"]
 CMD ["-jar", "/deployments/application.jar"]

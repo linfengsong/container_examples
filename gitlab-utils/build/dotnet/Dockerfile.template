@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
+LABEL "prisma_email_alert"="%[prisma_email]%"
 ARG PUBLISH_DIR=/publish
 WORKDIR /app
 COPY $PUBLISH_DIR .

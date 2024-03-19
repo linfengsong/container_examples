@@ -6,6 +6,7 @@ image:
   name: %[image_name]%
   tag: %[image_tag]%
   pullPolicy: %[image_pullPolicy]%
+  type: %[image_type]%
 
 pod:
   cpu:
@@ -23,12 +24,12 @@ service:
 
 route:
   deploy: true
-  domain: "%[domain]%"
+  domain: "%[cluster_name]%.apaas4.example.com"
 
 certs:
   deploy: true
-  cluster: "%[cluster]%"
-  hostname: "%[cert_hostname]%"
+  cluster: "%[cluster_name]%-%[datacenter]%"
+  hostname: "%[cluster_name]%-%[datacenter]%.apaas4"
   itsi: "%[itsi]%"
   navigatorId: "%[navigator_id]%"
   projectName: "%[itsi_name]%"
@@ -51,19 +52,19 @@ esaas:
   logsPvcName: %[application_name]%-logs-pvc
   
 liveness:
-  deploy: true
-  path: /
-  #path: /actuator/health/liveness
+  deploy: false
+  path: /actuator/health/liveness
  
 readiness:
-  deploy: true
-  path: /
-  #path: /actuator/health/readiness
-  
-spring:
-  deploy: true
-  
-aspnet:
   deploy: false
+  path: /actuator/health/readiness
+
+aspnet:
   httpUrls: http://+:8443
   httpsUrls: https://+:8443
+  
+envs:
+%%[START:envs]%%
+  - name: '%[NAME]%'
+    value: '%[VALUE]%'
+%%[END]%%

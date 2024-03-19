@@ -27,7 +27,7 @@ spec:
     dockerStrategy:
       dockerfilePath: Dockerfile
       buildArgs:
-%%[START]%%
+%%[START:args]%%
       - name: %[NAME]%
         value: "%[VALUE]%"
 %%[END]%%

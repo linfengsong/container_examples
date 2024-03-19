@@ -25,8 +25,8 @@ fi
 
 current_dir=$(pwd)
 cd $src_path
-echo ./mvnw $MAVEN_OPTS $mavenOptions $mavenGoals
-./mvnw $MAVEN_OPTS $MAVEN_SECURITY_OPTS $mavenOptions $mavenGoals
+echo ./mvnw $mavenOptions $mavenGoals
+./mvnw $MAVEN_SECURITY_OPTS $mavenOptions $mavenGoals
 rc=$?
 
 cd $current_dir

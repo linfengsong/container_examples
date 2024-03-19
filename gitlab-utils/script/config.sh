@@ -43,7 +43,7 @@ if [[ -z "$infraName" ]]; then
   tokenAppend=true
 else
   tempatePath=${SCRIPT_LOCATION}/../infra/container
-  readIniFile envs $srcPath/conf/project_${envName}.ini
+  readIniFile envs $iniFilePath
   replaceTemplateTokens $tempatePath false
   tokenAppend=false
 fi

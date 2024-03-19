@@ -50,7 +50,7 @@ replaceBlock()
   local renameFile=$2
   local invisibleTokenValue="$3"
   
-  hasBlock=$(cat $filePath|grep '%%\[START\]%%' 2>/dev/null||true)
+  hasBlock=$(cat $filePath|grep '%%\[START' 2>/dev/null||true)
   if [[ -z "$hasBlock" ]]; then
     echo "replaceBlock $filePath No Block"
     renameTemplateFile $filePath $renameFile
@@ -58,7 +58,7 @@ replaceBlock()
   fi
   
   echo "replaceBlock $filePath $renameFile $invisibleTokenValue"
-  inBlock=false
+  inBlock="false"
   block=
   rfilePath="${filePath}.tmp"
   if [[ -f "${rfilePath}" ]]; then
@@ -67,11 +67,13 @@ replaceBlock()
   while IFS= read line
   do
     tline=$(echo $line| tr -d ' ')
-    if [[ "$tline" == "%%[START]%%" ]]; then
-      inBlock=true
+    sline=${tline:0:8}
+    eline=${tline:0:9}
+    if [[ "$sline" == "%%[START" ]]; then
+      inBlock="true"
       block=
-    elif [[ "$tline" == "%%[END]%%" ]]; then
-      inBlock=false
+    elif [[ "$eline" == "%%[END]%%" ]]; then
+      inBlock="false"
       for tokenName in "${arrayTokenNames[@]}"
       do
         eval "local tokenValue=\${${tokenName}}"

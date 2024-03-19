@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: "{{ .Values.applicationName }}-map"
 data:
+  {{- if eq .Values.image.type "spring" }}
   application-bcp.yml: |
     {{- if .Values.esaas.deploy }}
     logging:
@@ -61,4 +62,5 @@ data:
         </springProfile>
     
     </configuration>  
+  {{ end }}
   {{ end }}

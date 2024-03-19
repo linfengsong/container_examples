@@ -1,6 +1,6 @@
 apiVersion: v2
 name: %[application_name]%-deployment
-description: A Helm chart for %[application_name]%
+description: A Helm chart for %[application_name]%-deployment
 type: application
 version: 0.0.1
 appVersion: "1.0.0"

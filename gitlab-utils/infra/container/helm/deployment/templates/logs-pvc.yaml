@@ -6,7 +6,7 @@ metadata:
   annotations:
     {{/*
     PVC will not be removed when the Helm release is uninstalled
-    to reduce potential for log data loss
+    to reduce potential for log data loss.
     */}}
     "helm.sh/resource-policy": keep
 spec:

@@ -1,4 +1,4 @@
 --tag %[image_name]%:%[image_tag]%
-%%[START]%%
+%%[START:args]%%
 --build-arg "%[NAME]%=%[VALUE]%"
 %%[END]%%

@@ -41,8 +41,16 @@ spec:
           name: {{ .Values.applicationName }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          {{- if eq .Values.image.type "aspnetapp" }}
+          securityContext:
+            allowPrivilegeEscalation: false
+          {{ end }}
           env:
-            {{- if .Values.spring.deploy }}
+            {{- range .Values.envs }}
+            - name: {{ .name | quote }}
+              value: {{ .value | quote }}
+            {{ end }}
+            {{- if eq .Values.image.type "spring" }}
             - name: JAVA_OPTS
               value: "-Dcom.redhat.fips=false -Djava.security.disableSystemPropertiesFile=true"
             - name: SPRING_PROFILES_ACTIVE
@@ -55,7 +63,7 @@ spec:
                   name: keystore-password-secret
                   key: password-key
             {{ end }}
-            {{- if .Values.aspnet.deploy }}
+            {{- if eq .Values.image.type "aspnet" }}
             - name: ASPNETCORE_ENVIRONMENT
               value: {{ .Values.aspnet.env }}
             - name: ASPNETCORE_URLS
@@ -85,7 +93,7 @@ spec:
               path: {{ .Values.readiness.path }}
               port: {{ .Values.pod.port }}
               scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
-            initialDelaySeconds: 60
+            initialDelaySeconds: 60+
           {{ end }}
           lifecycle:
             preStop:
