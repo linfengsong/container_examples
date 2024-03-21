@@ -1,0 +1,203 @@
+Running with gitlab-runner 16.8.0 (c72a09b6)
+  on lenovo 3nsmAzdd3, system ID: s_65592fec893e
+Preparing the "shell" executor
+00:00
+Using Shell (bash) executor...
+Preparing environment
+00:00
+Running on lenovo...
+Getting source from Git repository
+00:01
+Fetching changes with git depth set to 20...
+Reinitialized existing Git repository in /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/.git/
+Checking out 64ef5e45 as detached HEAD (ref is master)...
+Removing gitlab_utils/
+Removing output/
+Skipping Git submodules setup
+Downloading artifacts
+00:01
+Downloading artifacts for build-image-job (3251)...
+Runtime platform                                    arch=amd64 os=linux pid=3894642 revision=c72a09b6 version=16.8.0
+Downloading artifacts from coordinator... ok        host=lenovo:50080 id=3251 responseStatus=200 OK token=glcbt-64
+Downloading artifacts for load_gitlab_utils_job (3250)...
+Runtime platform                                    arch=amd64 os=linux pid=3894649 revision=c72a09b6 version=16.8.0
+Downloading artifacts from coordinator... ok        host=lenovo:50080 id=3250 responseStatus=200 OK token=glcbt-64
+Executing "step_script" stage of the job script
+00:33
+$ echo "start sonar-qube" # collapsed multi-line command
+start sonar-qube
+srcPath=/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag
+ciJobName=sonar-quebe-job
+ciProjectUrl=http://lenovo:50080/linfeng.song/httpd-swag
+sources=src
+sonar-scanner -Dsonar.projectKey=dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d -Dsonar.projectName=dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d -Dsonar.host.url=http://lenovo:9000/ -Dsonar.links.ci=sonar-quebe-job -Dsonar.links.sonar.links.scm=3 -Dsonar.sources=src -Dsonar.qualitygate.wait=true -Dsonar.token=[MASKED]
+INFO: Scanner configuration file: /opt/sonar-scanner-cli/conf/sonar-scanner.properties
+INFO: Project root configuration file: NONE
+INFO: SonarScanner 5.0.1.3006
+INFO: Java 17.0.7 Eclipse Adoptium (64-bit)
+INFO: Linux 6.5.0-25-generic amd64
+INFO: User cache: /home/gitlab-runner/.sonar/cache
+INFO: Analyzing on SonarQube server 10.4.1.88267
+INFO: Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+INFO: Load global settings
+INFO: Load global settings (done) | time=102ms
+INFO: Server id: 92D88F0A-AY5C4zv2BwNhPjdcULUd
+INFO: User cache: /home/gitlab-runner/.sonar/cache
+WARN: sonar.plugins.downloadOnlyRequired is false, so ALL available plugins will be downloaded
+INFO: Loading all plugins
+INFO: Load plugins index
+INFO: Load plugins index (done) | time=67ms
+INFO: Load/download plugins
+INFO: Load/download plugins (done) | time=187ms
+INFO: Process project properties
+INFO: Process project properties (done) | time=14ms
+INFO: Execute project builders
+INFO: Execute project builders (done) | time=4ms
+INFO: Project key: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag
+INFO: Working dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/.scannerwork
+INFO: Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d'
+INFO: Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d' (done) | time=30ms
+INFO: Load quality profiles
+INFO: Load quality profiles (done) | time=117ms
+INFO: Auto-configuring with CI 'Gitlab CI'
+INFO: Load active rules
+INFO: Load active rules (done) | time=2409ms
+INFO: Load analysis cache
+INFO: Load analysis cache (199 bytes) | time=18ms
+INFO: Preprocessing files...
+INFO: 5 languages detected in 55 preprocessed files
+INFO: 0 files ignored because of scm ignore settings
+INFO: Load project repositories
+INFO: Load project repositories (done) | time=30ms
+INFO: Indexing files...
+INFO: Project configuration:
+INFO:   Excluded sources for coverage: **/*.*
+INFO:   Excluded sources for duplication: **/*.*
+INFO: 33 files indexed
+INFO: Quality profile for css: Sonar way
+INFO: Quality profile for js: Sonar way
+INFO: Quality profile for json: Sonar way
+INFO: Quality profile for web: Sonar way
+INFO: Quality profile for yaml: Sonar way
+INFO: ------------- Run sensors on module dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Load metrics repository
+INFO: Load metrics repository (done) | time=64ms
+INFO: Sensor JaCoCo XML Report Importer [jacoco]
+INFO: 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+INFO: No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+INFO: Sensor JaCoCo XML Report Importer [jacoco] (done) | time=3ms
+INFO: Sensor IaC CloudFormation Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC CloudFormation Sensor [iac] (done) | time=52ms
+INFO: Sensor IaC Kubernetes Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC Kubernetes Sensor [iac] (done) | time=100ms
+INFO: Sensor IaC AzureResourceManager Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC AzureResourceManager Sensor [iac] (done) | time=98ms
+INFO: Sensor JavaScript/TypeScript analysis [javascript]
+INFO: Detected os: Linux arch: amd64 alpine: false. Platform: LINUX_X64
+INFO: Using embedded Node.js runtime
+INFO: Using Node.js executable: '/home/gitlab-runner/.sonar/js/node-runtime/node'.
+INFO: Memory configuration: OS (15808 MB), Node.js (2096 MB).
+INFO: Found 2 tsconfig.json file(s): [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/output/tsconfig.json, /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/gitlab_utils/build/httpd/tsconfig.json]
+INFO: 15 source files to be analyzed
+INFO: Creating TypeScript program
+INFO: TypeScript configuration file /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/output/tsconfig.json
+WARN: Could not find tsconfig.json: /node_modules/@tsconfig/vite-react/tsconfig.json; falling back to an empty configuration.
+WARN: At least one tsconfig.json was not found in the project. Please run 'npm install' for a more complete analysis. Check analysis logs for more details.
+INFO: Creating TypeScript program (done) | time=533ms
+INFO: Starting analysis with current program
+INFO: Analyzed 0 file(s) with current program
+INFO: Creating TypeScript program
+INFO: TypeScript configuration file /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/gitlab_utils/build/httpd/tsconfig.json
+WARN: Could not find tsconfig.json: /node_modules/@tsconfig/vite-react/tsconfig.json; falling back to an empty configuration.
+WARN: At least one tsconfig.json was not found in the project. Please run 'npm install' for a more complete analysis. Check analysis logs for more details.
+INFO: Creating TypeScript program (done) | time=230ms
+INFO: Starting analysis with current program
+INFO: Analyzed 0 file(s) with current program
+INFO: Creating TypeScript program
+INFO: TypeScript configuration file /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/output/tsconfig.node.json
+INFO: Creating TypeScript program (done) | time=194ms
+INFO: Starting analysis with current program
+INFO: Analyzed 0 file(s) with current program
+INFO: Creating TypeScript program
+INFO: TypeScript configuration file /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/httpd-swag/gitlab_utils/build/httpd/tsconfig.node.json
+INFO: Creating TypeScript program (done) | time=170ms
+INFO: Starting analysis with current program
+INFO: Analyzed 0 file(s) with current program
+INFO: Found 15 file(s) not part of any tsconfig.json: they will be analyzed without type information
+INFO: 15/15 source files have been analyzed
+INFO: Hit the cache for 0 out of 15
+INFO: Miss the cache for 15 out of 15: ANALYSIS_MODE_INELIGIBLE [15/15]
+INFO: Sensor JavaScript/TypeScript analysis [javascript] (done) | time=11033ms
+INFO: Sensor JavaScript inside YAML analysis [javascript]
+INFO: No input files found for analysis
+INFO: Hit the cache for 0 out of 0
+INFO: Miss the cache for 0 out of 0
+INFO: Sensor JavaScript inside YAML analysis [javascript] (done) | time=6ms
+INFO: Sensor JavaScript inside HTML analysis [javascript]
+INFO: 3 source files to be analyzed
+INFO: 3/3 source files have been analyzed
+INFO: Hit the cache for 0 out of 3
+INFO: Miss the cache for 3 out of 3: ANALYSIS_MODE_INELIGIBLE [3/3]
+INFO: Sensor JavaScript inside HTML analysis [javascript] (done) | time=1137ms
+INFO: Sensor CSS Rules [javascript]
+INFO: 4 source files to be analyzed
+INFO: 4/4 source files have been analyzed
+INFO: Hit the cache for 0 out of 0
+INFO: Miss the cache for 0 out of 0
+INFO: Sensor CSS Rules [javascript] (done) | time=296ms
+INFO: Sensor CSS Metrics [javascript]
+INFO: Sensor CSS Metrics [javascript] (done) | time=13ms
+INFO: Sensor C# Project Type Information [csharp]
+INFO: Sensor C# Project Type Information [csharp] (done) | time=2ms
+INFO: Sensor C# Analysis Log [csharp]
+INFO: Sensor C# Analysis Log [csharp] (done) | time=35ms
+INFO: Sensor C# Properties [csharp]
+INFO: Sensor C# Properties [csharp] (done) | time=0ms
+INFO: Sensor HTML [web]
+INFO: Sensor HTML [web] (done) | time=97ms
+INFO: Sensor TextAndSecretsSensor [text]
+INFO: 21 source files to be analyzed
+INFO: 21/21 source files have been analyzed
+INFO: Sensor TextAndSecretsSensor [text] (done) | time=1106ms
+INFO: Sensor VB.NET Project Type Information [vbnet]
+INFO: Sensor VB.NET Project Type Information [vbnet] (done) | time=2ms
+INFO: Sensor VB.NET Analysis Log [vbnet]
+INFO: Sensor VB.NET Analysis Log [vbnet] (done) | time=22ms
+INFO: Sensor VB.NET Properties [vbnet]
+INFO: Sensor VB.NET Properties [vbnet] (done) | time=0ms
+INFO: Sensor IaC Docker Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC Docker Sensor [iac] (done) | time=63ms
+INFO: ------------- Run sensors on project
+INFO: Sensor Analysis Warnings import [csharp]
+INFO: Sensor Analysis Warnings import [csharp] (done) | time=1ms
+INFO: Sensor Zero Coverage Sensor
+INFO: Sensor Zero Coverage Sensor (done) | time=0ms
+INFO: SCM Publisher SCM provider for this project is: git
+INFO: SCM Publisher 18 source files to be analyzed
+INFO: SCM Publisher 18/18 source files have been analyzed (done) | time=283ms
+INFO: CPD Executor Calculating CPD for 0 files
+INFO: CPD Executor CPD calculation finished (done) | time=0ms
+INFO: Analysis report generated in 153ms, dir size=274.0 kB
+INFO: Analysis report compressed in 60ms, zip size=74.2 kB
+INFO: Analysis report uploaded in 37ms
+INFO: ------------- Check Quality Gate status
+INFO: Waiting for the analysis report to be processed (max 300s)
+INFO: QUALITY GATE STATUS: PASSED - View details on http://lenovo:9000/dashboard?id=dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Analysis total time: 28.713 s
+INFO: ------------------------------------------------------------------------
+INFO: EXECUTION SUCCESS
+INFO: ------------------------------------------------------------------------
+INFO: Total time: 32.248s
+INFO: Final Memory: 23M/94M
+INFO: ------------------------------------------------------------------------
+finish sonar-qube
+Job succeeded

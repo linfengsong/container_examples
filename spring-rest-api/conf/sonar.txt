@@ -1,0 +1,138 @@
+[INFO] 22:58:03.884 Java 17.0.10 Private Build (64-bit)
+[INFO] 22:58:03.885 Linux 6.5.0-25-generic (amd64)
+[INFO] 22:58:03.934 User cache: /home/gitlab-runner/.sonar/cache
+[INFO] 22:58:04.018 Communicating with SonarQube Server 10.4.1.88267
+[INFO] 22:58:04.072 Default locale: "en_US", source code encoding: "UTF-8"
+[INFO] 22:58:04.905 Load global settings
+[INFO] 22:58:05.032 Load global settings (done) | time=128ms
+[INFO] 22:58:05.038 Server id: 92D88F0A-AY5C4zv2BwNhPjdcULUd
+[INFO] 22:58:05.044 User cache: /home/gitlab-runner/.sonar/cache
+[WARNING] 22:58:05.057 sonar.plugins.downloadOnlyRequired is false, so ALL available plugins will be downloaded
+[INFO] 22:58:05.057 Loading all plugins
+[INFO] 22:58:05.058 Load plugins index
+[INFO] 22:58:05.131 Load plugins index (done) | time=73ms
+[INFO] 22:58:05.131 Load/download plugins
+[INFO] 22:58:05.206 Load/download plugins (done) | time=75ms
+[INFO] 22:58:06.564 Process project properties
+[INFO] 22:58:06.596 Process project properties (done) | time=32ms
+[INFO] 22:58:06.607 Execute project builders
+[INFO] 22:58:06.614 Execute project builders (done) | time=7ms
+[INFO] 22:58:06.627 Project key: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+[INFO] 22:58:06.631 Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/spring-rest-api
+[INFO] 22:58:06.634 Working dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/spring-rest-api/target/sonar
+[INFO] 22:58:06.672 Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d'
+[INFO] 22:58:06.720 Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d' (done) | time=48ms
+[INFO] 22:58:06.987 Load quality profiles
+[INFO] 22:58:07.114 Load quality profiles (done) | time=128ms
+[INFO] 22:58:07.130 Auto-configuring with CI 'Gitlab CI'
+[INFO] 22:58:07.195 Load active rules
+[INFO] 22:58:10.580 Load active rules (done) | time=3384ms
+[INFO] 22:58:10.588 Load analysis cache
+[INFO] 22:58:10.610 Load analysis cache (544 bytes) | time=22ms
+[INFO] 22:58:10.742 Preprocessing files...
+[INFO] 22:58:11.373 2 languages detected in 9 preprocessed files
+[INFO] 22:58:11.373 0 files ignored because of scm ignore settings
+[INFO] 22:58:11.519 Load project repositories
+[INFO] 22:58:11.549 Load project repositories (done) | time=30ms
+[INFO] 22:58:11.658 Indexing files...
+[INFO] 22:58:11.664 Project configuration:
+[INFO] 22:58:11.666   Excluded sources for coverage: **/*.*
+[INFO] 22:58:11.668   Excluded sources for duplication: **/*.*
+[INFO] 22:58:11.705 9 files indexed
+[INFO] 22:58:11.707 Quality profile for java: Sonar way
+[INFO] 22:58:11.707 Quality profile for xml: Sonar way
+[INFO] 22:58:11.707 ------------- Run sensors on module dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+[INFO] 22:58:11.980 Load metrics repository
+[INFO] 22:58:12.003 Load metrics repository (done) | time=23ms
+[INFO] 22:58:14.619 Sensor JavaSensor [java]
+[INFO] 22:58:14.635 Configured Java source version (sonar.java.source): 17, preview features enabled (sonar.java.enablePreview): false
+[INFO] 22:58:14.688 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] 22:58:14.694 Using ECJ batch to parse 7 Main java source files with batch size 207 KB.
+[INFO] 22:58:15.121 Starting batch processing.
+[INFO] 22:58:15.688 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 22:58:16.756 100% analyzed
+[INFO] 22:58:16.757 Batch processing: Done.
+[INFO] 22:58:16.758 Did not optimize analysis for any files, performed a full analysis for all 7 files.
+[INFO] 22:58:16.762 Using ECJ batch to parse 1 Test java source files with batch size 207 KB.
+[INFO] 22:58:16.769 Starting batch processing.
+[INFO] 22:58:16.945 100% analyzed
+[INFO] 22:58:16.946 Batch processing: Done.
+[INFO] 22:58:16.946 Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] 22:58:16.947 No "Generated" source files to scan.
+[INFO] 22:58:16.947 Sensor JavaSensor [java] (done) | time=2328ms
+[INFO] 22:58:16.947 Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 22:58:16.949 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] 22:58:16.950 No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] 22:58:16.950 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=3ms
+[INFO] 22:58:16.950 Sensor CSS Rules [javascript]
+[INFO] 22:58:16.951 No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] 22:58:16.952 Sensor CSS Rules [javascript] (done) | time=1ms
+[INFO] 22:58:16.952 Sensor C# Project Type Information [csharp]
+[INFO] 22:58:16.953 Sensor C# Project Type Information [csharp] (done) | time=1ms
+[INFO] 22:58:16.953 Sensor C# Analysis Log [csharp]
+[INFO] 22:58:16.971 Sensor C# Analysis Log [csharp] (done) | time=18ms
+[INFO] 22:58:16.971 Sensor C# Properties [csharp]
+[INFO] 22:58:16.971 Sensor C# Properties [csharp] (done) | time=0ms
+[INFO] 22:58:16.972 Sensor SurefireSensor [java]
+[INFO] 22:58:16.972 parsing [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/spring-rest-api/target/surefire-reports]
+[INFO] 22:58:16.973 Sensor SurefireSensor [java] (done) | time=2ms
+[INFO] 22:58:16.974 Sensor HTML [web]
+[INFO] 22:58:16.977 Sensor HTML [web] (done) | time=3ms
+[INFO] 22:58:16.978 Sensor XML Sensor [xml]
+[INFO] 22:58:16.985 1 source file to be analyzed
+[INFO] 22:58:17.325 1/1 source file has been analyzed
+[INFO] 22:58:17.327 Sensor XML Sensor [xml] (done) | time=350ms
+[INFO] 22:58:17.329 Sensor TextAndSecretsSensor [text]
+[INFO] 22:58:18.066 9 source files to be analyzed
+[INFO] 22:58:18.226 9/9 source files have been analyzed
+[INFO] 22:58:18.228 Sensor TextAndSecretsSensor [text] (done) | time=899ms
+[INFO] 22:58:18.230 Sensor VB.NET Project Type Information [vbnet]
+[INFO] 22:58:18.233 Sensor VB.NET Project Type Information [vbnet] (done) | time=3ms
+[INFO] 22:58:18.235 Sensor VB.NET Analysis Log [vbnet]
+[INFO] 22:58:18.256 Sensor VB.NET Analysis Log [vbnet] (done) | time=21ms
+[INFO] 22:58:18.258 Sensor VB.NET Properties [vbnet]
+[INFO] 22:58:18.260 Sensor VB.NET Properties [vbnet] (done) | time=2ms
+[INFO] 22:58:18.262 Sensor IaC Docker Sensor [iac]
+[INFO] 22:58:18.283 0 source files to be analyzed
+[INFO] 22:58:18.376 0/0 source files have been analyzed
+[INFO] 22:58:18.378 Sensor IaC Docker Sensor [iac] (done) | time=116ms
+[INFO] 22:58:18.384 ------------- Run sensors on project
+[INFO] 22:58:18.496 Sensor Analysis Warnings import [csharp]
+[INFO] 22:58:18.497 Sensor Analysis Warnings import [csharp] (done) | time=1ms
+[INFO] 22:58:18.498 Sensor Zero Coverage Sensor
+[INFO] 22:58:18.498 Sensor Zero Coverage Sensor (done) | time=0ms
+[INFO] 22:58:18.498 Sensor Java CPD Block Indexer
+[INFO] 22:58:18.499 Sensor Java CPD Block Indexer (done) | time=1ms
+[INFO] 22:58:18.502 SCM Publisher SCM provider for this project is: git
+[INFO] 22:58:18.503 SCM Publisher 9 source files to be analyzed
+[WARNING] 22:58:18.507 Shallow clone detected, no blame information will be provided. You can convert to non-shallow with 'git fetch --unshallow'.
+[INFO] 22:58:18.520 SCM Publisher 0/9 source files have been analyzed (done) | time=8ms
+[WARNING] 22:58:18.520 Missing blame information for the following files:
+[WARNING] 22:58:18.520   * src/main/java/com/example/restapi/GreetingRequest.java
+[WARNING] 22:58:18.521   * src/main/java/com/example/restapi/GreetingController.java
+[WARNING] 22:58:18.521   * src/main/java/com/example/restapi/PositionRequest.java
+[WARNING] 22:58:18.521   * src/main/java/com/example/restapi/PositionResponse.java
+[WARNING] 22:58:18.521   * src/main/java/com/example/restapi/GreetingResponse.java
+[WARNING] 22:58:18.521   * src/main/java/com/example/restapi/RestApiApplication.java
+[WARNING] 22:58:18.522   * pom.xml
+[WARNING] 22:58:18.522   * src/test/java/com/example/restapi/RestApiApplicationTests.java
+[WARNING] 22:58:18.522   * src/main/java/com/example/restapi/PositionController.java
+[WARNING] 22:58:18.522 This may lead to missing/broken features in SonarQube
+[INFO] 22:58:18.524 CPD Executor Calculating CPD for 0 files
+[INFO] 22:58:18.525 CPD Executor CPD calculation finished (done) | time=0ms
+[INFO] 22:58:18.656 Analysis report generated in 115ms, dir size=212.9 kB
+[INFO] 22:58:18.697 Analysis report compressed in 40ms, zip size=34.1 kB
+[INFO] 22:58:18.724 Analysis report uploaded in 27ms
+[INFO] 22:58:18.727 ------------- Check Quality Gate status
+[INFO] 22:58:18.727 Waiting for the analysis report to be processed (max 300s)
+[INFO] 22:58:23.788 QUALITY GATE STATUS: PASSED - View details on http://lenovo:9000/dashboard?id=dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+[INFO] 22:58:23.800 Analysis total time: 18.414 s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 02:28 min
+[INFO] Finished at: 2024-03-20T22:58:23-04:00
+[INFO] ------------------------------------------------------------------------
+finish sonar-qube
+Job succeeded
+Job succeeded

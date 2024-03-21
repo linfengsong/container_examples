@@ -1,0 +1,348 @@
+Running with gitlab-runner 16.8.0 (c72a09b6)
+  on lenovo 3nsmAzdd3, system ID: s_65592fec893e
+Preparing the "shell" executor
+00:00
+Using Shell (bash) executor...
+Preparing environment
+00:00
+Running on lenovo...
+Getting source from Git repository
+00:01
+Fetching changes with git depth set to 20...
+Reinitialized existing Git repository in /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/.git/
+Checking out 9e03d1c9 as detached HEAD (ref is master)...
+Removing gitlab_utils/
+Removing output/
+Removing src/MyApplication.hellohelm/obj/
+Removing tests/MyApplication.hellohelm.UnitTests/bin/
+Removing tests/MyApplication.hellohelm.UnitTests/obj/
+Skipping Git submodules setup
+Downloading artifacts
+00:01
+Downloading artifacts for load_gitlab_utils_job (3268)...
+Runtime platform                                    arch=amd64 os=linux pid=3980847 revision=c72a09b6 version=16.8.0
+Downloading artifacts from coordinator... ok        host=lenovo:50080 id=3268 responseStatus=200 OK token=glcbt-64
+Downloading artifacts for build-image-job (3269)...
+Runtime platform                                    arch=amd64 os=linux pid=3980854 revision=c72a09b6 version=16.8.0
+Downloading artifacts from coordinator... ok        host=lenovo:50080 id=3269 responseStatus=200 OK token=glcbt-64
+Executing "step_script" stage of the job script
+00:31
+$ echo "start sonar-qube" # collapsed multi-line command
+start sonar-qube
+srcPath=/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api
+ciJobName=sonar-quebe-job
+ciProjectUrl=http://lenovo:50080/linfeng.song/dotnet-rest-api
+.NET SDK (reflecting any global.json):
+ Version:   6.0.127
+ Commit:    d761c25068
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  22.04
+ OS Platform: Linux
+ RID:         ubuntu.22.04-x64
+ Base Path:   /usr/lib/dotnet/sdk/6.0.127/
+global.json file:
+  Not found
+Host:
+  Version:      6.0.27
+  Architecture: x64
+  Commit:       80de56dadb
+.NET SDKs installed:
+  6.0.127 [/usr/lib/dotnet/sdk]
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 6.0.27 [/usr/lib/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 6.0.27 [/usr/lib/dotnet/shared/Microsoft.NETCore.App]
+Download .NET:
+  https://aka.ms/dotnet-download
+Learn about .NET Runtimes and SDKs:
+  https://aka.ms/dotnet/runtimes-sdk-info
+dotnet tool install --global dotnet-sonarscanner
+Tool 'dotnet-sonarscanner' is already installed.
+dotnet sonarscanner begin /k:dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d /n:dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d /d:sonar.host.url=http://lenovo:9000/ /d:sonar.links.ci=sonar-quebe-job /d:sonar.links.sonar.links.scm=http://lenovo:50080/linfeng.song/dotnet-rest-api /d:sonar.qualitygate.wait=true /d:sonar.token=[MASKED]
+SonarScanner for MSBuild 6.2
+Using the .NET Core version of the Scanner for MSBuild
+Pre-processing started.
+Preparing working directories...
+07:57:36.023  Updating build integration targets...
+07:57:36.19  Fetching analysis configuration settings...
+07:57:36.872  Provisioning analyzer assemblies for cs...
+07:57:36.874  Installing required Roslyn analyzers...
+07:57:36.875  Processing plugin: csharp version 9.19.0.84025
+07:57:36.965  Processing plugin: vbnet version 9.19.0.84025
+07:57:37.194  Provisioning analyzer assemblies for vbnet...
+07:57:37.194  Installing required Roslyn analyzers...
+07:57:37.194  Processing plugin: csharp version 9.19.0.84025
+07:57:37.194  Processing plugin: vbnet version 9.19.0.84025
+07:57:37.207  Incremental PR analysis: Base branch parameter was not provided.
+07:57:37.208  Cache data is empty. A full analysis will be performed.
+07:57:37.255  Pre-processing succeeded.
+dotnet build
+Microsoft (R) Build Engine version 17.0.1+b177f8fa7 for .NET
+Copyright (C) Microsoft Corporation. All rights reserved.
+  Determining projects to restore...
+  Restored /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj (in 492 ms).
+  Restored /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj (in 492 ms).
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(9,1): warning SA1507: Code should not contain multiple blank lines in a row [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(5,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(8,1): warning SA1505: An opening brace should not be followed by a blank line. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(7,25): warning SA1300: Element 'hellohelm' should begin with an uppercase letter [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(4,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(20,5): warning SA1508: A closing brace should not be preceded by a blank line. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+CSC : warning SA0001: XML comment analysis is disabled due to project configuration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+  MyApplication.hellohelm.UnitTests -> /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/bin/Debug/net6.0/MyApplication.hellohelm.UnitTests.dll
+  Sonar: (MyApplication.hellohelm.UnitTests.csproj) Project processed successfully
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(41,1): warning S125: Remove this commented out code. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(35,1): warning SA1507: Code should not contain multiple blank lines in a row [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(44,1): warning SA1512: Single-line comments should not be followed by blank line [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(40,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(41,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(44,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+CSC : warning SA1516: Elements should be separated by blank line [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(5,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1208: Using directive for 'System.Net' should appear before directive for 'Serilog' [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1208: Using directive for 'System.Net' should appear before directive for 'Serilog' [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+CSC : warning SA0001: XML comment analysis is disabled due to project configuration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+  MyApplication.hellohelm -> /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/bin/Debug/net6.0/MyApplication.hellohelm.dll
+  Sonar: (MyApplication.hellohelm.csproj) Project processed successfully
+Build succeeded.
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(9,1): warning SA1507: Code should not contain multiple blank lines in a row [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(5,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(8,1): warning SA1505: An opening brace should not be followed by a blank line. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(7,25): warning SA1300: Element 'hellohelm' should begin with an uppercase letter [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/Usings.cs(4,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs(20,5): warning SA1508: A closing brace should not be preceded by a blank line. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+CSC : warning SA0001: XML comment analysis is disabled due to project configuration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests/MyApplication.hellohelm.UnitTests.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(41,1): warning S125: Remove this commented out code. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(1,1): warning SA1633: The file header is missing or not located at the top of the file. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(35,1): warning SA1507: Code should not contain multiple blank lines in a row [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(44,1): warning SA1512: Single-line comments should not be followed by blank line [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(1,1): warning SA1517: Code should not contain blank lines at start of file [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(40,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(41,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(44,1): warning SA1005: Single line comment should begin with a space. [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+CSC : warning SA1516: Elements should be separated by blank line [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(5,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1200: Using directive should appear within a namespace declaration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1208: Using directive for 'System.Net' should appear before directive for 'Serilog' [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/Program.cs(6,1): warning SA1208: Using directive for 'System.Net' should appear before directive for 'Serilog' [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+CSC : warning SA0001: XML comment analysis is disabled due to project configuration [/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm/MyApplication.hellohelm.csproj]
+    25 Warning(s)
+    0 Error(s)
+Time Elapsed 00:00:12.21
+dotnet sonarscanner end /d:sonar.token=[MASKED]
+SonarScanner for MSBuild 6.2
+Using the .NET Core version of the Scanner for MSBuild
+Post-processing started.
+Calling the SonarScanner CLI...
+INFO: Scanner configuration file: /home/gitlab-runner/.dotnet/tools/.store/dotnet-sonarscanner/6.2.0/dotnet-sonarscanner/6.2.0/tools/netcoreapp3.1/any/sonar-scanner-5.0.1.3006/conf/sonar-scanner.properties
+INFO: Project root configuration file: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/.sonarqube/out/sonar-project.properties
+INFO: SonarScanner 5.0.1.3006
+INFO: Java 17.0.10 Private Build (64-bit)
+INFO: Linux 6.5.0-25-generic amd64
+INFO: User cache: /home/gitlab-runner/.sonar/cache
+INFO: Analyzing on SonarQube server 10.4.1.88267
+INFO: Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+INFO: Load global settings
+INFO: Load global settings (done) | time=83ms
+INFO: Server id: 92D88F0A-AY5C4zv2BwNhPjdcULUd
+INFO: User cache: /home/gitlab-runner/.sonar/cache
+WARN: sonar.plugins.downloadOnlyRequired is false, so ALL available plugins will be downloaded
+INFO: Loading all plugins
+INFO: Load plugins index
+INFO: Load plugins index (done) | time=59ms
+INFO: Load/download plugins
+INFO: Load/download plugins (done) | time=195ms
+INFO: Process project properties
+INFO: Process project properties (done) | time=18ms
+INFO: Execute project builders
+INFO: Execute project builders (done) | time=59ms
+INFO: Project key: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api
+INFO: Working dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/.sonarqube/out/.sonar
+INFO: Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d'
+INFO: Load project settings for component key: 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d' (done) | time=25ms
+INFO: Load quality profiles
+INFO: Load quality profiles (done) | time=56ms
+INFO: Auto-configuring with CI 'Gitlab CI'
+INFO: Load active rules
+INFO: Load active rules (done) | time=2226ms
+INFO: Load analysis cache
+INFO: Load analysis cache (544 bytes) | time=23ms
+INFO: Preprocessing files...
+INFO: 2 languages detected in 17 preprocessed files
+INFO: 0 files ignored because of scm ignore settings
+INFO: Load project repositories
+INFO: Load project repositories (done) | time=28ms
+INFO: Indexing files...
+INFO: Project configuration:
+INFO:   Excluded sources for coverage: **/*.*
+INFO:   Excluded sources for duplication: **/*.*
+INFO: Indexing files of module 'MyApplication.hellohelm'
+INFO:   Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/src/MyApplication.hellohelm
+INFO:   Source paths: Program.cs, obj/Debug/net6.0/MyApplication.hellohelm.GlobalUs...
+INFO:   Excluded sources for coverage: **/*.*
+INFO:   Excluded sources for duplication: **/*.*
+INFO: Indexing files of module 'MyApplication.hellohelm.UnitTests'
+INFO:   Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/tests/MyApplication.hellohelm.UnitTests
+INFO:   Test paths: UnitTest1.cs, Usings.cs, obj/Debug/net6.0/MyApplication.hellohe...
+INFO:   Excluded sources for coverage: **/*.*
+INFO:   Excluded sources for duplication: **/*.*
+INFO: Indexing files of module 'dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d'
+INFO:   Base dir: /home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api
+INFO:   Excluded sources for coverage: **/*.*
+INFO:   Excluded sources for duplication: **/*.*
+INFO: 10 files indexed
+INFO: Quality profile for cs: Sonar way
+INFO: Quality profile for json: Sonar way
+INFO: ------------- Run sensors on module MyApplication.hellohelm
+INFO: Load metrics repository
+INFO: Load metrics repository (done) | time=19ms
+INFO: Sensor JaCoCo XML Report Importer [jacoco]
+INFO: 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+INFO: No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+INFO: Sensor JaCoCo XML Report Importer [jacoco] (done) | time=3ms
+INFO: Sensor IaC CloudFormation Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC CloudFormation Sensor [iac] (done) | time=50ms
+INFO: Sensor IaC AzureResourceManager Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC AzureResourceManager Sensor [iac] (done) | time=153ms
+INFO: Sensor CSS Rules [javascript]
+INFO: No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+INFO: Sensor CSS Rules [javascript] (done) | time=1ms
+INFO: Sensor C# Project Type Information [csharp]
+INFO: Sensor C# Project Type Information [csharp] (done) | time=6ms
+INFO: Sensor C# Analysis Log [csharp]
+INFO: Roslyn version: 4.0.0.0
+INFO: Language version: CSharp10
+INFO: Concurrent execution: enabled
+INFO: Sensor C# Analysis Log [csharp] (done) | time=9ms
+INFO: Sensor C# Properties [csharp]
+INFO: Sensor C# Properties [csharp] (done) | time=3ms
+INFO: Sensor HTML [web]
+INFO: Sensor HTML [web] (done) | time=4ms
+INFO: Sensor TextAndSecretsSensor [text]
+INFO: 5 source files to be analyzed
+INFO: 5/5 source files have been analyzed
+INFO: Sensor TextAndSecretsSensor [text] (done) | time=642ms
+INFO: Sensor VB.NET Project Type Information [vbnet]
+INFO: Sensor VB.NET Project Type Information [vbnet] (done) | time=1ms
+INFO: Sensor VB.NET Analysis Log [vbnet]
+INFO: Sensor VB.NET Analysis Log [vbnet] (done) | time=17ms
+INFO: Sensor VB.NET Properties [vbnet]
+INFO: Sensor VB.NET Properties [vbnet] (done) | time=1ms
+INFO: Sensor IaC Docker Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC Docker Sensor [iac] (done) | time=44ms
+INFO: ------------- Run sensors on module MyApplication.hellohelm.UnitTests
+INFO: Sensor JaCoCo XML Report Importer [jacoco]
+INFO: 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+INFO: No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+INFO: Sensor JaCoCo XML Report Importer [jacoco] (done) | time=0ms
+INFO: Sensor CSS Rules [javascript]
+INFO: No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+INFO: Sensor CSS Rules [javascript] (done) | time=0ms
+INFO: Sensor C# Project Type Information [csharp]
+INFO: Sensor C# Project Type Information [csharp] (done) | time=1ms
+INFO: Sensor C# Analysis Log [csharp]
+INFO: Roslyn version: 4.0.0.0
+INFO: Language version: CSharp10
+INFO: Concurrent execution: enabled
+INFO: Sensor C# Analysis Log [csharp] (done) | time=1ms
+INFO: Sensor C# Properties [csharp]
+INFO: Sensor C# Properties [csharp] (done) | time=0ms
+INFO: Sensor TextAndSecretsSensor [text]
+INFO: 2 source files to be analyzed
+INFO: 2/2 source files have been analyzed
+INFO: Sensor TextAndSecretsSensor [text] (done) | time=78ms
+INFO: Sensor VB.NET Project Type Information [vbnet]
+INFO: Sensor VB.NET Project Type Information [vbnet] (done) | time=0ms
+INFO: Sensor VB.NET Analysis Log [vbnet]
+INFO: Sensor VB.NET Analysis Log [vbnet] (done) | time=0ms
+INFO: Sensor VB.NET Properties [vbnet]
+INFO: Sensor VB.NET Properties [vbnet] (done) | time=0ms
+INFO: Sensor IaC Docker Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC Docker Sensor [iac] (done) | time=10ms
+INFO: ------------- Run sensors on module dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Sensor JaCoCo XML Report Importer [jacoco]
+INFO: 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+INFO: No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+INFO: Sensor JaCoCo XML Report Importer [jacoco] (done) | time=2ms
+INFO: Sensor CSS Rules [javascript]
+INFO: No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+INFO: Sensor CSS Rules [javascript] (done) | time=0ms
+INFO: Sensor C# Project Type Information [csharp]
+INFO: Sensor C# Project Type Information [csharp] (done) | time=1ms
+INFO: Sensor C# Analysis Log [csharp]
+INFO: Sensor C# Analysis Log [csharp] (done) | time=0ms
+INFO: Sensor C# Properties [csharp]
+INFO: Sensor C# Properties [csharp] (done) | time=0ms
+INFO: Sensor TextAndSecretsSensor [text]
+INFO: Sensor TextAndSecretsSensor [text] (done) | time=97ms
+INFO: Sensor VB.NET Project Type Information [vbnet]
+INFO: Sensor VB.NET Project Type Information [vbnet] (done) | time=0ms
+INFO: Sensor VB.NET Analysis Log [vbnet]
+INFO: Sensor VB.NET Analysis Log [vbnet] (done) | time=0ms
+INFO: Sensor VB.NET Properties [vbnet]
+INFO: Sensor VB.NET Properties [vbnet] (done) | time=0ms
+INFO: Sensor IaC Docker Sensor [iac]
+INFO: 0 source files to be analyzed
+INFO: 0/0 source files have been analyzed
+INFO: Sensor IaC Docker Sensor [iac] (done) | time=12ms
+INFO: ------------- Run sensors on project
+INFO: Sensor C# [csharp]
+INFO: Importing results from 6 proto files in '/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/.sonarqube/out/1/output-cs'
+INFO: Importing results from 6 proto files in '/home/gitlab-runner/builds/3nsmAzdd3/0/linfeng.song/dotnet-rest-api/.sonarqube/out/0/output-cs'
+INFO: Importing 2 Roslyn reports
+INFO: Found 2 MSBuild C# projects: 1 MAIN project. 1 TEST project.
+INFO: Sensor C# [csharp] (done) | time=223ms
+INFO: Sensor Analysis Warnings import [csharp]
+INFO: Sensor Analysis Warnings import [csharp] (done) | time=7ms
+INFO: Sensor C# File Caching Sensor [csharp]
+INFO: Sensor C# File Caching Sensor [csharp] (done) | time=5ms
+INFO: Sensor Zero Coverage Sensor
+INFO: Sensor Zero Coverage Sensor (done) | time=1ms
+INFO: SCM Publisher SCM provider for this project is: git
+INFO: SCM Publisher 3 source files to be analyzed
+WARN: Shallow clone detected, no blame information will be provided. You can convert to non-shallow with 'git fetch --unshallow'.
+INFO: SCM Publisher 0/3 source files have been analyzed (done) | time=7ms
+WARN: Missing blame information for the following files:
+WARN:   * tests/MyApplication.hellohelm.UnitTests/Usings.cs
+WARN:   * tests/MyApplication.hellohelm.UnitTests/UnitTest1.cs
+WARN:   * src/MyApplication.hellohelm/Program.cs
+WARN: This may lead to missing/broken features in SonarQube
+INFO: CPD Executor Calculating CPD for 0 files
+INFO: CPD Executor CPD calculation finished (done) | time=0ms
+INFO: Analysis report generated in 136ms, dir size=202.2 kB
+INFO: Analysis report compressed in 29ms, zip size=25.1 kB
+INFO: Analysis report uploaded in 70ms
+INFO: ------------- Check Quality Gate status
+INFO: Waiting for the analysis report to be processed (max 300s)
+INFO: QUALITY GATE STATUS: PASSED - View details on http://lenovo:9000/dashboard?id=dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+INFO: Analysis total time: 13.683 s
+INFO: ------------------------------------------------------------------------
+INFO: EXECUTION SUCCESS
+INFO: ------------------------------------------------------------------------
+INFO: Total time: 15.337s
+INFO: Final Memory: 22M/94M
+INFO: ------------------------------------------------------------------------
+The SonarScanner CLI has finished
+07:58:06.249  Post-processing succeeded.
+finish sonar-qube
+Job succeeded
