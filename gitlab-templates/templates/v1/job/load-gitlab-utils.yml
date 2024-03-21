@@ -22,13 +22,23 @@ load_gitlab_utils_job:
       chmod 755 $GITLAB_UTILS_PATH/tool/*
       
       if [[ -z $CONTAINER_TRIGGER ]]; then
+        echo $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME
         $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME
       else
         cd $GITLAB_UTILS_PATH
+        echo tar cvf $srcPath/gitlab_utils.tar *
         tar cvf $srcPath/gitlab_utils.tar *
+        cd $srcPath
+        echo rm -r -f $srcPath/$GITLAB_UTILS_PATH/*
+        rm -r -f $srcPath/$GITLAB_UTILS_PATH/*
+        echo ls -l gitlab_utils.tar
+        ls -l gitlab_utils.tar
       fi
+      echo ls -l gitlab_utils
+      ls -l gitlab_utils
       echo "Load gitlab utils finish"
   artifacts:
     paths:
       - gitlab_utils
       - gitlab_utils.tar
+    expire_in: 1 day

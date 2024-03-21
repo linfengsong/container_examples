@@ -1,8 +1,8 @@
 #!/bin/bash
-export application_name="%[application_name]%"
+export application_name="%[cd.application_name]%"
 export openshift_api_url="%[openshift_api_url]%"
 #export NUGET_PACKAGE_READ="https://nexus.example.com/nexus/service/local/nuget/example-nuget-read/"
 export SONAR_HOST_URL="http://lenovo:9000/"
 export DOTNET_SONERSCANNER_VERIONS=6.2.0
-export sonar_project_key="%[sonar_project_key]%"
-export image_name="%[image_name]%"
+export sonar_project_key="%[ci.sonar_project_key]%"
+export image_name="%[ci.image_name]%"

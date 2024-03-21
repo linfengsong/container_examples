@@ -8,8 +8,15 @@ oc_access_key="$OC_ACCESS_KEY"
 parentDir="$(dirname $SCRIPT_LOCATION)"
 export PATH="${parentDir}/tool:$PATH"
 
-oc_path=
-if [[ -f "${parentDir}/tool/oc" ]]; then
+oc_path=$(command -v oc)
+if [[ -z "$oc_path" ]]; then
+  echo "oc command does not find"
+  if [[ -f "${parentDir}/tool/oc" ]]; then
+    oc_path="${parentDir}/tool/oc"
+  fi
+fi
+if [[ ! -z "$oc_path" ]]; then
+  echo "oc_path: $oc_path"
   echo openshift_api_url=$openshift_api_url
   echo namespace=$namespace
   oc_pwd=`echo $oc_access_key|base64 -d`

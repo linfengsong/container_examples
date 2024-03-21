@@ -1,0 +1,8 @@
+ARG DOCKER_IMAGE_PATH
+ARG PRISMA_EMAIL
+FROM $DOCKER_IMAGE_PATH
+LABEL "prisma_email_alert"="$PRISMA_EMAIL"
+ARG PUBLISH_DIR=/publish
+WORKDIR /app
+COPY $PUBLISH_DIR .
+ENTRYPOINT ["dotnet", "/app/aspnetapp.dll"]

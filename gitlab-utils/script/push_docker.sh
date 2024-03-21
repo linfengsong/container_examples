@@ -4,7 +4,7 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 outputPath="$1"
 
-buildConfigPath=$outputPath/docker_build_options
+buildConfigPath=$outputPath/docker_build
 cat $buildConfigPath
 
 echo dockerfile=$outputPath/Dockerfile

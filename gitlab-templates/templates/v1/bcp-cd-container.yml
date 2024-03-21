@@ -2,7 +2,6 @@ variables:
   CD_BUILD_TYPE: container
   CONTAINER_NAME: change_me
   CONTAINER_TRIGGER: ALL
-  ENV_NAME: dev
 
 stages:
   - .pre

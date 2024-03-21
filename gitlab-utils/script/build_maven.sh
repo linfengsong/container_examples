@@ -11,7 +11,7 @@ build_path=$SCRIPT_LOCATION/../build
 $SCRIPT_LOCATION/maven_launch.sh "-Dmaven.test.skip=true" "clean package" "$src_path"
 
 mkdir -p ${publish_path}
-cp -R $build_path/common/* $output_path/
+cp $build_path/* $output_path/
 cp -R $build_path/jar/* $output_path/
 
 ls -l target

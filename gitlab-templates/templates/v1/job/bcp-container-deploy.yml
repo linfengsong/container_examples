@@ -1,5 +1,6 @@
 
 .bcp_container_deploy_job:
+  image: $BUILD_IMAGE_UBI8PLUGIS
   script:
   - |
     echo "start deploy bcp container: $CONTAINER_NAME"

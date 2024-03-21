@@ -1,5 +1,6 @@
     
 .bcp_container_reload_job:
+  image: $BUILD_IMAGE_UBI8PLUGIS
   script:
   - |
     echo "start reload bcp container: $CONTAINER_NAME"

@@ -9,6 +9,6 @@ publish_path=$output_path/src
 build_path=$SCRIPT_LOCATION/../build
             
 mkdir -p ${publish_path}
-cp -R $build_path/common/* $output_path/
+cp $build_path/* $output_path/
 cp -R $build_path/httpd/* $output_path/
 cp -R src/* $publish_path/

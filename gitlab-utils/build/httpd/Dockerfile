@@ -1,5 +1,7 @@
-FROM httpd:2.4
-LABEL "prisma_email_alert"="%[prisma_email]%"
+ARG DOCKER_IMAGE_PATH
+ARG PRISMA_EMAIL
+FROM $DOCKER_IMAGE_PATH
+LABEL "prisma_email_alert"="$PRISMA_EMAIL"
 
 RUN apt-get update; apt-get install -y --no-install-recommends wget tar unzip curl vim tar
     
@@ -9,7 +11,7 @@ WORKDIR /var/www/html/
 
 RUN rm /etc/httpd/conf.d/ssl.conf &&  \
     ls -la /etc/httpd/conf.d/ &&  \
-    ls -la /etc/httpd/logs && \
+    ls -la /etc/httpd/logs/ && \
     chmod -R 775 /etc/httpd/conf/httpd.conf && \
     chmod -R 775 /etc/httpd/logs && \
     chmod -R 775 /run/httpd && \

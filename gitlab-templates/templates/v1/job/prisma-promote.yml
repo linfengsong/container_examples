@@ -1,6 +1,7 @@
 
 promote-job:
   stage: promote
+  image: $BUILD_IMAGE_UBI8PLUGIS
   script: 
   - |
     echo "start prisma-promote"

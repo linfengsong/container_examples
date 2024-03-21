@@ -38,7 +38,7 @@ echo dotnet build /nodereuse:false ${SOLUTION_NAME}.sln $dotnet_options --config
 dotnet build /nodereuse:false ${SOLUTION_NAME}.sln $dotnet_options --configuration ${CONFIGURATION_TYPE}
 
 mkdir -p ${publish_path}
-cp -R $build_path/common/* $output_path/
+cp $build_path/* $output_path/
 cp -R $build_path/dotnet/* $output_path/
 cp -R src/${SOLUTION_NAME}.${PROJECT_NAME}/bin/${CONFIGURATION_TYPE}/${FRAMEWORK_TYPE}/* ${publish_path}/
 cp ${publish_path}/${SOLUTION_NAME}.${PROJECT_NAME}.dll ${publish_path}/aspnetapp.dll

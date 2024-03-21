@@ -26,6 +26,12 @@ replaceToken()
       displayTokenValue="value length:${#tokenValue}"
     fi
   fi
+  if [[ ${tokenName:0:1} == "_" ]]; then
+    local temp=${tokenName:1}
+    tokenName=$tokenValue
+    tokenValue=$temp
+    displayTokenValue=$temp
+  fi 
   echo sed -i "s|\%\[${tokenName}\]\%|$displayTokenValue|g" $filePath
   sed -i "s|\%\[${tokenName}\]\%|$tokenValue|g" $filePath
 }

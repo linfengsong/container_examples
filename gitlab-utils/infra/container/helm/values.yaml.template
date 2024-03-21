@@ -1,12 +1,12 @@
-applicationName: %[application_name]%
-namespace: %[namespace]%
+applicationName: %[cd.application_name]%
+namespace: %[cd.namespace]%
 
 image:
   registry: %[image_registry]%
-  name: %[image_name]%
+  name: %[cd.image_name]%
   tag: %[image_tag]%
   pullPolicy: %[image_pullPolicy]%
-  type: %[image_type]%
+  type: %[cd.image_type]%
 
 pod:
   cpu:
@@ -20,16 +20,16 @@ pod:
 service:
   deploy: true
   port: 8443
-  path: "%[service_path]%"
+  path: "%[cd.service_path]%"
 
 route:
   deploy: true
-  domain: "%[cluster_name]%.apaas4.example.com"
+  domain: "%[cd.cluster_name]%.apaas4.example.com"
 
 certs:
   deploy: true
-  cluster: "%[cluster_name]%-%[datacenter]%"
-  hostname: "%[cluster_name]%-%[datacenter]%.apaas4"
+  cluster: "%[cd.cluster_name]%-%[cd.datacenter]%"
+  hostname: "%[cd.cluster_name]%-%[cd.datacenter]%.apaas4"
   itsi: "%[itsi]%"
   navigatorId: "%[navigator_id]%"
   projectName: "%[itsi_name]%"
@@ -48,8 +48,8 @@ blb:
   deploy: true
 
 esaas:
-  deploy: false
-  logsPvcName: %[application_name]%-logs-pvc
+  deploy: true
+  logsPvcName: %[cd.application_name]%-logs-pvc
   
 liveness:
   deploy: false

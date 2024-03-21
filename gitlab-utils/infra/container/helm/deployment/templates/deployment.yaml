@@ -41,9 +41,9 @@ spec:
           name: {{ .Values.applicationName }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          {{- if eq .Values.image.type "aspnetapp" }}
+          {{- if eq .Values.image.type "aspnet" }}
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
           {{ end }}
           env:
             {{- range .Values.envs }}
@@ -93,7 +93,7 @@ spec:
               path: {{ .Values.readiness.path }}
               port: {{ .Values.pod.port }}
               scheme: {{- if .Values.certs.deploy }} HTTPS {{ else }} HTTP {{- end }}
-            initialDelaySeconds: 60+
+            initialDelaySeconds: 60
           {{ end }}
           lifecycle:
             preStop:
