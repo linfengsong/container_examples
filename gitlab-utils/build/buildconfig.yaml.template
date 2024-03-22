@@ -27,8 +27,10 @@ spec:
     dockerStrategy:
       dockerfilePath: Dockerfile
       buildArgs:
-      - name: DOCKER_IMAGE_PATH
-        value: "%[ci.docker_image_path]%"
+      - name: DOCKER_IMAGE_NAME
+        value: "%[ci.docker_image_name]%"
+      - name: DOCKER_IMAGE_TAG
+        value: "%[ci.docker_image_tag]%"
       - name: PRISMA_EMAIL
         value: "%[ci.prisma_email]%"
 %%[START:args]%%

@@ -39,8 +39,7 @@ spec:
               cpu: {{ .Values.pod.cpu.request }}
               memory: {{ .Values.pod.memory.request }}
           name: {{ .Values.applicationName }}
-          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          #image: "{{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           {{- if eq .Values.image.type "aspnet" }}
           securityContext:
             allowPrivilegeEscalation: true
