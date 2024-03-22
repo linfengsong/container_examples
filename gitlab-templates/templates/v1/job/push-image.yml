@@ -1,7 +1,7 @@
 
 docker-job:
   stage: docker
-  image: $BUILD_IMAGE_UBI8PLUGIS
+  image: $BUILDER_IMAGE_UBI8PLUS
   script: 
   - |
     echo "start push image"

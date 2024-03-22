@@ -3,10 +3,16 @@ variables:
 
 load_gitlab_utils_job:
   stage: .pre
+  image: $BUILDER_IMAGE_UBI8PLUS
   script:
     - |
       echo "Load gitlab utils start"
       srcPath=$(pwd)
+      
+      #git config --global http:sslVerify false
+      #git clone https://linfeng.sone/builder-images.git
+      #ls -l
+      
       echo curl -L --header "$GITLAB_UTILS_ACCESS_TOKEN" "$GITLAB_UTILS_URL" -o 'archive.tar'
       curl -L --header 'PRIVATE-TOKEN: glpat-W2z5-4YTb6CcnrLoijtU' 'http://lenovo:50080/api/v4/projects/8/repository/archive.tar?ref=master' -o 'archive.tar'
       tar xf archive.tar

@@ -35,9 +35,9 @@ spec:
   secretName: "{{ .Values.applicationName }}-service-secret"
   subject:
     countries:
-    - {{ .Values.certs.country }}
+      - {{ .Values.certs.country }}
     organizations:
-    - Example
+      - Example
     streetAddresses:
       - {{ .Values.certs.streetAddress }}
     localities:

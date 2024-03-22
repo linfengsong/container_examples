@@ -10,11 +10,12 @@ echo srcPath=$srcPath
 echo envName=$envName
 echo infraName=$infraName
 
-sed -i "s|\%\[ci.|\%\[|g" $SCRIPT_LOCATION/init.sh.template
-sed -i "s|\%\[ci.|\%\[|g" $SCRIPT_LOCATION/../build/buildconfig.yaml.template
-sed -i "s|\%\[ci.|\%\[|g" $SCRIPT_LOCATION/../build/docker_build.template
+for f in $(find $SCRIPT_LOCATION/.. -name '*.template'); do
+  sed -i "s|\%\[ci.|\%\[|g" $f
+  sed -i "s|\%\[cd.|\%\[|g" $f
+done
 
-. $SCRIPT_LOCATION/util_token.sh
+. $SCRIPT_LOCATION/util_token.sh.
 
 iniPreFilePath=$SCRIPT_LOCATION/../conf/project_pre.ini
 iniPostFilePath=$SCRIPT_LOCATION/../conf/project_post.ini
@@ -33,8 +34,8 @@ if [[ -z "$infraName" ]]; then
   fi
   addToken IMAGE_TYPE
     
-  echo readIniFile image $iniFilePath true
-  readIniFile image $iniFilePath true
+  echo readIniFile ci $iniFilePath true
+  readIniFile ci $iniFilePath true
   
   replaceTemplateTokens $tempatePath false
 else
