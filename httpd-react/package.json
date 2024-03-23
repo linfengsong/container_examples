@@ -1,5 +1,5 @@
 {
-  "name": "@barcleays/hellohelm",
+  "name": "@example/hellohelm",
   "private": true,
   "version": "0.0.0",
   "type": "module",
