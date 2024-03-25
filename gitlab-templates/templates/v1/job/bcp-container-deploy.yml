@@ -9,9 +9,9 @@
     tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
     
     srcPath=$(pwd)
-    $GITLAB_UTILS_PATH/script/config.sh $srcPath $ENV_NAME $CONTAINER_NAME
-    source $GITLAB_UTILS_PATH/script/init.sh
-    $GITLAB_UTILS_PATH/script/container_deploy.sh
+    $GITLAB_UTILS_PATH/cd_bcp/script/config_bcp.sh $srcPath $ENV_NAME $CONTAINER_NAME
+    source $GITLAB_UTILS_PATH/cd_bcp/script/init_cd.sh
+    $GITLAB_UTILS_PATH/cd_bcp/script/container_deploy.sh
     
     echo "finish deploy bcp container: $CONTAINER_NAME"
     

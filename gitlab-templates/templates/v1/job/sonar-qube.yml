@@ -7,8 +7,8 @@ sonar-quebe-job:
     echo "start sonar-qube"
         
     srcPath=$(pwd)
-    source $GITLAB_UTILS_PATH/script/init.sh
-    $GITLAB_UTILS_PATH/script/sonar_qube.sh $srcPath $CI_JOB_NAME $CI_PROJECT_URL
+    source $GITLAB_UTILS_PATH/ci/script/init_ci.sh
+    $GITLAB_UTILS_PATH/ci/script/sonar_qube.sh $srcPath $CI_JOB_NAME $CI_PROJECT_URL
     
     echo "finish sonar-qube"
  

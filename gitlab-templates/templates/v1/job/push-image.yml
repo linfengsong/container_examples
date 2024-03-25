@@ -6,12 +6,10 @@ docker-job:
   - |
     echo "start push image"
     
-    export PATH=$GITLAB_UTILS_PATH/tool:$PATH
-    
     srcPath=$(pwd)
     outputPath=$srcPath/output
-    source $GITLAB_UTILS_PATH/script/init.sh
-    $GITLAB_UTILS_PATH/script/push_image.sh "$outputPath"
+    source $GITLAB_UTILS_PATH/ci/script/init_ci.sh
+    $GITLAB_UTILS_PATH/ci/script/push_image.sh "$outputPath"
     
     echo "finish push image"
  
