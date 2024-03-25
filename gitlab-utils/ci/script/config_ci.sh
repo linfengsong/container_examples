@@ -26,8 +26,7 @@ projectInput=ci:$projectConfigFile
 cat $configInstFile >> config.yml
 echo config.yml:
 cat config.yml
-$SCRIPT_LOCATION/../../script/python_init.sh
-python3 $SCRIPT_LOCATION/../../python/template_replace.py -c $configFile -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
+$SCRIPT_LOCATION/../../script/template_replace.sh -c $configFile -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
 rc=$?
 if [[ $rc -ne 0 ]]; then
   exit $rc
