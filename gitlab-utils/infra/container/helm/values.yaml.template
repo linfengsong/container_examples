@@ -2,9 +2,9 @@ applicationName: %[cd.application_name]%
 namespace: %[cd.namespace]%
 
 image:
-  #name: %[image_registry]%/%[cd.namespace]%/%[cd.image_name]%
-  name: %[image_registry]%/%[cd.image_name]%
-  tag: %[image_tag]%
+  #name: %[cd.image_registry]%/%[cd.namespace]%/%[cd.image_name]%
+  name: %[cd.image_registry]%/%[cd.image_name]%
+  tag: %[cd.image_tag]%
   pullPolicy: %[image_pullPolicy]%
   type: %[cd.image_type]%
 

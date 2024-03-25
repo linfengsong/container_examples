@@ -20,6 +20,8 @@ def __getValueByYamlData(yamlData, key):
 def __getValueByPath(type, yamlDataArray, key):
     if key.startswith("cd."):
         key = type + "." + key[3:len(key)]
+    if key.startswith("ci."):
+        key = type + "." + key[3:len(key)]
     for yamlData in yamlDataArray:
         value = __getValueByYamlData(yamlData, key)
         if not value is None:

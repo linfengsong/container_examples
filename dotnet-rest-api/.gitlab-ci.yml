@@ -1,5 +1,6 @@
 variables:
   BUILDER_IMAGE_NAME: $BUILDER_IMAGE_DOTNET_6
+  ENV_NAME: dev
 
 include:
   - project: linfeng.song/gitlab-templates

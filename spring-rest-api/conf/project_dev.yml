@@ -1,8 +1,7 @@
-cluster_name: usnp4
-datacenter: pi
-namespace: default
-
 ci:
+  cluster_name: usnp4
+  datacenter: pi
+  namespace: default
   image_name: "localhost:32000/spring-rest-api"
   image_tag: latest
   sonar_project_key: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d

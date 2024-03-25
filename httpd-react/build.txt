@@ -1,3 +1,7 @@
+Node version: 10.24.1
+
+
+
 set ++x
 source $NVM_DIR/nvm.sh
 if nvm use $nodeVersion; then echo 'Node version found, using existing'; else echo 'Node version not installed, downloading';nvm install $nodeVersion;nvm use $nodeVersion; fi
@@ -8,4 +12,3 @@ nvm --version
   buildTargetTransformed
 #}
 npm prefix -g | xargs -I '{}' echo '{}//bin' >${env.WORKSPACE}${slash}.NPMBIN
-
