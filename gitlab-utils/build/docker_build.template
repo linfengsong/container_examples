@@ -1,7 +1,0 @@
---tag %[ci.image_name]%:%[ci.image_tag]%
---build-arg DOCKER_IMAGE_NAME="%[ci.docker_image_name]%"
---build-arg DOCKER_IMAGE_TAG="%[ci.docker_image_tag]%"
---build-arg ARG PRISMA_EMAIL="%[ci.prisma_email]%"
-%%[START:args]%%
---build-arg "%[NAME]%=%[VALUE]%"
-%%[END]%%

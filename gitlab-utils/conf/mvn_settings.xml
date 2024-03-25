@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<settings>
-    <mirrors>
-        <id>central</id>
-        <url>https://nexus.com/nexus/content/groups
-        </url>
-        <mirrorOf>central</mirrorOf>
-    </mirrors>
-</settings>
