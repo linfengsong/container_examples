@@ -1,12 +1,11 @@
-cluster_name: usnp4
+clusterName: usnp4
 datacenter: pi
 namespace: default
-
-ci:
-  image_name: "lenovo:32000/httpd-swag"
-  image_tag: latest
-  sonar_project_key: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
-  image_dest_env: nonprod
-  prisma_email: dsong@yahoo.com
+image:
+  name: "localhost:32000/httpd-swag"
+  tag: latest
+  destEnv: nonprod
+sonarProjectKey: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+prismaEmail: dsong@yahoo.com
 
 args:

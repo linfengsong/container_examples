@@ -1,3 +1,6 @@
+variables:
+  ENV_NAME: dev
+  
 include:
   - project: 'linfeng.song/gitlab-templates'
     ref: master
@@ -32,4 +35,13 @@ dotnet-rest-api-reload:
   extends: .reload-container-package
   variables:
     CONTAINER_NAME: dotnetrestapi
-
+    
+httpd-react-deploy:
+  extends: .deploy-container-package
+  variables:
+    CONTAINER_NAME: httpdreact
+    
+httpd-react-reload:
+  extends: .reload-container-package
+  variables:
+    CONTAINER_NAME: httpdreact
