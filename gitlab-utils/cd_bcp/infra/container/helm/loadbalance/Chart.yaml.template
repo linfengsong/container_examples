@@ -1,0 +1,6 @@
+apiVersion: v2
+name: %[cd.%[inst]%applicationName]%-lbl
+description: A Helm chart for %[cd.%[inst]%applicationName]%-lbl
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebeat-deployment
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filebeat
+  template:
+    metadata:
+      annotations:
+        checksum/filebeatConfig: {{ include (print $.Template.BasePath "/filebeat-configmap.yaml") . | sha256sum }}
+        checksum/logrotateConfig: {{ include (print $.Template.BasePath "/logrotate-configmap.yaml") . | sha256sum }}
+      labels:
+        app: filebeat
+    spec:
+      imagePullSecrets:
+        - name: imagePullSecret
+      containers:
+        - resources:
+            requests:
+              cpu: {{ .Values.pod.cpu.request }}
+              memory: {{ .Values.pod.memory.request }}
+            limits:
+              cpu: {{ .Values.pod.cpu.limit }}
+              memory: {{ .Values.pod.memory.limit }}
+          image: {{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.filebeat.image.name }}:{{ .Values.filebeat.image.tag }}
+          name: filebeat
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5066
+              scheme: HTTP
+            initialDelaySeconds: 30
+          readinessProbe:
+            exec:
+              command:
+                - /usr/bin/filebeat
+                - -e
+                - test
+                - output
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: filebeat-config-volume
+              mountPath: /etc/filebeat/filebeat.yml
+              subPath: filebeat.yml
+            - name: registry-volume
+              mountPath: /var/lib/filebreat/registry
+            - name: logs-volume
+              mountPath: /var/log/bcp-applications
+      restartPolicy: Always
+      volumes:
+        - name: filebeat-config-volume
+          configMap:
+            name: filebeat-map
+        - name: registry-volume
+          persistentVolumeClaim:
+            claimName: filebeat=registry-pvc
+        - name: logs-volume
+          persistentVolumeClaim:
+            claimName: application-logs-pvc

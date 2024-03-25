@@ -1,0 +1,70 @@
+applicationName: %[cd.%[inst]%applicationName]%
+namespace: %[cd.%[inst]%namespace]%
+
+image:
+  #name: %[cd.image.registry]%/%[cd.%[inst]%namespace]%/%[cd.%[inst]%image.name]%
+  name: %[cd.image.registry]%/%[cd.%[inst]%image.name]%
+  tag: %[cd.%[inst]%image.tag]%
+  pullPolicy: %[cd.image.pullPolicy]%
+  type: %[cd.%[inst]%image.type]%
+
+pod:
+  cpu:
+    limit: 250m
+    request: 250m
+  memory:
+    limit: 1Gi
+    request: 1Gi
+  port: 8443
+
+service:
+  deploy: true
+  port: 8443
+  path: "%[cd.%[inst]%service.path]%"
+
+route:
+  deploy: true
+  domain: "%[cd.%[inst]%clusterName]%.apaas4.example.com"
+
+certs:
+  deploy: true
+  cluster: "%[cd.%[inst]%clusterName]%-%[cd.%[inst]%datacenter]%"
+  hostname: "%[cd.%[inst]%clusterName]%-%[cd.%[inst]%datacenter]%.apaas4"
+  itsi: "%[cd.itsi.id]%"
+  navigatorId: "%[cd.navigatorId]%"
+  projectName: "%[cd.itsi.name]%"
+  environment: "%[cd.environment]%"
+  changeNumber: "%[cd.changeNumber]%"
+  email: "%[cd.email]%"
+
+hpa:
+  deploy: true
+  minPods: 1
+  maxPods: 3
+  cpuUsage: 80
+  memoryUsage: 80
+
+blb:
+  deploy: true
+
+esaas:
+  deploy: true
+  logsPvcName: %[cd.%[inst]%applicationName]%-logs-pvc
+  
+liveness:
+  deploy: false
+  path: /actuator/health/liveness
+ 
+readiness:
+  deploy: false
+  path: /actuator/health/readiness
+
+aspnet:
+  httpUrls: http://+:8443
+  httpsUrls: https://+:8443
+  
+envs:
+%%[START:cd.%[inst]envs]%%
+  - name: '%[NAME]%'
+    value: '%[VALUE]%'
+%%[END]%%

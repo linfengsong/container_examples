@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logrotate-map
+  namespace: {{ .Values.namespace | quote }}
+  annotations:
+    kubernetes.io/description: >-
+      Configuration for Logrotate.
+data:
+  logrotate.conf: |
+    {{- range .Values.logrotate.paths }}
+    {{ . }}
+    {{- end }}
+    {
+        size 25M
+        rotate 4
+        mazage 7
+        missingok
+        notifemty
+        delaycompress
+        copytruncate
+	}

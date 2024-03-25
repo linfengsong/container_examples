@@ -1,0 +1,4 @@
+#!/bin/bash
+export applicationName="%[cd.%[inst]%applicationName]%"
+export openshiftApiUrl="%[cd.%[inst]%openshiftApiUrl]%"
+export namespace="%[cd.%[inst]%namespace]%"

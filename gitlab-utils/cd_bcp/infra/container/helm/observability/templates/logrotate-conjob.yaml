@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: logrotate
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  {{/*
+  Schedule is in Unix cron format, see:
+  https://www.ibm.com/doces/en/db2oc?topic=task-unix-cron-format
+  
+  Logrotate CronJob will run everyday at 03:15 (AM)  
+  */}}
+  schedule: "15 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: imagePullSecrets
+          containers:
+            - name: logrotate
+              image: {{ .Values.image.registry }}/{{ .Values.namespace }}/{{ .Values.logrotate.image.name }}:{{ .Values.logrotate.image.tag }}
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - name: logrotate-config-volume
+                  mountPath: /etc/logrotate.conf
+                  subPath: logrotate.yml
+                - name: logs-pv
+                  mountPath: /var/log/bcp-applications
+          restartPolicy: OnFailue             
+          volumes:
+            - name: logrotate-config-volume
+              configMap:
+                name: logrotate-map
+            - name: logs-pv
+              persistentVolumeClaim:
+                claimName: filebeat=registry-pvc

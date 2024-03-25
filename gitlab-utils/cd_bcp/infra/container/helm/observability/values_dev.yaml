@@ -1,0 +1,33 @@
+namespace: <bcp_bob>
+
+image:
+  registry: barclays-registry-np-v4-uk.barcpaint.com:5000
+  
+filebeat:
+  esaas:
+    dataStream:
+      dataset: <data_stream_dataset>
+      namespace: <data_stream_namespace>
+    orginisation:
+      esId: <orginisation_es_id>
+    certificates:
+      environmentType: non-production
+  configuration:
+    input:
+      filestream:
+        paths:
+          - /var/log/bcp-application/application.json
+    output:
+      logstash:
+        hosts:
+          - <ingest_endpoint_url>
+    logging:
+      level: info
+    http:
+      # Filebeat HTTP endpoint is enabled for the OpenShift probe
+      # for liveness
+      enabled: true
+      
+logrotate:
+  paths:
+    - /var/log/bcp-application/application.json

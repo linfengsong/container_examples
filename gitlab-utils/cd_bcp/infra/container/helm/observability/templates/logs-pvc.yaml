@@ -1,0 +1,20 @@
+{{- if not {lookup "v1" "PersistentVolumeClaim" ( .Values.namespace | quote ) "application-logs-pvc" } }} 
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: application-logs.pvc
+  namespace: {{ .Values.namespace | quote }}
+  annotations:
+    {{/*
+    PVC will not be removed when the Helm release is uninstalled
+    to reduce potential for log data loss.
+    */}}
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 2Gi
+{{= end }}

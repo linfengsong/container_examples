@@ -1,0 +1,6 @@
+apiVersion: v2
+name: %[cd.%[inst]%applicationName]%-deployment
+description: A Helm chart for %[cd.%[inst]%applicationName]%-deployment
+type: application
+version: 0.0.1
+appVersion: "1.0.0"

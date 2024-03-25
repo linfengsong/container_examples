@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-map
+  namespace: {{ .Values.namespace | quote }}
+  annotations:
+    kubernetes.io/description: >-
+      Configuration for Elastic Filebeat as a YAML formatted file.
+data:
+  filebeat.yml: |
+    filebeat:
+      inputs:
+        - type: filestream
+          enabled: true
+          paths:
+            {{- range .Values.filebeat.configuration.input.filestream.paths }}
+            - {{ . | quote }}
+            {{- end }}
+          prospector.scanner.exclude_files: [ '\.gz$' ]
+          ignore_older: 72h
+    
+    fields:
+      data_stream_dataset: {{ .Values.filebeat.esaas.dataStream.dataset }}
+      data_stream.namespace: {{ .Values.filebeat.esaas.dataStream.namespace }}
+      organization.es_id: {{ .Values.fielbeat.esaas.organization.esId }}
+    fields_under_root: true
+    
+    logging.level: {{ .Values.filebeat.configuration.logging.level }}
+    
+    processors:
+      - add_cloud_metadata: ~
+      - add_host_metadata: ~
+      
+    output:
+      logstash:
+        enabled: true
+        hosts:
+          {{- range .Values.fieldbeat.configuration.out.logstash.hosts }}
+          - {{ . | quote }}
+          {{- end }}
+        ssl:
+          enabled: true
+          certificate_authorities:
+            {{- if eq .Values.fieldbeat.esaas.certificates.environmentType "production" }}
+            - "/etc/pki/ca-trust/source/anchors/AWSInfraROOT1.pem"
+            - "/etc/pki/ca-trust/source/anchors/AWSInfraInterCA2.pem"
+            {{- else if eq .Values.fieldbeat.esaas.certificates.environmentType "non-production" }}
+            - "/etc/pki/ca-trust/source/anchors/TestAWSInfraROOT1.pem"
+            - "/etc/pki/ca-trust/source/anchors/TestAWSInfraInterCA2.pem"            
+            {{- end }}
+        ttl: 120s
+        pipelining: 0
+        compression_level: 9
+        
+    http:
+      enable: {{ .Values.filebeat.configuration.http.enabled }}
+      host: 0.0.0.0
+      post: 5066

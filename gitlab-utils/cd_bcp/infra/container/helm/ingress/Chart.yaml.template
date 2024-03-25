@@ -1,0 +1,6 @@
+apiVersion: v2
+name: %[cd.%[inst]%applicationName]%-ingress
+description: A Helm chart for %[cd.%[inst]%applicationName]%-ingress
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

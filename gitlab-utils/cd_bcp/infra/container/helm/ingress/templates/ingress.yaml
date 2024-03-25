@@ -1,0 +1,27 @@
+{{- if .Values.route.deploy }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Values.applicationName }}-ingress"
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-passthrough: "true"
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "{{ .Values.applicationName }}-{{ .Values.namespace }}.{{ .Values.route.domain }}"
+    http:
+      paths:
+      - pathType: Prefix
+        path: {{ .Values.service.path }}
+        backend:
+          service:
+            name: "{{ .Values.applicationName }}-service"
+            port:
+              number: {{ .Values.service.port }}
+  tls:
+  - hosts:
+    - "{{ .Values.applicationName }}-{{ .Values.namespace }}.{{ .Values.route.domain }}"
+{{ end }}

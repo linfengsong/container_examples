@@ -1,0 +1,16 @@
+releaseName: observability
+
+pod:
+  cpu:
+    limit: 256m
+    request: 256m
+  memory:
+    limit: 500Mi
+    request: 500Mi
+
+fielbeat:
+  image:
+    name: filebeat
+logrotate:
+  image:
+    name: logrotate

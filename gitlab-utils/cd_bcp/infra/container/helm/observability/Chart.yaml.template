@@ -1,0 +1,6 @@
+apiVersion: v2
+name: observability
+description: A lightweit log shipper to process log files and send to ESaaS
+type: application
+version: 1.0.0
+appVersion: "0.0.1"
