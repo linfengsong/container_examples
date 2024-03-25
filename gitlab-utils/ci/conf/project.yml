@@ -1,0 +1,19 @@
+ci:
+  images:
+    maven:
+      name: "registry.access.redhat.com/ubi8/openjdk-17"
+      tag: latest
+    dotnet:
+      name: "mcr.microsoft.com/dotnet/aspnet"
+      tag: "6.0"
+    httpd:
+      name: "httpd"
+      tag: "2.4"
+
+  registryLocation:
+    nonprod: np-v4-uk
+    us-nonprod: np-v4-us
+    ap-nonprod: np-v4-ap
+    prod: prod-v4-uk
+    us-prod: prod-v4-us
+    ap-prod: prod-v4-ap

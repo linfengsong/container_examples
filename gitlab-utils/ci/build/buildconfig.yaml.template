@@ -1,0 +1,41 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: %[ci.%[inst]%image.name]%
+  name: %[ci.%[inst]%image.name]%
+spec:
+  failedBuildsHistoryLimit: 10
+  nodeSelector: {}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: %[ci.%[inst]%image.name]%:%[%[inst]%image.tag]%
+  postCommit: {}
+  resources:
+    limits:
+      cpu: 200m
+      memory: 2Gi
+    requests:
+      cpu: 100m
+      memory: 1Gi
+  runPolicy: SerialLatestOnly
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      buildArgs:
+      - name: BASE_IMAGE_NAME
+        value: "%[ci.%[inst]%baseImage.name]%"
+      - name: BASE_IMAGE_TAG
+        value: "%[ci.%[inst]%baseImage.tag]%"
+      - name: PRISMA_EMAIL
+        value: "%[ci.%[inst]%prismaEmail]%"
+%%[START:[inst]ci.args]%%
+      - name: %[NAME]%
+        value: "%[VALUE]%"
+%%[END]%%
+    successfulBuildsHistoryLimit: 5
+    
