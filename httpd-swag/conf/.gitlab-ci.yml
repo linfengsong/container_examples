@@ -1,0 +1,22 @@
+variables:
+  ENV_NAME: dev
+  
+ci:
+  variables:
+    CI_APP: httpdswag
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-ci-cd-container.yml'
+    strategy: depend
+    
+#reload:
+#  extends: .reload-cd-bcp-container
+      
+#deploy:
+#  extends: .deploy-cd-bcp-container
+#  variables:
+#    CD_BCP_APP_TRIGGER: httpdswag
+#  only:
+#    - changes:
+#      conf/project_*.yml
