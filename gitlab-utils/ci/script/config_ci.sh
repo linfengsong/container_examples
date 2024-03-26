@@ -25,13 +25,8 @@ if [[ -z "$IMAGE_TYPE" ]]; then
   export IMAGE_TYPE=$($SCRIPT_LOCATION/build_image_type.sh $srcPath)
 fi
 echo "IMAGE_TYPE: $IMAGE_TYPE" > "$configYmlFile"
-if [[ -z $appName ]]; then
-  echo "inst: ''">> "$configYmlFile"
-  configInput=ci:"$configYmlFile"
-else
-  echo "inst: $appName.">> "$configYmlFile"
-  configInput=ci.$appName:"$configYmlFile"
-fi
+echo "inst: $appName.">> "$configYmlFile"
+configInput=ci.$appName:"$configYmlFile"
 echo "gitlibAppConfPath: $outputPath">> $configYmlFile
 
 cat $configInstFile >> "$configYmlFile"

@@ -89,7 +89,7 @@ def __processingTemplateFile(yamlQueryArray, inFile, outFile):
                 else:
                     __processLine(wf, yamlQueryArray, line)
 
-def __processingTemplate(yamlQueryArray, path):
+def processingTemplate(yamlQueryArray, path):
     if os.path.isfile(path):
         if path.endswith(".template"):
             outFile = path[0 : len(path) - 9]
@@ -98,12 +98,7 @@ def __processingTemplate(yamlQueryArray, path):
     else:
         for filename in os.listdir(path):
             __processingTemplate(yamlQueryArray, os.path.join(path, filename))
-            
-def __update(source, update):
-    for i in update:
-        source.update({update[i]})
-    
-      
+               
 if __name__ == "__main__":
     print("main")
     iArgs = len(sys.argv)
@@ -138,5 +133,5 @@ if __name__ == "__main__":
             inputType = "-t"
         elif  inputType == "-t":
             print("template path: " + argv[i])
-            __processingTemplate(yamlQueryArray, argv[i])
+            processingTemplate(yamlQueryArray, argv[i])
             inputType = None
