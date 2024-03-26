@@ -4,7 +4,7 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 outputPath="$1"
 
-buildConfigPath=$outputPath/buildconfig.yaml
+buildConfigPath=$CI_CONF_PATH/buildconfig.yaml
 cat $buildConfigPath
 
 appline=$(cat $buildConfigPath|grep app)

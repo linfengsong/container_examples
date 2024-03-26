@@ -8,9 +8,9 @@ src_path="$3"
 
 export MAVEN_SETTING_FILE="$SCRIPT_LOCATION/../conf/settings.xml"
 
-cp $GITLAB_UTILS_PATH/tool/mvnw $src_path/mvnw
+cp $SCRIPT_LOCATION/../tool/mvnw $src_path/mvnw
 mkdir $src_path/.mvn
-cp -R $GITLAB_UTILS_PATH/tool/mvn/* $src_path/.mvn/
+cp -R $SCRIPT_LOCATION/../tool/mvn/* $src_path/.mvn/
 
 if [[ ! -z "$CI_PROJECT_DIR" ]]; then
   mkdir -p $CI_PROJECT_DIR/.m2/repository

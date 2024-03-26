@@ -4,7 +4,7 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 password=$CERTIFICATE_PWD
 
-source $SCRIPT_LOCATION/../../script/koc_init.sh
+source $UTIL_SCRIPT_PATH/koc_init.sh
 rc=$?
 if [[ $rc -ne 0 ]]; then
   exit $rc
@@ -13,7 +13,7 @@ fi
 pwdLen=${#password}
 echo "CERTIFICATE_PWD length: $pwdLen"
 
-containerPath=${SCRIPT_LOCATION}/../infra/container
+containerPath=$CD_BCP_INFRA_PATH/container
 apiPath=$containerPath/api
 helmPath=$containerPath/helm
 valuesPath=$containerPath/helm/values.yaml
