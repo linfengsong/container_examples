@@ -20,17 +20,6 @@ cd:
       name: dotnet-rest-api
       tag: latest
       type: aspnet
-
-  httpdswag:
-    clusterName: usnp4
-    datacenter: pi
-    namespace: default
-    service:
-      path: /swag
-    image:
-      name: httpd-swag
-      tag: latest
-      type: httpd
   
   springrestapi:
     clusterName: usnp4

@@ -1,47 +1,37 @@
 variables:
   ENV_NAME: dev
+  CD_BCP_APPS: httpdswag,springrestapi,dotnetrestapi,httpdreact
   
 include:
   - project: 'linfeng.song/gitlab-templates'
-    ref: master
     file: 'templates/v1/bcp-cd-container.yml'
-
-httpd-swag-deploy:
-  extends: .deploy-container-package
-  variables:
-    CONTAINER_NAME: httpdswag
-    
-httpd-swag-reload:
-  extends: .reload-container-package
-  variables:
-    CONTAINER_NAME: httpdswag
     
 spring-rest-api-deploy:
-  extends: .deploy-container-package
+  extends: .deploy-cd-bcp-container
   variables:
-    CONTAINER_NAME: springrestapi
+    CD_BCP_APP: springrestapi
     
 spring-rest-api-reload:
-  extends: .reload-container-package
+  extends: .reload-cd-bcp-container
   variables:
-    CONTAINER_NAME: springrestapi
+    CD_BCP_APP: springrestapi
 
 dotnet-rest-api-deploy:
-  extends: .deploy-container-package
+  extends: .deploy-cd-bcp-container
   variables:
-    CONTAINER_NAME: dotnetrestapi
+    CD_BCP_APP: dotnetrestapi
     
 dotnet-rest-api-reload:
-  extends: .reload-container-package
+  extends: .reload-cd-bcp-container
   variables:
-    CONTAINER_NAME: dotnetrestapi
+    CD_BCP_APP: dotnetrestapi
     
 httpd-react-deploy:
-  extends: .deploy-container-package
+  extends: .deploy-cd-bcp-container
   variables:
-    CONTAINER_NAME: httpdreact
+    CD_BCP_APP: httpdreact
     
 httpd-react-reload:
-  extends: .reload-container-package
+  extends: .reload-cd-bcp-container
   variables:
-    CONTAINER_NAME: httpdreact
+    CD_BCP_APP: httpdreact

@@ -1,12 +1,13 @@
+ci:
+  springrestapi:
+    clusterName: usnp4
+    datacenter: pi
+    namespace: default
+    image:
+      name: "localhost:32000/spring-rest-api"
+      tag: latest
+      destEnv: nonprod
+    sonarProjectKey: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+    prismaEmail: dsong@yahoo.com
 
-clusterName: usnp4
-datacenter: pi
-namespace: default
-image:
-  name: "localhost:32000/spring-rest-api"
-  tag: latest
-  destEnv: nonprod
-sonarProjectKey: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
-prismaEmail: dsong@yahoo.com
-
-args:
+    args:
