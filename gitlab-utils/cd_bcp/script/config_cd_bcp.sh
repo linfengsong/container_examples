@@ -27,13 +27,12 @@ echo "inst: $appName."> $configYmlFile
 echo "applicationName: $appName">> $configYmlFile
 echo "gitlibAppPath: $outputPath">> $configYmlFile
 configInput=cd.$appName:$configYmlFile
-projectInput=$projectConfigFile
 
 cat $configInstFile >> $configYmlFile
 echo $configYmlFile:
 cat $configYmlFile
-echo $rootPath/script/template_replace.sh -c $projectInput -c $configInput -t $outputPath
-$rootPath/script/template_replace.sh -c $projectInput -c $configInput -t $outputPath
+echo $rootPath/script/template_replace.sh -c $projectConfigFile -c $configInput -t $outputPath
+$rootPath/script/template_replace.sh -c $projectConfigFile -c $configInput -t $outputPath
 rc=$?
 if [[ $rc -ne 0 ]]; then
   exit $rc
