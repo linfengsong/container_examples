@@ -30,8 +30,8 @@ load_gitlab_utils_job:
         chmod 644 $GITLAB_UTILS_PATH/ci/conf/*
         chmod 755 $GITLAB_UTILS_PATH/ci/script/*
         chmod 755 $GITLAB_UTILS_PATH/ci/tool/*
-        echo $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME
-        $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME
+        echo $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME $CONTAINER_NAME
+        $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME $CONTAINER_NAME
       else
         chmod 644 $GITLAB_UTILS_PATH/cd_bcp/conf/*
         chmod 755 $GITLAB_UTILS_PATH/cd_bcp/script/*

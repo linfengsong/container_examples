@@ -3,6 +3,6 @@ openshiftApiUrl: "https://api.%[ci.%[inst]%clusterName]%-%[ci.%[inst]%datacenter
 baseImage:
   registry: "example.registry-%[ci.%[inst]%registryLocation]%.example.com"
   #name: "%[ci.base-image.registry]%/%[ci.%[inst]%images.%[IMAGE_TYPE]%.name]%"
-  name: "%[ci.%[inst]%images.%[IMAGE_TYPE]%.name]%"
+  name: "%[ci.images.%[IMAGE_TYPE]%.name]%"
   tag: "%[ci.images.%[IMAGE_TYPE]%.tag]%"
 registryLocation: "%[ci.registryLocation.%[ci.%[inst]%image.destEnv]%]%"

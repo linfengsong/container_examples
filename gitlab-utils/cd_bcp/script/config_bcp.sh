@@ -22,6 +22,7 @@ projectInput=$projectConfigFile
 cat $configInstFile >> config.yml
 echo config.yml:
 cat config.yml
+echo $SCRIPT_LOCATION/../../script/template_replace.sh -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
 $SCRIPT_LOCATION/../../script/template_replace.sh -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
 rc=$?
 if [[ $rc -ne 0 ]]; then

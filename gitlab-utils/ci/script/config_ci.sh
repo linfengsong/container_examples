@@ -19,13 +19,20 @@ if [[ -z "$IMAGE_TYPE" ]]; then
   export IMAGE_TYPE=$($SCRIPT_LOCATION/build_image_type.sh $srcPath)
 fi
 echo "IMAGE_TYPE: $IMAGE_TYPE" > config.yml
-echo "inst: ''">> config.yml
-configInput=ci:config.yml
+if [[ -z $instName ]]; then
+  echo "inst: ''">> config.yml
+  configInput=ci:config.yml
+else
+  echo "inst: $instName.">> config.yml
+  configInput=ci.$instName:config.yml
+fi
+
 projectInput=ci:$projectConfigFile
 
 cat $configInstFile >> config.yml
 echo config.yml:
 cat config.yml
+echo $SCRIPT_LOCATION/../../script/template_replace.sh -c $configFile -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
 $SCRIPT_LOCATION/../../script/template_replace.sh -c $configFile -c $projectInput -c $configInput -t $SCRIPT_LOCATION -t $templatePath
 rc=$?
 if [[ $rc -ne 0 ]]; then

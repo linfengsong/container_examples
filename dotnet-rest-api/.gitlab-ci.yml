@@ -1,17 +1,16 @@
 variables:
   BUILDER_IMAGE_NAME: $BUILDER_IMAGE_DOTNET_6
+  CI_APP: dotnetrestapi
   ENV_NAME: dev
 
 include:
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: templates/v1/bcp-ci-image.yml
     
 deploy:
-  stage: deploy
   variables:
-    CONTAINER_TRIGGER: dotnetrestapi
+    CD_BCP_APP_TRIGGER: dotnetrestapi
+  stage: deploy
   trigger:
     project: linfeng.song/services
-    branch: master
     
