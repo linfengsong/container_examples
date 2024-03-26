@@ -23,32 +23,40 @@ load_gitlab_utils_job:
       gitlab_utils_master_path=gitlab-utils-master
       mkdir -p $GITLAB_UTILS_PATH
       cp -R $gitlab_utils_master_path-*/* $GITLAB_UTILS_PATH/
-      chmod 644 $GITLAB_UTILS_PATH/conf/*
-      chmod 755 $GITLAB_UTILS_PATH/script/*
       
-      if [[ -z $CONTAINER_TRIGGER ]]; then
-        chmod 644 $GITLAB_UTILS_PATH/ci/conf/*
-        chmod 755 $GITLAB_UTILS_PATH/ci/script/*
-        chmod 755 $GITLAB_UTILS_PATH/ci/tool/*
-        echo $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME $CONTAINER_NAME
-        $GITLAB_UTILS_PATH/ci/script/config_ci.sh $(pwd) $ENV_NAME $CONTAINER_NAME
-      else
-        chmod 644 $GITLAB_UTILS_PATH/cd_bcp/conf/*
-        chmod 755 $GITLAB_UTILS_PATH/cd_bcp/script/*
-        cd $GITLAB_UTILS_PATH
-        echo tar cvf $srcPath/gitlab_utils.tar *
-        tar cvf $srcPath/gitlab_utils.tar *
-        cd $srcPath
-        echo rm -r -f $srcPath/$GITLAB_UTILS_PATH/*
-        rm -r -f $srcPath/$GITLAB_UTILS_PATH/*
-        echo ls -l gitlab_utils.tar
-        ls -l gitlab_utils.tar
+      echo CI_APP=$CI_APP
+      echo CD_BCP_APP=$CD_BCP_APP
+      echo CD_BCP_APP_TRIGGER=$CD_BCP_APP_TRIGGER
+
+      chmod 755 $GITLAB_UTILS_PATH/script/config.sh
+      if [[ ! -z $CI_APP ]]; then
+        echo $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -ci $CI_APP
+        $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -ci $CI_APP
       fi
-      echo ls -l gitlab_utils
-      ls -l gitlab_utils
+      
+      if [[ ! -z $CD_BCP_APP_TRIGGER ]] && [[ ! "$CD_BCP_APP_TRIGGER" == "ALL" ]]; then
+        echo $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $CD_BCP_APP_TRIGGER
+        $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $CD_BCP_APP_TRIGGER
+      elif [[ ! -z "$CD_BCP_APPS" ]]; then
+        for i in ${CD_BCP_APPS//,/ }; do
+          echo $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $i
+          $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $i
+        done
+      elif [[ ! -z "$CD_BCP_APP" ]]; then
+        echo $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $CD_BCP_APP
+        $GITLAB_UTILS_PATH/script/config.sh $(pwd) $ENV_NAME -cd_bcp $CD_BCP_APP      
+      fi
+      
+      if [[ -d gitlab_utils/ci/apps ]]; then
+        echo ls -l gitlab_utils/ci/apps
+        ls -l gitlab_utils/ci/apps
+      fi
+      if [[ -d gitlab_utils/cd_bcp/apps ]]; then
+        echo ls -l gitlab_utils/cd_bcp/apps
+        ls -l gitlab_utils/cd_bcp/apps
+      fi
       echo "Load gitlab utils finish"
   artifacts:
     paths:
       - gitlab_utils
-      - gitlab_utils.tar
     expire_in: 1 day

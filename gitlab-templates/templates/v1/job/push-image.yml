@@ -8,8 +8,7 @@ docker-job:
     
     srcPath=$(pwd)
     outputPath=$srcPath/output
-    source $GITLAB_UTILS_PATH/ci/script/init_ci.sh
-    $GITLAB_UTILS_PATH/ci/script/push_image.sh "$outputPath"
+    $GITLAB_UTILS_PATH/script/action.sh -ci push_image $CI_APP "$outputPath"
     
     echo "finish push image"
  

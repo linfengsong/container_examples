@@ -3,15 +3,9 @@
   image: $BUILDER_IMAGE_UBI8PLUS
   script:
   - |
-    echo "start reload bcp container: $CONTAINER_NAME"
+    echo "start reload bcp container: $CD_BCP_APP, $CD_BCP_APP_TRIGGER"
+        
+    $GITLAB_UTILS_PATH/script/action.sh -cd_bcp container_refresh $CD_BCP_APP
     
-    mkdir -p $GITLAB_UTILS_PATH
-    tar xf gitlab_utils.tar -C $GITLAB_UTILS_PATH
-    
-    srcPath=$(pwd)
-    $GITLAB_UTILS_PATH/cd_bcp/script/config_bcp.sh $srcPath $ENV_NAME $CONTAINER_NAME
-    source $GITLAB_UTILS_PATH/cd_bcp/script/init_cd.sh
-    $GITLAB_UTILS_PATH/cd_bcp/script/container_refresh.sh
-    
-    echo "finish reload bcp container: $CONTAINER_NAME"
+    echo "finish reload bcp container: $CD_BCP_APP, $CD_BCP_APP_TRIGGER"
     
