@@ -1,37 +1,82 @@
 variables:
   ENV_NAME: dev
-  CD_BCP_APPS: httpdswag,springrestapi,dotnetrestapi,httpdreact
+  APP_TRIGGER: ALL
   
-include:
-  - project: 'linfeng.song/gitlab-templates'
-    file: 'templates/v1/bcp-cd-container.yml'
-    
 spring-rest-api-deploy:
-  extends: .deploy-cd-bcp-container
   variables:
-    CD_BCP_APP: springrestapi
+    APP: springrestapi
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-deploy.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == "ALL"
     
 spring-rest-api-reload:
-  extends: .reload-cd-bcp-container
   variables:
-    CD_BCP_APP: springrestapi
-
+    APP: springrestapi
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-reload.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == $APP
+    
 dotnet-rest-api-deploy:
-  extends: .deploy-cd-bcp-container
   variables:
-    CD_BCP_APP: dotnetrestapi
+   APP: dotnetrestapi
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-deploy.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == "ALL"
     
 dotnet-rest-api-reload:
-  extends: .reload-cd-bcp-container
   variables:
-    CD_BCP_APP: dotnetrestapi
+    APP: dotnetrestapi
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-reload.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == $APP
     
 httpd-react-deploy:
-  extends: .deploy-cd-bcp-container
   variables:
-    CD_BCP_APP: httpdreact
+    APP: httpdreact
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-deploy.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == "ALL"
     
 httpd-react-reload:
-  extends: .reload-cd-bcp-container
   variables:
-    CD_BCP_APP: httpdreact
+    APP: httpdreact
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-reload.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == $APP
+    

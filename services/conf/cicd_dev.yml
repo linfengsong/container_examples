@@ -1,0 +1,46 @@
+bcp:
+  default:
+    image:
+      registry: "localhost:32000"
+      pullPolicy: Always
+    itsi:
+      id: CI0123456
+      name: Example Dev
+    navigatorId: "2345678"
+    environment: Test
+    changeNumber: N/A
+    email: dsong@yahoo.com
+
+  applications:
+    dotnetrestapi:
+      clusterName: usnp4
+      datacenter: pi
+      namespace: default
+      service:
+        path: /dotnet-rest-api
+      image:
+        name: dotnet-rest-api
+        tag: latest
+        type: aspnet
+  
+    springrestapi:
+      clusterName: usnp4
+      datacenter: pi
+      namespace: default
+      service:
+        path: /spring-rest-api
+      image:
+        name: spring-rest-api
+        tag: latest
+        type: spring
+  
+    httpdreact:
+      clusterName: usnp4
+      datacenter: pi
+      namespace: default
+      service:
+        path: /react
+      image:
+        name: httpd-react
+        tag: latest
+        type: httpd
