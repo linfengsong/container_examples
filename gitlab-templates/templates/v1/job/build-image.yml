@@ -8,7 +8,7 @@ build-image-job:
             
       srcPath=$(pwd)
       outputPath=${srcPath}/output
-      $GITLAB_UTILS_PATH/script/action.sh -ci build_image $CI_APP $srcPath $outputPath
+      $GITLAB_UTILS_PATH/script/action.sh -t ci -n build_image -a $APP $srcPath $outputPath
 
       echo "image build finish"
   artifacts:

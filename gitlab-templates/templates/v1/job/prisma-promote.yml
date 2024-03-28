@@ -6,8 +6,7 @@ promote-job:
   - |
     echo "start prisma-promote"
     
-    srcPath=$(pwd)
-    $GITLAB_UTILS_PATH/script/action.sh -ci prisma_promote $CI_APP
+    $GITLAB_UTILS_PATH/script/action.sh -t ci -n prisma_promote -a $APP
     
     echo "finish prisma-promote"
  

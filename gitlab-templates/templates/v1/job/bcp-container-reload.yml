@@ -1,11 +1,12 @@
     
-.bcp_container_reload_job:
+bcp_container_reload_job:
   image: $BUILDER_IMAGE_UBI8PLUS
+  stage: deploy
   script:
   - |
     echo "start reload bcp container: $CD_BCP_APP, $CD_BCP_APP_TRIGGER"
         
-    $GITLAB_UTILS_PATH/script/action.sh -cd_bcp container_refresh $CD_BCP_APP
+    $GITLAB_UTILS_PATH/script/action.sh -t bcp -n container_reload -a $APP
     
     echo "finish reload bcp container: $CD_BCP_APP, $CD_BCP_APP_TRIGGER"
     

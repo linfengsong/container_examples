@@ -7,6 +7,6 @@ test-image-job:
       echo "start unit tests"
       
       srcPath=$(pwd)
-      $GITLAB_UTILS_PATH/script/action.sh -ci test_image $CI_APP $srcPath
+      $GITLAB_UTILS_PATH/script/action.sh -t ci -n test_image -a $APP $srcPath
 
       echo "finish unit tests"

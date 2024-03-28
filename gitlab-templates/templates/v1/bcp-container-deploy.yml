@@ -1,0 +1,14 @@
+variables:
+  ACTION_TYPE: bcp
+  
+include:
+  - project: devtooling/images/builder-images
+    file: /builder-images.yml
+    
+  - project: linfeng.song/gitlab-templates
+    stage: .pre
+    file: '/templates/v1/job/load-gitlab-utils.yml'
+    
+  - project: linfeng.song/gitlab-templates
+    stage: deploy
+    file: '/templates/v1/job/bcp-container-deploy.yml'

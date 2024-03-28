@@ -1,3 +1,5 @@
+variables:
+  ACTION_TYPE: ci
   
 stages:
   - .pre
@@ -13,47 +15,20 @@ include:
     file: /builder-images.yml
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/load-gitlab-utils.yml'
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/build-image.yml'
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/test-image.yml'
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/sonar-qube.yml'
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/push-image.yml'
     
   - project: linfeng.song/gitlab-templates
-    ref: master
     file: '/templates/v1/job/prisma-promote.yml'
-    
-  - project: linfeng.song/gitlab-templates
-    ref: master
-    file: '/templates/v1/job/bcp-container-deploy.yml'
-  - project: linfeng.song/gitlab-templates
-    ref: master
-    file: '/templates/v1/job/bcp-container-reload.yml'
-    
-.reload-cd-bcp-container:
-  stage: deploy
-  extends: .bcp_container_reload_job
-  only:
-    variables:
-      - $CD_BCP_APP_TRIGGER == $CD_BCP_APP
-        
-.deploy-cd-bcp-container:
-  stage: deploy
-  extends: .bcp_container_deploy_job
-  only:
-    variables:
-      - $CD_BCP_APP_TRIGGER == "ALL"
     

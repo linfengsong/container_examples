@@ -1,11 +1,12 @@
 
-.bcp_container_deploy_job:
+bcp_container_deploy_job:
   image: $BUILDER_IMAGE_UBI8PLUS
+  stage: deploy
   script:
   - |
-    echo "start deploy bcp container: $CD_BCP_APP"
+    echo "start deploy bcp container: $APP"
     
-    $GITLAB_UTILS_PATH/script/action.sh -cd_bcp container_deploy $CD_BCP_APP
+    $GITLAB_UTILS_PATH/script/action.sh -t bcp -n container_deploy -a $APP
     
-    echo "finish deploy bcp container: $CD_BCP_APP"
+    echo "finish deploy bcp container: $APP"
     
