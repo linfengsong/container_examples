@@ -1,16 +1,20 @@
 variables:
-  CI_APP: springrestapi
   ENV_NAME: dev
   
-include:
-  - project: 'linfeng.song/gitlab-templates'
-    file: '/templates/v1/bcp-ci-image.yml'
-
-deploy:
+httpdreact-build:
   variables:
-    CD_BCP_APP_TRIGGER: httpdreact
+    BUILDER_IMAGE_NAME: $BUILDER_IMAGE_NODE_20
+    APP: httpdreact
+  stage: build
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/ci-image.yml'
+    strategy: depend
+    
+dotnetrestapi-deploy:
+  variables:
+    APP_TRIGGER: httpdreact
   stage: deploy
   trigger:
     project: 'linfeng.song/services'
-
-    
