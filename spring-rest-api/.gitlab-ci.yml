@@ -1,16 +1,21 @@
 variables:
-  BUILDER_IMAGE_NAME: $BUILDER_IMAGE_JAVA_17
-  CI_APP: springrestapi
   ENV_NAME: dev
-
-include:
-  - project: linfeng.song/gitlab-templates
-    file: templates/v1/bcp-ci-image.yml
-    
-deploy:
+  
+springrestapi-build:
   variables:
-    CD_BCP_APP_TRIGGER: springrestapi
+    BUILDER_IMAGE_NAME: $BUILDER_IMAGE_JAVA_17
+    APP: springrestapi
+  stage: build
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/ci-image.yml'
+    strategy: depend
+    
+dotnetrestapi-deploy:
+  variables:
+    APP_TRIGGER: springrestapi
   stage: deploy
   trigger:
-    project: linfeng.song/services
-    
+    project: 'linfeng.song/services'
+ 
