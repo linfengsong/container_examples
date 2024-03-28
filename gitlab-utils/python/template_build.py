@@ -42,9 +42,9 @@ def  __build_cdbcp_query(appName, ciInstPath, yamlQueryArray, outputPath):
     yamlQueryArray.append(query)
 
 def template_build(appYamlData, ciInstPath, cdbcpInstPath, yamlQueryArray, outputPath):
-    appQyery = YamlQuery()
-    appQyery.yamlData = appYamlData
-    yamlQueryArray = [appQyery]
+    appQuery = YamlQuery()
+    appQuery.yamlData = appYamlData
+    yamlQueryArray = [appQuery]
     if "ci" in yamlData.keys():    
         ciData = yamlData["ci"]
         for appName in ciData.keys():
