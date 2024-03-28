@@ -1,0 +1,26 @@
+ci:
+  applications:
+    httpdswag:
+      clusterName: usnp4
+      datacenter: pi
+      namespace: default
+      image:
+        name: "localhost:32000/httpd-swag"
+        tag: latest
+        destEnv: nonprod
+      sonarProjectKey: dev_dev-java_spring-rest-api_683d00a4-6870-4adc-a580-b87f675d471d
+      prismaEmail: dsong@yahoo.com
+
+    args:
+bcp:
+  applications:
+    httpdswag:
+      clusterName: usnp4
+      datacenter: pi
+      namespace: default
+      service:
+        path: /swag
+      image:
+        name: httpd-swag
+        tag: latest
+        type: httpd

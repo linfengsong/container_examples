@@ -1,19 +1,41 @@
 variables:
-  CI_APP: httpdswag
   ENV_NAME: dev
+  APP_TRIGGER: httpdswag
   
-include:
-  - project: 'linfeng.song/gitlab-templates'
-    ref: master
-    file: 'templates/v1/bcp-ci-cd-container.yml'
-    
-reload:
-  extends: .reload-cd-bcp-container
-      
-deploy:
-  extends: .deploy-cd-bcp-container
+httpd-swag-build:
   variables:
-    CD_BCP_APP_TRIGGER: httpdswag
+    BUILDER_IMAGE_NAME: $BUILDER_IMAGE_NODE_20
+    APP: httpdswag
+  stage: build
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/ci-image.yml'
+    strategy: depend
+    
+httpd-swag-deploy:
+  variables:
+    APP: httpdswag
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-deploy.yml'
+    strategy: depend
   only:
-    - changes
-      conf/project_*.yml
+    variables:
+      - $APP_TRIGGER == "ALL"
+    
+httpd-swag-reload:
+  variables:
+    APP: httpdswag
+  stage: deploy
+  trigger:
+    include:
+      - project: 'linfeng.song/gitlab-templates'
+        file: 'templates/v1/bcp-container-reload.yml'
+    strategy: depend
+  only:
+    variables:
+      - $APP_TRIGGER == $APP
+      
