@@ -15,10 +15,6 @@ if [[ -z $sonar_project_key ]]; then
   exit
 fi
 
-if [[ -z $IMAGE_TYPE ]]; then
-  IMAGE_TYPE=$($SCRIPT_LOCATION/build_image_type.sh $srcPath)
-fi
-
 if [[ "$IMAGE_TYPE" == "maven" ]]; then
   $SCRIPT_LOCATION/sonar_qube_maven.sh $srcPath $ciJobName $ciProjectUrl
 elif [[ "$IMAGE_TYPE" == "dotnet" ]]; then

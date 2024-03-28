@@ -1,6 +1,6 @@
 apiVersion: v2
-name: %[cd.%[inst]%applicationName]%-cert
-description: A Helm chart for %[cd.%[inst]%applicationName]%-cert
+name: %[%[inst]%applicationName]%-cert
+description: A Helm chart for %[%[inst]%applicationName]%-cert
 type: application
 version: 0.1.0
 appVersion: "1.0.0"

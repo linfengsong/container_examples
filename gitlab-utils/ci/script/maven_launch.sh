@@ -6,7 +6,7 @@ mavenOptions="$1"
 mavenGoals="$2"
 src_path="$3"
 
-export MAVEN_SETTING_FILE="$SCRIPT_LOCATION/../conf/settings.xml"
+export MAVEN_SETTING_FILE="$CI_CONF_PATH/settings.xml"
 
 cp $SCRIPT_LOCATION/../tool/mvnw $src_path/mvnw
 mkdir $src_path/.mvn

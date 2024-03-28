@@ -4,6 +4,7 @@ import yaml
 
 class YamlQuery:
   rootPath = None
+  prefixPath = None
   yamlData = None
 
   def __getValue(self, yamlData, key):
@@ -24,7 +25,9 @@ class YamlQuery:
   def getValueByPath(self, path):
       if not self.rootPath is None:
           if path.startswith(self.rootPath):
-              path = path[len(self.rootPath) + 1:]
+              path = path[len(self.rootPath):]
+              if not self.prefixPath is None:
+                  path = self.prefixPath + path
       return self.__getValueByPath(self.yamlData, path)
                                         
 def __getValueByPath(yamlQueryArray, path):
@@ -33,38 +36,46 @@ def __getValueByPath(yamlQueryArray, path):
         if not value is None:
             return value
     print("Cannot find path value: " + path)
-    return ""
+    return None
 
-def __processLine(wf, yamlQueryArray, line, nameTag = "", valueTag = ""):
-    eindex = line.find(']%')
+def __processString(yamlQueryArray, str, nameTag = "", valueTag = ""):
+    eindex = str.find(']%')
     if eindex < 0:
-        wf.write(line + "\n")
-        return
-    index = line.find('%[')
+        return str
+    index = str.find('%[')
     while index >= 0 and index < eindex:
         sindex = index
-        index = line.find('%[', sindex + 1)
+        index = str.find('%[', sindex + 1)
     if sindex < 0:
-        wf.write(line + "\n")
-        return
+        return str
     
-    name = line[sindex + 2: eindex]
-    if nameTag == name:
+    name = str[sindex + 2: eindex]
+    if name == "NAME":
+        value = nameTag
+    elif name == "VALUE":
         value = valueTag
     else:
         value = __getValueByPath(yamlQueryArray, name)
-    nLine = line[0: sindex] + value + line[eindex + 2: len(line)]
-    __processLine(wf, yamlQueryArray, nLine)
+    if value is None:
+        value = ""
+    nString = str[0: sindex] + value + str[eindex + 2: len(str)]
+    return __processString(yamlQueryArray, nString, nameTag, valueTag)
 
-def __processBlock(wf, yamlDataArray, blockName, block):
+def __processLine(wf, yamlQueryArray, line, nameTag = "", valueTag = ""):
+    nLine = __processString(yamlQueryArray, line, nameTag, valueTag)
+    wf.write(nLine + "\n")
+
+def __processBlock(wf, yamlQueryArray, blockName, block):
+    print("processBlock " + blockName)
     iyamlData = __getValueByPath(yamlQueryArray, blockName)
-    if iyamlData == "":
+    if iyamlData is None:
         return
-    if not iyamlData is None:
-        for k in iyamlData.keys():
-            v = __getValueByPath(iyamlData, k)
-            for line in block:
-                __processLine(wf, yamlQueryArray, line, nameTag = "NAME", valueTag = v)
+
+    for k in iyamlData.keys():
+        v = iyamlData[k]
+        print("k: " + k + ", v: " + v)
+        for line in block:
+            __processLine(wf, yamlQueryArray, line, nameTag = "NAME", valueTag = v)
                 
         
 def __processingTemplateFile(yamlQueryArray, inFile, outFile):
@@ -85,7 +96,7 @@ def __processingTemplateFile(yamlQueryArray, inFile, outFile):
                     else:
                         block.append(line)
                 elif rline.startswith('%%[START:') and rline.endswith(']%%'):
-                    blockName = rline[9 : len(rline) - 3]
+                    blockName = __processString(yamlQueryArray, rline[9 : len(rline) - 3])
                 else:
                     __processLine(wf, yamlQueryArray, line)
 
@@ -97,7 +108,7 @@ def processingTemplate(yamlQueryArray, path):
             __processingTemplateFile(yamlQueryArray, path, outFile)
     else:
         for filename in os.listdir(path):
-            __processingTemplate(yamlQueryArray, os.path.join(path, filename))
+            processingTemplate(yamlQueryArray, os.path.join(path, filename))
                
 if __name__ == "__main__":
     print("main")
@@ -120,7 +131,7 @@ if __name__ == "__main__":
                 rootPath = None
                 filePath = list[0]
             else:
-                rootPath = list[0]
+                rootPath = list[0] + "."
                 filePath = list[1]
             with open(filePath, 'r') as file:
                 yamlQurry = YamlQuery()

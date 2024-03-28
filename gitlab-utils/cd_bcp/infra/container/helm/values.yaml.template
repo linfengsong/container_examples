@@ -1,12 +1,12 @@
-applicationName: %[cd.%[inst]%applicationName]%
-namespace: %[cd.%[inst]%namespace]%
+applicationName: %[%[inst]%applicationName]%
+namespace: %[%[inst]%namespace]%
 
 image:
-  #name: %[cd.image.registry]%/%[cd.%[inst]%namespace]%/%[cd.%[inst]%image.name]%
-  name: %[cd.image.registry]%/%[cd.%[inst]%image.name]%
-  tag: %[cd.%[inst]%image.tag]%
-  pullPolicy: %[cd.image.pullPolicy]%
-  type: %[cd.%[inst]%image.type]%
+  #name: %[%[inst]%image.registry]%/%[%[inst]%namespace]%/%[%[inst]%image.name]%
+  name: %[%[inst]%image.registry]%/%[%[inst]%image.name]%
+  tag: %[%[inst]%image.tag]%
+  pullPolicy: %[%[inst]%image.pullPolicy]%
+  type: %[%[inst]%image.type]%
 
 pod:
   cpu:
@@ -20,22 +20,22 @@ pod:
 service:
   deploy: true
   port: 8443
-  path: "%[cd.%[inst]%service.path]%"
+  path: "%[%[inst]%service.path]%"
 
 route:
   deploy: true
-  domain: "%[cd.%[inst]%clusterName]%.apaas4.example.com"
+  domain: "%[%[inst]%clusterName]%.apaas4.example.com"
 
 certs:
   deploy: true
-  cluster: "%[cd.%[inst]%clusterName]%-%[cd.%[inst]%datacenter]%"
-  hostname: "%[cd.%[inst]%clusterName]%-%[cd.%[inst]%datacenter]%.apaas4"
-  itsi: "%[cd.itsi.id]%"
-  navigatorId: "%[cd.navigatorId]%"
-  projectName: "%[cd.itsi.name]%"
-  environment: "%[cd.environment]%"
-  changeNumber: "%[cd.changeNumber]%"
-  email: "%[cd.email]%"
+  cluster: "%[%[inst]%clusterName]%-%[%[inst]%datacenter]%"
+  hostname: "%[%[inst]%clusterName]%-%[%[inst]%datacenter]%.apaas4"
+  itsi: "%[%[inst]%itsi.id]%"
+  navigatorId: "%[%[inst]%navigatorId]%"
+  projectName: "%[%[inst]%itsi.name]%"
+  environment: "%[%[inst]%environment]%"
+  changeNumber: "%[%[inst]%changeNumber]%"
+  email: "%[%[inst]%email]%"
 
 hpa:
   deploy: true
@@ -49,7 +49,7 @@ blb:
 
 esaas:
   deploy: true
-  logsPvcName: %[cd.%[inst]%applicationName]%-logs-pvc
+  logsPvcName: %[%[inst]%applicationName]%-logs-pvc
   
 liveness:
   deploy: false
@@ -64,7 +64,7 @@ aspnet:
   httpsUrls: https://+:8443
   
 envs:
-%%[START:cd.%[inst]envs]%%
+%%[START:%[inst]%envs]%%
   - name: '%[NAME]%'
     value: '%[VALUE]%'
 %%[END]%%

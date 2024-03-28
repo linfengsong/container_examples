@@ -13,7 +13,7 @@ fi
 pwdLen=${#password}
 echo "CERTIFICATE_PWD length: $pwdLen"
 
-containerPath=$CD_BCP_INFRA_PATH/container
+containerPath=$BCP_INFRA_PATH/container
 apiPath=$containerPath/api
 helmPath=$containerPath/helm
 valuesPath=$containerPath/helm/values.yaml

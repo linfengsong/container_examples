@@ -3,6 +3,7 @@
 oc_access_id="$OC_ACCESS_ID"
 oc_access_key="$OC_ACCESS_KEY"
 
+oc_path=$(command -v oc)
 if [[ ! -z "$oc_path" ]]; then
   echo "oc_path: $oc_path"
   echo openshiftApiUrl=$openshiftApiUrl

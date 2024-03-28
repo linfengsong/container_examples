@@ -1,7 +1,7 @@
---tag %[ci.%[inst]%image.name]%:%[ci.%[inst]%image.tag]%
---build-arg BASE_IMAGE_NAME=%[ci.%[inst]%baseImage.name]%
---build-arg BASE_IMAGE_TAG=%[ci.%[inst]%baseImage.tag]%
---build-arg PRISMA_EMAIL=%[ci.%[inst]%prismaEmail]%
-%%[START:[inst]ci.args]%%
+--tag %[%[inst]%image.name]%:%[%[inst]%image.tag]%
+--build-arg BASE_IMAGE_NAME=%[%[inst]%baseImage.name]%
+--build-arg BASE_IMAGE_TAG=%[%[inst]%baseImage.tag]%
+--build-arg PRISMA_EMAIL=%[%[inst]%prismaEmail]%
+%%[START:%[inst]%args]%%
 --build-arg "%[NAME]%=%[VALUE]%"
 %%[END]%%

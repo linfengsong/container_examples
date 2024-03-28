@@ -1,1 +1,0 @@
-openshiftApiUrl: "https://api.%[cd.%[inst]%clusterName]%-%[cd.%[inst]%datacenter]%.example.com"

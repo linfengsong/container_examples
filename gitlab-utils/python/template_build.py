@@ -1,105 +1,128 @@
 import sys
 import os
 import yaml
-
+import shutil
+import glob
+from pathlib import Path
 import template_replace
 
-def  __build_ci_query(appName, ciInstPath, yamlQueryArray, outputPath):
-  print("build ci app: " + $apName)
-  appPath = outputPath + "/ci/" + apName
-  configYmlFile = appPath + "/config.yml"
+def __createQuery(yamlPath, rootPath = None):
+  print("Load yaml file: " + yamlPath)
+  os.system("cat " + yamlPath)
+  with open(yamlPath, 'r') as file:
+    yamlData = yaml.safe_load(file)
+    query = template_replace.YamlQuery()
+    query.rootPath = rootPath
+    query.yamlData = yamlData
+    return query
+    
+def __createQueryArray(appQuery, defaultPath, appPath):
+    query = template_replace.YamlQuery()
+    query.rootPath = appPath
+    query.prefixPath = defaultPath
+    query.yamlData = appQuery.yamlData
+    return [appQuery, query]
+    
+def __getImageType(srcPath):
+  slnFiles = glob.glob(srcPath + '/*.sln')
+  mavenfile = Path(srcPath + "/pom.xml")
+  packageFile = Path(srcPath + "/package.json")
+  distDir = Path(srcPath + "/dist")
+  srcDir = Path(srcPath + "/src")
+  if mavenfile.is_file():
+    return "maven"
+  elif len(slnFiles) > 0:
+    return "dotnet"
+  elif packageFile.is_file():
+    return "httpd"
+  elif distDir.is_dir():
+    return "httpd"
+  elif srcDir.is_dir():
+    return "httpd"
+  else:
+    return "unknown"
+
+def  __build_ci_query(appName, ciPath, appSrcPath, appQuery, ciQuery, appOutputPath):
+  print("Build ci app: " + appName)
+  yamlQueryArray = [appQuery, ciQuery]
+  yamlQueryArray = __createQueryArray(appQuery, "ci.default.", "ci.applications." + appName + ".")
+  yamlQueryArray.append(ciQuery)
+  configPath = appOutputPath + "/conf"
+  shutil.copytree(ciPath + "/conf", configPath)
+  configYmlFile = configPath + "/config.yml"
   with open(configYmlFile, 'w') as wf:
-    #echo "IMAGE_TYPE: $IMAGE_TYPE" > "$configYmlFile"
-    #echo "inst: $appName.">> "$configYmlFile"
-    wf.write("inst: " + $appName + ".\n")
-    wf.write("gitlibAppConfPath: " + $appPath + "\n")
-    with open(ciInstPath, 'r') as rf:
+    imageType = __getImageType(appSrcPath)
+    wf.write("inst: ci.applications." + appName + ".\n")
+    wf.write("appPath: " + appOutputPath + "\n")
+    wf.write("image:\n")
+    wf.write("  type: " + imageType + "\n")
+    with open(configPath + "/ci_inst.yml", 'r') as rf:
+        lines = rf.readlines()
+        for line in lines:
+            wf.write(line) 
+  query = __createQuery(configYmlFile, "ci.applications." + appName + ".")
+  yamlQueryArray.append(query)
+  template_replace.processingTemplate(yamlQueryArray, appOutputPath)
+
+def  __build_bcp_query(appName, bcpPath, appQuery, appOutputPath):
+  print("Build bcp app: " + appName)
+  yamlQueryArray = __createQueryArray(appQuery, "bcp.default.", "bcp.applications." + appName + ".")
+  os.mkdir(appOutputPath)
+  configPath = appOutputPath + "/conf"
+  shutil.copytree(bcpPath + "/conf", configPath)
+  shutil.copytree(bcpPath + "/infra", appOutputPath + "/infra")
+  configYmlFile = configPath + "/config.yml"
+  with open(configYmlFile, 'w') as wf:
+    wf.write("inst: bcp.applications." + appName + ".\n")
+    wf.write("applicationName: " + appName + "\n")
+    wf.write("appPath: " + appOutputPath + "\n")
+    with open(configPath + "/bcp_inst.yml", 'r') as rf:
         lines = rf.readlines()
         for line in lines:
             wf.write(line)
-    yamlData = yaml.safe_loadconfigYmlFile)
-    query = YamlQuery()
-    query.rootPath = "ci." + $appName
-    query.yamlData = yaml.safe_loadconfigYmlFile)
-    yamlQueryArray.append(query)
+  query = __createQuery(configYmlFile, "bcp.applications." + appName + ".")
+  yamlQueryArray.append(query)
+  template_replace.processingTemplate(yamlQueryArray, appOutputPath)
 
-def  __build_cdbcp_query(appName, ciInstPath, yamlQueryArray, outputPath):
-  print("build ci app: " + $apName)
-  appPath = outputPath + "/cd_bcp/" + apName
-  confPath = appPath + "/conf"
-  configYmlFile = confPath + "/config.yml"
-  with open(configYmlFile, 'w') as wf:
-    wf.write("inst: " + $appName + ".\n")
-    wf.write("gitlibAppPath: " + $appPath + "\n")
-    with open(ciInstPath, 'r') as rf:
-        lines = rf.readlines()
-        for line in lines:
-            wf.write(line)
-    yamlData = yaml.safe_loadconfigYmlFile)
-    query = YamlQuery()
-    query.rootPath = "cd." + $appName
-    query.yamlData = yaml.safe_loadconfigYmlFile)
-    yamlQueryArray.append(query)
-
-def template_build(appYamlData, ciInstPath, cdbcpInstPath, yamlQueryArray, outputPath):
-    appQuery = YamlQuery()
-    appQuery.yamlData = appYamlData
-    yamlQueryArray = [appQuery]
-    if "ci" in yamlData.keys():    
-        ciData = yamlData["ci"]
-        for appName in ciData.keys():
-            __build_ci_query(appName, ciInstPath, yamlQueryArray, outputPath)
-    if "cd_bcp" in yamlData.keys():
-        cdbcpData = yamlData["cd_bcp"]
-        for appName in cdbcpData.keys():
-            __build_cdbcp_query(appName, cdbcpInstPath, yamlQueryArray, outputPath)
-    processingTemplate(yamlQueryArray, outputPath)
+def template_build(envName, appSrcPath, utilPath, actionType, appName):
+    appConfigFile = Path(appSrcPath + "/conf/" + appName + "_cicd_" + envName + ".yml")
+    if appConfigFile.is_file():
+        appQuery = __createQuery(appSrcPath + "/conf/" + appName + "_cicd_" + envName + ".yml")
+    else:
+        appQuery = __createQuery(appSrcPath + "/conf/cicd_" + envName + ".yml")
+    outputPath = utilPath + "/apps"
+    os.mkdir(outputPath)
+    
+    if actionType == "ci":
+        ciOutputPath = outputPath + "/ci"
+        os.mkdir(ciOutputPath)
+        ciQuery = __createQuery(utilPath + "/ci/conf/ci.yml")
+        __build_ci_query(appName, utilPath + "/ci", appSrcPath, appQuery, ciQuery, ciOutputPath + "/" + appName)
+        os.system("cat " + ciOutputPath + "/" + appName + "/conf/ci.env")
+    elif actionType == "bcp":
+        bcpOutputPath = outputPath + "/bcp"
+        os.mkdir(bcpOutputPath)
+        __build_bcp_query(appName, utilPath + "/bcp", appQuery, bcpOutputPath + "/" + appName)
+        os.system("cat " + bcpOutputPath + "/" + appName + "/conf/bcp.env")
       
 if __name__ == "__main__":
     print("main")
     iArgs = len(sys.argv)
-    if iArgs < 5:
-        print("Args: -a appConfigFile -c <configFile> -t <template directory>")
+    if iArgs < 4:
+        print("Args: envName appSrcPath utilPath")
         exit(1)
-    argv = sys.argv
-    inputType = None
-    appYamlData = None
-    ciInstPath = None
-    cdbcpInstPath = None
-    outputPath = none
-    yamlQueryArray = []
-    for i in range(1, len(argv)):
-        if argv[i].startswith("-"):
-            inputType = argv[i]
-        elif inputType == "-a":
-            print("application config file: " + argv[i])
-            appYamlData = yaml.safe_load(argv[i])
-            appQyery = YamlQuery()
-            appQyery.yamlData = appYamlData
-            yamlQueryArray.append(appQyery)
-            inputType = None
-        elif inputType == "-ci":
-            print("ci config file: " + argv[i])
-            ciQyery = YamlQuery()
-            ciQyery.yamlData = yaml.safe_load(argv[i])
-            yamlQueryArray.append(ciQyery)
-            inputType = None
-        elif inputType == "-ci-inst":
-            print("ci inst Path: " + argv[i])
-            ciInstPath = argv[i]
-            inputType = None
-        elif inputType == "-cdbcp":
-            print("cdbcp config file: " + argv[i])
-            cdbcpQyery = YamlQuery()
-            cdbcpQyery.yamlData = yaml.safe_load(argv[i])
-            yamlQueryArray.append(cdbcpQyery)
-            inputType = None
-        elif inputType == "-cdbcp-inst":
-            print("cdbcp inst Path: " + argv[i])
-            cdbcpInstPath = argv[i]
-            inputType = None
-        elif inputType == "-output":
-            print("output Path: " + argv[i])
-            cdbcpInstPath = argv[i]
-            outputPath = None
-    template_build(appYamlData, ciInstPath, cdbcpInstPath, yamlQueryArray, outputPath)
+    envName = sys.argv[1]
+    appSrcPath = sys.argv[2]
+    utilPath = sys.argv[3]
+    actionType = sys.argv[4]
+    appName = sys.argv[5]
+    print("Build gitlab util start")
+    print("envName: " + envName)
+    print("appSrcPath: " + appSrcPath)
+    print("utilPath: " + utilPath)
+    print("actionType: " + actionType)
+    print("appName: " + appName)
+       
+    template_build(envName, appSrcPath, utilPath, actionType, appName)
+    
+    print("Build gitlab util finish")

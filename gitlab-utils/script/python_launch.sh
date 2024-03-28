@@ -13,4 +13,7 @@ if [[ -z "$yaml_package" ]]; then
 fi
 python3 -m pip list
 
-python3 $SCRIPT_LOCATION/../python/template_replace.py $@
+python_launch_file=$1
+shift
+
+python3 $SCRIPT_LOCATION/../python/$python_launch_file $@

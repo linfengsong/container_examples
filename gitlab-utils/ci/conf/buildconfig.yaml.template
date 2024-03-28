@@ -2,15 +2,15 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: %[ci.%[inst]%image.name]%
-  name: %[ci.%[inst]%image.name]%
+    app: %[%[inst]%image.name]%
+  name: %[%[inst]%image.name]%
 spec:
   failedBuildsHistoryLimit: 10
   nodeSelector: {}
   output:
     to:
       kind: ImageStreamTag
-      name: %[ci.%[inst]%image.name]%:%[%[inst]%image.tag]%
+      name: %[%[inst]%image.name]%:%[%[inst]%image.tag]%
   postCommit: {}
   resources:
     limits:
@@ -28,12 +28,12 @@ spec:
       dockerfilePath: Dockerfile
       buildArgs:
       - name: BASE_IMAGE_NAME
-        value: "%[ci.%[inst]%baseImage.name]%"
+        value: "%[%[inst]%baseImage.name]%"
       - name: BASE_IMAGE_TAG
-        value: "%[ci.%[inst]%baseImage.tag]%"
+        value: "%[%[inst]%baseImage.tag]%"
       - name: PRISMA_EMAIL
-        value: "%[ci.%[inst]%prismaEmail]%"
-%%[START:[inst]ci.args]%%
+        value: "%[%[inst]%prismaEmail]%"
+%%[START:%[inst]%args]%%
       - name: %[NAME]%
         value: "%[VALUE]%"
 %%[END]%%

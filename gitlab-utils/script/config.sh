@@ -10,38 +10,47 @@ chmod 644 $ROOT_PATH/ci/conf/*
 chmod 755 $ROOT_PATH/ci/script/*
 chmod 755 $ROOT_PATH/ci/tool/*
 
-chmod 644 $ROOT_PATH/cd_bcp/conf/*
-chmod 755 $ROOT_PATH/cd_bcp/script/*
+chmod 644 $ROOT_PATH/bcp/conf/*
+chmod 755 $ROOT_PATH/bcp/script/*
 
-srcPath=$1
-shift
-envName=$1
-shift
+if [[ $# -eq 0 ]]; then
+  echo "Inputs: -s <srcPath> -e <envName> -t <actionType> -a <appName>"
+  exit 1
+fi
 
-actionType=
-script=
-for var in "$@"
-do
-  if [[ ! -z "$actionType" ]]; then
-    appName=$var
-    echo mkdir -p "$ROOT_PATH/apps/$actionType/$appName"
-    mkdir -p "$ROOT_PATH/apps/$actionType/$appName"
-    echo $script $srcPath $envName $appName "$ROOT_PATH/apps/$actionType/$appName"
-    $script $srcPath $envName $appName "$ROOT_PATH/apps/$actionType/$appName"
-    rc=$?
-    if [[ $rc -ne 0 ]]; then
-      echo "Error fail to setup $var on $envName"
-      exit $rc
-    fi
-    actionName=
-    script=
-  elif [[ "$var" == "-ci" ]]; then
-    actionType=ci
-    script=$ROOT_PATH/ci/script/config_ci.sh
-  elif [[ "$var" == "-cd_bcp" ]]; then
-    actionType=cd_bcp
-    script=$ROOT_PATH/cd_bcp/script/config_cd_bcp.sh
-  else
-    echo "Not support arg: $var"
-  fi
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -s)
+      shift
+      srcPath=$1
+      shift
+      ;;
+    -e)
+      shift
+      envName=$1
+      shift
+      ;;
+    -t)
+      shift
+      actionType=$1
+      shift
+      ;;
+    -a)
+      shift
+      appName=$1
+      shift
+      ;;
+    *)
+      shift
+      ;;
+  esac
 done
+
+echo srcPath=$srcPath
+echo envName=$envName
+echo actionType=$actionType
+echo appName=$appName
+
+utilPath=$(dirname $SCRIPT_LOCATION)
+
+$SCRIPT_LOCATION/python_launch.sh template_build.py $envName $srcPath $utilPath $actionType $appName
